@@ -37,14 +37,23 @@
         "padding_bottom": 36
       }
     },
-    "gift_guid_banner_jCnC6X": {
+    "gift_guid_banner_cHARja": {
       "type": "gift-guid-banner",
       "name": "Gift Guide Banner",
-      "settings": {}
+      "settings": {
+        "brand_text": "TISSO VISON",
+        "tagline_text": "Find the ideal gift for your loved ones.",
+        "choose_button_text": "CHOOSE GIFT →",
+        "choose_button_link": "",
+        "title_text": "The Gift Guide",
+        "subtitle_text": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
+        "shop_button_text": "SHOP NOW →",
+        "shop_button_link": ""
+      }
     }
   },
   "order": [
-    "featured_collection",
-    "gift_guid_banner_jCnC6X"
+    "gift_guid_banner_cHARja",
+    "featured_collection"
   ]
 }
