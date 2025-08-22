@@ -121,6 +121,14 @@
 }
 .image-3 { grid-column: 4; grid-row: 1 / span 2; }
 .image-4 { grid-column: 5; grid-row: 1 / span 2; }
+
+.additional-content {
+  margin-top: 10px;
+}
+.additional-image {
+  max-width: 100%;
+  height: auto;
+}
 {%- endstyle -%}
 
 <div class="gift-guide-banner">
@@ -142,6 +150,11 @@
       </div>
       <div class="image-1"></div>
       <div class="image-2"></div>
+      {% if section.settings.additional_tagline_image != blank %}
+        <div class="additional-content">
+          <img src="{{ section.settings.additional_tagline_image | image_url }}" alt="Additional Tagline Image" class="additional-image">
+        </div>
+      {% endif %}
     </div>
   </div>
   <div class="bottom-section">
@@ -158,6 +171,16 @@
           <a href="{{ section.settings.shop_button_link }}" class="shop-button">{{ section.settings.shop_button_text }}</a>
         {% else %}
           <button class="shop-button">{{ section.settings.shop_button_text }}</button>
+        {% endif %}
+        {% if section.settings.additional_subtitle_text != blank %}
+          <div class="additional-content">
+            <p>{{ section.settings.additional_subtitle_text }}</p>
+          </div>
+        {% endif %}
+        {% if section.settings.additional_shop_button_image != blank %}
+          <div class="additional-content">
+            <img src="{{ section.settings.additional_shop_button_image | image_url }}" alt="Additional Shop Button Image" class="additional-image">
+          </div>
         {% endif %}
       </div>
       <div class="image-3"></div>
@@ -195,6 +218,12 @@
       "default": "Find the ideal gift for your loved ones."
     },
     {
+      "type": "image_picker",
+      "id": "additional_tagline_image",
+      "label": "Additional Tagline Image",
+      "info": "Optional image to add below the tagline."
+    },
+    {
       "type": "text",
       "id": "choose_button_text",
       "label": "Choose Gift Button Text",
@@ -218,10 +247,22 @@
       "default": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season."
     },
     {
+      "type": "textarea",
+      "id": "additional_subtitle_text",
+      "label": "Additional Subtitle Text",
+      "info": "Optional text to add below the subtitle."
+    },
+    {
       "type": "text",
       "id": "shop_button_text",
       "label": "Shop Now Button Text",
       "default": "SHOP NOW →"
+    },
+    {
+      "type": "image_picker",
+      "id": "additional_shop_button_image",
+      "label": "Additional Shop Button Image",
+      "info": "Optional image to add below the shop button."
     },
     {
       "type": "url",
