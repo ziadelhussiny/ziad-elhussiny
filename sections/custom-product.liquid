@@ -1,10 +1,11 @@
 {%- liquid
-  assign products = section.settings.products | default: collections.all.products | limit: 6
-  assign title = section.settings.title | default: "The Gift Guide"
-  assign description = section.settings.description | default: "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season."
-  assign cta_text = section.settings.cta_text | default: "SHOP NOW"
-  assign cta_url = section.settings.cta_url | default: "#"
-%}
+  assign collection = collections[section.settings.collection] | default: collections.all
+  assign products   = collection.products | limit: 6
+  assign title      = section.settings.title | default: "The Gift Guide"
+  assign description= section.settings.description | default: "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season."
+  assign cta_text   = section.settings.cta_text | default: "SHOP NOW"
+  assign cta_url    = section.settings.cta_url | default: "#"
+-%}
 
 <section class="gift-guide-section">
   <div class="gift-guide-header">
