@@ -50,11 +50,10 @@
   position:absolute;
   top:0;
   right:0;
-  width:calc(40% - 30px);
+  width:calc(40% - 30px);   /* 40 % of area, minus left text-card offset */
   height:100%;
   object-fit:cover;
 }
-
 /* --- TEXT BOX --- */
 .text-content-box{
   position:absolute;
@@ -66,7 +65,6 @@
   background:rgba(255,255,255,.98);
   padding:40px;
   box-shadow:0 4px 12px rgba(0,0,0,.12);
-  text-align:center; /* center everything inside */
 }
 .main-heading{
   font-size:48px;
@@ -78,11 +76,6 @@
   font-size:18px;
   margin:0 0 20px;
   color:#333;
-}
-.sustainable-line{
-  font-size:14px;
-  color:#666;
-  margin:12px 0 0;
 }
 
 /* --- BUTTONS: left→right reveal --- */
@@ -106,6 +99,11 @@
 .gift-choose-btn:hover{
   background-position:0 0;
   color:#ffff00;
+}
+.sustainable-line{
+  font-size:14px;
+  color:#666;
+  margin-top:12px;
 }
 /* SHOP NOW  black→yellow */
 .shop-now-btn{
@@ -180,10 +178,9 @@
       {% else %}
         <button class="shop-now-btn">{{ section.settings.shop_now_text | default: 'SHOP NOW →' }}</button>
       {% endif %}
-
       {% if section.settings.sustainable_text != blank %}
-        <p class="sustainable-line">{{ section.settings.sustainable_text }}</p>
-      {% endif %}
+  <p class="sustainable-line">{{ section.settings.sustainable_text }}</p>
+{% endif %}
     </div>
   </div>
 </div>
@@ -226,6 +223,12 @@
       "default": "Find the ideal gift for your loved ones."
     },
     {
+  "type": "textarea",
+  "id": "sustainable_text",
+  "label": "Sustainable / Extra Line",
+  "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+},
+    {
       "type": "text",
       "id": "choose_gift_text",
       "label": "Choose Gift Button Text",
@@ -254,9 +257,9 @@
     },
     {
       "type": "textarea",
-      "id": "sustainable_text",
-      "label": "Sustainable / Extra Line",
-      "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+      "id": "extra_description",
+      "label": "Additional Description",
+      "info": "Optional extra text below the main description"
     },
     {
       "type": "text",
