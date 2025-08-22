@@ -209,6 +209,18 @@
       "info": "Frame with decorative items for the side of main content (auto-width, 195px height)"
     },
     {
+      "type": "select",
+      "id": "frame_fit",
+      "label": "Frame Image Fit",
+      "default": "cover",
+      "options": [
+        { "value": "cover",   "label": "Cover (crop to fill)" },
+        { "value": "contain", "label": "Contain (full image, letter-box)" },
+        { "value": "fill",    "label": "Fill (stretch)" },
+        { "value": "scale-down", "label": "Scale Down (never enlarge)" }
+      ]
+    },
+    {
       "type": "header",
       "content": "Header Content"
     },
