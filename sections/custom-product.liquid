@@ -1,9 +1,16 @@
 {%- liquid
-  assign products = section.settings.products | map: 'value' | map: 'product' | compact | slice: 0, 6
-  assign title     = section.settings.title | default: "The Gift Guide"
-  assign desc      = section.settings.description | default: "Discover Joy: Your Ultimate Holiday Gift Destination."
-  assign cta_text  = section.settings.cta_text | default: "SHOP NOW"
-  assign cta_url   = section.settings.cta_url | default: '#'
+  assign p1 = section.settings.product_1
+  assign p2 = section.settings.product_2
+  assign p3 = section.settings.product_3
+  assign p4 = section.settings.product_4
+  assign p5 = section.settings.product_5
+  assign p6 = section.settings.product_6
+  assign handles = p1 | append: '|' | append: p2 | append: '|' | append: p3 | append: '|' | append: p4 | append: '|' | append: p5 | append: '|' | append: p6 | split: '|' | compact | slice: 0, 6
+
+  assign title    = section.settings.title | default: "The Gift Guide"
+  assign desc     = section.settings.description | default: "Discover Joy: Your Ultimate Holiday Gift Destination."
+  assign cta_text = section.settings.cta_text | default: "SHOP NOW"
+  assign cta_url  = section.settings.cta_url | default: '#'
 -%}
 
 <section class="gift-guide-section">
@@ -14,22 +21,25 @@
   </div>
 
   <div class="product-grid">
-    {%- for product in products -%}
-      <div class="product-card">
-        <div class="img-wrap">
-          <img src="{{ product.featured_image | img_url: '600x600' }}"
-               alt="{{ product.title }}" loading="lazy">
-          <button class="quick-btn" data-id="{{ product.id }}">+</button>
-        </div>
+    {%- for handle in products -%}
+      {%- assign product = all_products[handle] -%}
+      {%- if product -%}
+        <div class="product-card">
+          <div class="img-wrap">
+            <img src="{{ product.featured_image | img_url: '600x600' }}"
+                 alt="{{ product.title }}" loading="lazy">
+            <button class="quick-btn" data-id="{{ product.id }}">+</button>
+          </div>
 
-        <h3>{{ product.title }}</h3>
-        <p class="price">{{ product.price | money }}</p>
-      </div>
+          <h3>{{ product.title }}</h3>
+          <p class="price">{{ product.price | money }}</p>
+        </div>
+      {%- endif -%}
     {%- endfor -%}
   </div>
 </section>
 
-<!-- Modal container (injected once) -->
+<!-- Quick-view modal (injected once) -->
 <div id="quick-modal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
@@ -59,6 +69,7 @@
   const inner   = document.getElementById('modal-inner');
   const close   = modal.querySelector('.close');
 
+  /* open modal */
   document.addEventListener('click', e => {
     if (!e.target.classList.contains('quick-btn')) return;
 
@@ -69,9 +80,11 @@
       .catch(console.error);
   });
 
+  /* close modal */
   close.onclick = () => modal.style.display = 'none';
-  modal.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
+  modal.onclick  = e => { if (e.target === modal) modal.style.display = 'none'; };
 
+  /* render HTML inside modal */
   function renderModal(p) {
     const variants = p.variants.map(v => `<option value="${v.id}">${v.title}</option>`).join('');
     inner.innerHTML = `
@@ -79,8 +92,7 @@
       <img src="${p.images[0]}" alt="" style="width:100%;max-width:200px;margin-bottom:15px;">
       <p>${p.price_min | money}</p>
       <form action="/cart/add" method="post">
-        <input type="hidden" name="id" value="${p.variants[0].id}">
-        <label>Color / Size:
+        <label>Variant:
           <select name="id">${variants}</select>
         </label><br><br>
         <button type="submit" class="cta-button">ADD TO CART</button>
