@@ -9,6 +9,22 @@
  */
 {
   "sections": {
+    "gift_guid_banner_cHARja": {
+      "type": "gift-guid-banner",
+      "name": "Gift Guide Banner",
+      "settings": {
+        "frame_fit": "cover",
+        "brand_name": "TISSO VISON",
+        "header_tagline": "Find the ideal gift for your loved ones.",
+        "choose_gift_text": "CHOOSE GIFT →",
+        "choose_gift_url": "",
+        "main_title": "The Gift Guide",
+        "description": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
+        "shop_now_text": "SHOP NOW →",
+        "shop_now_url": "",
+        "sustainable_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+      }
+    },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
@@ -37,23 +53,56 @@
         "padding_bottom": 36
       }
     },
-    "gift_guid_banner_cHARja": {
-      "type": "gift-guid-banner",
-      "name": "Gift Guide Banner",
+    "featured_collection_rgxVcE": {
+      "type": "featured-collection",
+      "name": "t:sections.featured-collection.presets.name",
       "settings": {
-        "brand_text": "TISSO VISON",
-        "tagline_text": "Find the ideal gift for your loved ones.",
-        "choose_button_text": "CHOOSE GIFT →",
-        "choose_button_link": "",
-        "title_text": "The Gift Guide",
-        "subtitle_text": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
-        "shop_button_text": "SHOP NOW →",
-        "shop_button_link": ""
+        "collection": "",
+        "products_to_show": 4,
+        "title": "Featured collection",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "color_scheme": "",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "custom_product_dHaXjF": {
+      "type": "custom-product",
+      "name": "Gift Guide",
+      "settings": {
+        "title": "The Gift Guide",
+        "description": "Discover Joy: Your Ultimate Holiday Gift Destination.",
+        "cta_text": "SHOP NOW",
+        "cta_url": "",
+        "product_1": "classic-leather-jacket",
+        "product_2": "blue-silk-tuxedo",
+        "product_3": "chequered-red-shirt",
+        "product_4": "floral-white-top",
+        "product_5": "navy-sport-jacket",
+        "product_6": "black-leather-bag"
       }
     }
   },
   "order": [
     "gift_guid_banner_cHARja",
-    "featured_collection"
+    "featured_collection",
+    "featured_collection_rgxVcE",
+    "custom_product_dHaXjF"
   ]
 }
