@@ -16,6 +16,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 40px;
+  background: transparent;
 }
 
 .top-frame {
@@ -25,12 +26,14 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: 0;
+  object-position: center;
+  z-index: 1;
+  display: block;
 }
 
 .top-content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -72,6 +75,7 @@
   overflow: hidden;
   display: flex;
   align-items: center;
+  background: transparent;
 }
 
 .bottom-frame {
@@ -81,16 +85,19 @@
   width: 60%;
   height: 100%;
   object-fit: cover;
-  z-index: 0;
+  object-position: center;
+  z-index: 1;
+  display: block;
 }
 
 .main-content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   padding: 40px;
   width: 50%;
   background-color: rgba(255, 255, 255, 0.95);
   margin: 20px 0 20px 20px;
+  backdrop-filter: blur(2px);
 }
 
 .title {
@@ -178,12 +185,14 @@
   <!-- Top Section with Header Frame -->
   <div class="top-section">
     {% if section.settings.top_frame_image != blank %}
-      <img src="{{ section.settings.top_frame_image | image_url: width: 1440 }}" 
+      <img src="{{ section.settings.top_frame_image | image_url: width: 1440, height: 195 }}" 
            alt="Top Frame with Items" 
            loading="lazy" 
            width="1440" 
            height="195" 
            class="top-frame">
+    {% else %}
+      <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, #f0f0f0 25%, transparent 25%), linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f0f0f0 75%), linear-gradient(-45deg, transparent 75%, #f0f0f0 75%); background-size: 20px 20px; background-position: 0 0, 0 10px, 10px -10px, -10px 0px; z-index: 1;"></div>
     {% endif %}
     
     <div class="top-content">
@@ -202,12 +211,14 @@
   <!-- Bottom Section with Side Frame -->
   <div class="bottom-section">
     {% if section.settings.bottom_frame_image != blank %}
-      <img src="{{ section.settings.bottom_frame_image | image_url: width: 864 }}" 
+      <img src="{{ section.settings.bottom_frame_image | image_url: width: 864, height: 195 }}" 
            alt="Bottom Frame with Items" 
            loading="lazy" 
            width="864" 
            height="195" 
            class="bottom-frame">
+    {% else %}
+      <div style="position: absolute; top: 0; right: 0; width: 60%; height: 100%; background: linear-gradient(45deg, #f0f0f0 25%, transparent 25%), linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f0f0f0 75%), linear-gradient(-45deg, transparent 75%, #f0f0f0 75%); background-size: 20px 20px; background-position: 0 0, 0 10px, 10px -10px, -10px 0px; z-index: 1;"></div>
     {% endif %}
     
     <div class="main-content">
