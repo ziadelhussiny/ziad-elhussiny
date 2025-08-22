@@ -5,11 +5,11 @@
   margin:0 auto;
   background:#ffffff;
   border:1px solid #e0e0e0;
-  height:1050px;                     /* taller overall banner */
+  height:1050px;
   overflow:hidden;
 }
 
-/* --- HEADER BAR (above frames) --- */
+/* --- HEADER BAR --- */
 .header-content-row{
   display:flex;
   align-items:center;
@@ -31,45 +31,13 @@
   color:#000;
 }
 
-/* --- BUTTONS (fixed colours) --- */
-.gift-choose-btn,
-.shop-now-btn{
-  padding:12px 24px;
-  font-weight:bold;
-  text-decoration:none;
-  display:inline-block;
-  transition:all .3s ease;
-  border:none;
-  cursor:pointer;
-}
-
-/* CHOOSE GIFT (yellow→black on hover) */
-.gift-choose-btn{
-  background:#ffff00;
-  color:#000000;
-}
-.gift-choose-btn:hover{
-  background:#000000;
-  color:#ffff00;
-}
-
-/* SHOP NOW (black→yellow on hover) */
-.shop-now-btn{
-  background:#000000;
-  color:#ffffff;
-}
-.shop-now-btn:hover{
-  background:#ffff00;
-  color:#000000;
-}
-
-/* --- FRAMES (kept at 195 px, centred vertically) --- */
+/* --- FRAMES: full-width auto --- */
 .header-area,
 .content-area{
   height:195px;
   position:relative;
+  overflow:hidden;
 }
-
 .header-frame-img,
 .content-frame-img{
   position:absolute;
@@ -78,12 +46,6 @@
   width:100%;
   height:100%;
   object-fit:cover;
-}
-
-.content-frame-img{
-  right:0;
-  left:auto;
-  width:65%;
 }
 
 /* --- TEXT BOX --- */
@@ -98,31 +60,60 @@
   padding:30px;
   box-shadow:0 4px 8px rgba(0,0,0,.1);
 }
-
 .main-heading{
   font-size:48px;
   font-weight:bold;
   line-height:1.1;
   margin:0 0 15px;
 }
-
 .description-text{
   font-size:18px;
   margin:0 0 20px;
   color:#333;
 }
 
+/* --- BUTTONS: left→right reveal --- */
+.gift-choose-btn,
+.shop-now-btn{
+  padding:12px 24px;
+  font-weight:bold;
+  text-decoration:none;
+  display:inline-block;
+  cursor:pointer;
+  border:none;
+  background-size:200% 100%;
+  transition:background-position .4s ease, color .4s ease;
+}
+/* CHOOSE GIFT  yellow→black */
+.gift-choose-btn{
+  color:#000;
+  background-image:linear-gradient(to right, #000 0%, #000 50%, #ffff00 50%, #ffff00 100%);
+  background-position:100% 0;
+}
+.gift-choose-btn:hover{
+  background-position:0 0;
+  color:#ffff00;
+}
+/* SHOP NOW  black→yellow */
+.shop-now-btn{
+  color:#fff;
+  background-image:linear-gradient(to right, #ffff00 0%, #ffff00 50%, #000 50%, #000 100%);
+  background-position:100% 0;
+}
+.shop-now-btn:hover{
+  background-position:0 0;
+  color:#000;
+}
+
 /* --- RESPONSIVE --- */
 @media(max-width:768px){
   .holiday-gift-section{height:auto;}
-
   .header-content-row{
     flex-direction:column;
     gap:15px;
     text-align:center;
     padding:20px;
   }
-
   .text-content-box{
     position:static;
     width:100%;
@@ -131,13 +122,11 @@
     padding:20px;
     transform:none;
   }
-
   .header-frame-img,
   .content-frame-img{
     width:100%;
     opacity:.3;
   }
-
   .main-heading{font-size:32px;}
   .description-text{font-size:16px;}
 }
@@ -145,7 +134,7 @@
 
 <!-- ---------------- MARK-UP ---------------- -->
 <div class="holiday-gift-section">
-  <!-- Header bar (always on top) -->
+  <!-- Header bar -->
   <div class="header-content-row">
     <div class="brand-title">{{ section.settings.brand_name | default: 'TISSO VISON' }}</div>
     <div class="header-tagline">{{ section.settings.header_tagline | default: 'Find the ideal gift for your loved ones.' }}</div>
@@ -171,7 +160,7 @@
 
     <div class="text-content-box">
       <h1 class="main-heading">{{ section.settings.main_title | default: 'The Gift Guide' }}</h1>
-      <p class="description-text">{{ section.settings.description | default: 'Discover Joy…' }}</p>
+      <p class="description-text">{{ section.settings.description | default: 'Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.' }}</p>
 
       {% if section.settings.shop_now_url != blank %}
         <a href="{{ section.settings.shop_now_url }}" class="shop-now-btn">{{ section.settings.shop_now_text | default: 'SHOP NOW →' }}</a>
@@ -181,6 +170,7 @@
     </div>
   </div>
 </div>
+
 {% schema %}
 {
   "name": "Holiday Gift Banner",
@@ -194,13 +184,13 @@
       "type": "image_picker",
       "id": "header_frame",
       "label": "Header Frame Image",
-      "info": "Frame with decorative items for the top section (1440x195px recommended)"
+      "info": "Frame with decorative items for the top section (auto-width, 195px height)"
     },
     {
       "type": "image_picker",
       "id": "side_frame",
-      "label": "Side Frame Image", 
-      "info": "Frame with decorative items for the side of main content (936x195px recommended)"
+      "label": "Side Frame Image",
+      "info": "Frame with decorative items for the side of main content (auto-width, 195px height)"
     },
     {
       "type": "header",
