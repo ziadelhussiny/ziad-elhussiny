@@ -181,9 +181,9 @@
 
     </div>
   </div>
-        {% if section.settings.sustainable_text != blank %}
-  <p class="sustainable-line">{{ section.settings.sustainable_text }}</p>
-{% endif %}
+  {% if section.settings.sustainable_text != blank %}
+    <p class="sustainable-line">{{ section.settings.sustainable_text }}</p>
+  {% endif %}
 </div>
 
 {% schema %}
@@ -251,12 +251,6 @@
       "default": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season."
     },
     {
-      "type": "textarea",
-      "id": "extra_description",
-      "label": "Additional Description",
-      "info": "Optional extra text below the main description"
-    },
-    {
       "type": "text",
       "id": "shop_now_text",
       "label": "Shop Now Button Text",
@@ -268,10 +262,10 @@
       "label": "Shop Now Button URL"
     },
     {
-    "type": "textarea",
-    "id": "sustainable_text",
-    "label": "Sustainable / Extra Line",
-    "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+      "type": "textarea",
+      "id": "sustainable_text",
+      "label": "Sustainable / Extra Line",
+      "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
     },
     {
       "type": "image_picker",
@@ -282,7 +276,7 @@
   ],
   "presets": [
     {
-      "name": "Holiday Gift Banner"
+      "name": "Holiday Gift Banner – Centered"
     }
   ]
 }
