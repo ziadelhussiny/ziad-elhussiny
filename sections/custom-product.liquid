@@ -44,7 +44,7 @@
   </div>
 </section>
 
-<!-- Enhanced Modal matching your design -->
+<!-- Enhanced Modal with Better Color & Size Selection -->
 <div id="quick-modal" class="modal">
   <div class="modal-overlay"></div>
   <div class="modal-content">
@@ -80,14 +80,14 @@
 .quick-btn.bottom-center{bottom:15px;left:50%;transform:translateX(-50%);}
 .quick-btn.bottom-right{bottom:15px;right:15px;}
 
-/* Enhanced Modal Design - Exact Match */
+/* Enhanced Modal Design */
 .modal{display:none;position:fixed;inset:0;z-index:10000;}
 .modal-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(2px);}
-.modal-content{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:0;width:90%;max-width:350px;max-height:90vh;overflow-y:auto;box-shadow:0 10px 30px rgba(0,0,0,0.3);}
+.modal-content{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:0;width:90%;max-width:380px;max-height:90vh;overflow-y:auto;box-shadow:0 10px 30px rgba(0,0,0,0.3);}
 .modal-close{position:absolute;top:12px;right:15px;background:none;border:none;font-size:20px;color:#999;cursor:pointer;z-index:1;width:25px;height:25px;display:flex;align-items:center;justify-content:center;font-weight:300;}
 .modal-close:hover{color:#333;}
 
-/* Modal Content Styles - Exact Layout */
+/* Modal Content Styles */
 .modal-product{padding:0;}
 .modal-product-image{width:100%;height:150px;object-fit:cover;display:block;margin-bottom:0;}
 .modal-content-inner{padding:20px;}
@@ -95,32 +95,50 @@
 .modal-product-price{font-size:1rem;font-weight:400;color:#333;margin:0 0 8px 0;}
 .modal-product-description{font-size:0.85rem;color:#666;line-height:1.4;margin:0 0 20px 0;}
 
-/* Form Styles - Exact Match */
-.modal-form-group{margin-bottom:15px;}
-.modal-form-label{display:block;font-weight:400;color:#333;margin-bottom:6px;font-size:0.9rem;}
-.modal-color-options{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:15px;border:1px solid #ddd;}
-.modal-color-option{position:relative;}
-.modal-color-btn{width:100%;padding:8px 12px;border:none;background:#f8f8f8;color:#333;font-size:0.85rem;font-weight:400;cursor:pointer;transition:all 0.2s ease;text-align:center;border-right:1px solid #ddd;}
+/* Enhanced Form Styles */
+.modal-form-group{margin-bottom:20px;}
+.modal-form-label{display:block;font-weight:500;color:#333;margin-bottom:8px;font-size:0.9rem;}
+
+/* Enhanced Color Options */
+.modal-color-options{display:flex;gap:0;margin-bottom:0;border:1px solid #ddd;border-radius:0;}
+.modal-color-option{flex:1;}
+.modal-color-btn{width:100%;padding:10px 15px;border:none;background:#f8f8f8;color:#333;font-size:0.85rem;font-weight:400;cursor:pointer;transition:all 0.2s ease;text-align:center;border-right:1px solid #ddd;position:relative;}
 .modal-color-btn:last-child{border-right:none;}
 .modal-color-btn:hover{background:#f0f0f0;}
 .modal-color-btn.selected{background:#000;color:#fff;}
 
-.modal-size-select{width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:0;font-size:0.9rem;color:#333;background:#fff;cursor:pointer;transition:border-color 0.2s ease;appearance:none;background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");background-position:right 8px center;background-repeat:no-repeat;background-size:16px;}
+/* Size Selection Styles */
+.modal-size-wrapper{position:relative;}
+.modal-size-select{width:100%;padding:12px 15px;border:1px solid #ddd;border-radius:0;font-size:0.9rem;color:#333;background:#fff;cursor:pointer;transition:border-color 0.2s ease;appearance:none;background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");background-position:right 12px center;background-repeat:no-repeat;background-size:16px;padding-right:40px;}
 .modal-size-select:focus{outline:none;border-color:#999;}
+.modal-size-select option{padding:8px;color:#333;}
 
-.modal-add-to-cart{width:100%;padding:12px;background:#000;color:#fff;border:none;font-size:0.9rem;font-weight:500;text-transform:uppercase;border-radius:0;cursor:pointer;transition:background 0.3s ease;margin-top:15px;display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:0.5px;}
+/* Custom Size Buttons Alternative */
+.modal-size-options{display:grid;grid-template-columns:repeat(auto-fit, minmax(50px, 1fr));gap:8px;margin-bottom:0;}
+.modal-size-btn{padding:10px 12px;border:1px solid #ddd;background:#fff;color:#333;font-size:0.85rem;cursor:pointer;transition:all 0.2s ease;text-align:center;font-weight:400;}
+.modal-size-btn:hover{background:#f8f8f8;border-color:#999;}
+.modal-size-btn.selected{background:#000;color:#fff;border-color:#000;}
+.modal-size-btn:disabled{background:#f5f5f5;color:#ccc;cursor:not-allowed;}
+
+/* Add to Cart Button */
+.modal-add-to-cart{width:100%;padding:15px;background:#000;color:#fff;border:none;font-size:0.9rem;font-weight:500;text-transform:uppercase;border-radius:0;cursor:pointer;transition:background 0.3s ease;margin-top:20px;display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:0.5px;}
 .modal-add-to-cart:hover{background:#333;}
 .modal-add-to-cart:disabled{background:#ccc;cursor:not-allowed;}
+
+/* Out of Stock Messaging */
+.modal-stock-message{padding:8px 12px;background:#f8f8f8;border:1px solid #ddd;color:#666;font-size:0.8rem;text-align:center;margin-top:10px;}
+.modal-stock-message.in-stock{background:#f0f8f0;color:#2d5a27;border-color:#c3e6c3;}
+.modal-stock-message.out-of-stock{background:#fdf2f2;color:#991b1b;border-color:#fecaca;}
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .product-grid{grid-template-columns:repeat(2,1fr);gap:15px;}
   .gift-guide-header h2{font-size:2rem;}
-  .modal-content{width:95%;max-width:380px;margin:20px;}
-  .modal-product{padding:20px;}
-  .modal-color-options{gap:6px;}
-  .modal-color-option{min-width:60px;}
+  .modal-content{width:95%;max-width:400px;}
+  .modal-color-btn{padding:8px 12px;font-size:0.8rem;}
+  .modal-size-options{grid-template-columns:repeat(3, 1fr);}
 }
+
 @media (max-width: 480px) {
   .product-grid{grid-template-columns:1fr;gap:15px;}
   .quick-btn{width:28px;height:28px;font-size:16px;}
@@ -128,6 +146,7 @@
   .quick-btn.top-right,.quick-btn.center-right,.quick-btn.bottom-right{right:10px;}
   .quick-btn.top-left,.quick-btn.top-center,.quick-btn.top-right{top:10px;}
   .quick-btn.bottom-left,.quick-btn.bottom-center,.quick-btn.bottom-right{bottom:10px;}
+  .modal-size-options{grid-template-columns:repeat(2, 1fr);}
 }
 </style>
 
@@ -139,17 +158,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const close = modal.querySelector('.modal-close');
   let currentProduct = null;
 
-  console.log('Gift Guide Modal Script Loaded'); // Debug log
+  console.log('Enhanced Gift Guide Modal Script Loaded');
 
-  // Open modal with better event handling
+  // Open modal
   document.addEventListener('click', function(e) {
-    console.log('Click detected on:', e.target); // Debug log
-    
     if (!e.target.classList.contains('quick-btn')) return;
     e.preventDefault();
     e.stopPropagation();
-
-    console.log('Quick button clicked!'); // Debug log
 
     const productId = e.target.dataset.id;
     const productHandle = e.target.dataset.handle;
@@ -157,49 +172,23 @@ document.addEventListener('DOMContentLoaded', function() {
     const productPrice = e.target.dataset.price;
     const productImage = e.target.dataset.image;
     
-    console.log('Product data from button:', { productId, productHandle, productTitle, productPrice, productImage });
-    
     // Show loading
     inner.innerHTML = '<div style="padding:40px;text-align:center;"><div style="display:inline-block;width:30px;height:30px;border:3px solid #f3f3f3;border-top:3px solid #333;border-radius:50%;animation:spin 1s linear infinite;"></div><p style="margin-top:15px;color:#666;">Loading product...</p></div>';
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
 
-    // If we have basic data from button, show it immediately while fetching full data
-    if (productTitle && productPrice && productImage) {
-      console.log('Using fallback product data from button attributes');
-      const fallbackProduct = {
-        id: productId,
-        title: productTitle,
-        price_min: parseFloat(productPrice.replace(/[^\d.]/g, '')) * 100,
-        featured_image: productImage,
-        variants: [{ id: productId, title: 'Default', available: true }],
-        description: ''
-      };
-      
-      currentProduct = fallbackProduct;
-      renderModal(fallbackProduct);
-      return;
-    }
-
-    // Simplified fetch - use product ID directly
-    console.log('Attempting to fetch product with ID:', productId);
-    
+    // Fetch product data
     if (productId) {
-      // Method 1: Try direct product fetch
       fetch(`/products/${productId}.js`)
         .then(r => {
-          console.log('Direct fetch response status:', r.status);
           if (!r.ok) throw new Error('Product not found');
           return r.json();
         })
         .then(p => {
-          console.log('Product data received:', p);
           currentProduct = p;
           renderModal(p);
         })
         .catch(err => {
-          console.log('Direct fetch failed, trying handle method...');
-          // Method 2: Try with handle if ID fails
           if (productHandle) {
             fetchByHandle(productHandle);
           } else {
@@ -213,27 +202,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Fetch by handle
   function fetchByHandle(handle) {
-    console.log('Trying fetch by handle:', handle);
     fetch(`/products/${handle}.js`)
       .then(r => {
-        console.log('Handle fetch response status:', r.status);
         if (!r.ok) throw new Error('Handle fetch failed');
         return r.json();
       })
       .then(p => {
-        console.log('Product data from handle:', p);
         currentProduct = p;
         renderModal(p);
       })
       .catch(err => {
-        console.error('Handle fetch error:', err);
         showError();
       });
   }
 
-  // Show error message
   function showError() {
     inner.innerHTML = `
       <div style="padding:40px;text-align:center;">
@@ -246,7 +229,6 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
   }
 
-  // Close modal functions
   function closeModal() {
     modal.style.display = 'none';
     document.body.style.overflow = '';
@@ -256,23 +238,19 @@ document.addEventListener('DOMContentLoaded', function() {
   close.addEventListener('click', closeModal);
   modalOverlay.addEventListener('click', closeModal);
 
-  // Close with Escape key
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && modal.style.display === 'block') {
       closeModal();
     }
   });
 
-  // Render modal content
   function renderModal(product) {
-    console.log('Rendering modal for product:', product); // Debug log
-    
     if (!product) {
       inner.innerHTML = '<div style="padding:40px;text-align:center;color:#999;">Product details unavailable.</div>';
       return;
     }
 
-    // Handle different price formats
+    // Handle price formatting
     let price = '0.00';
     if (product.price_min) {
       price = (product.price_min / 100).toFixed(2);
@@ -281,13 +259,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     const imageUrl = product.images && product.images[0] ? product.images[0] : product.featured_image;
-    
-    // Get variants or create default
     const variants = product.variants || [{ id: product.id, title: 'Default', available: true }];
     
-    // Get unique options
+    // Extract unique options
     const colors = [...new Set(variants.map(v => v.option1).filter(Boolean))];
     const sizes = [...new Set(variants.map(v => v.option2 || v.option3).filter(Boolean))];
+    
+    // Check if we should use button or dropdown for sizes
+    const useSizeButtons = sizes.length <= 6 && sizes.every(size => size.length <= 3);
 
     inner.innerHTML = `
       <div class="modal-product">
@@ -316,14 +295,29 @@ document.addEventListener('DOMContentLoaded', function() {
             ${sizes.length > 1 ? `
               <div class="modal-form-group">
                 <label class="modal-form-label">Size</label>
-                <select class="modal-size-select" id="size-select" required>
-                  <option value="">Choose your size</option>
-                  ${sizes.map(size => `<option value="${size}">${size}</option>`).join('')}
-                </select>
+                ${useSizeButtons ? `
+                  <div class="modal-size-options" id="size-options">
+                    ${sizes.map((size, index) => `
+                      <button type="button" class="modal-size-btn ${index === 0 ? 'selected' : ''}" data-size="${size}">
+                        ${size}
+                      </button>
+                    `).join('')}
+                  </div>
+                ` : `
+                  <div class="modal-size-wrapper">
+                    <select class="modal-size-select" id="size-select" required>
+                      <option value="">Choose your size</option>
+                      ${sizes.map(size => `<option value="${size}">${size}</option>`).join('')}
+                    </select>
+                  </div>
+                `}
               </div>
             ` : ''}
             
             <input type="hidden" name="id" id="variant-id" value="${variants[0].id}" required>
+            
+            <div id="stock-message" class="modal-stock-message" style="display:none;"></div>
+            
             <button type="submit" class="modal-add-to-cart" id="add-to-cart-btn">
               <span>ADD TO CART</span>
               <span>→</span>
@@ -333,18 +327,20 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     `;
 
-    setupFormInteractions(variants);
+    setupFormInteractions(variants, useSizeButtons);
   }
 
-  // Setup form interactions
-  function setupFormInteractions(variants) {
+  function setupFormInteractions(variants, useSizeButtons) {
     const colorBtns = document.querySelectorAll('.modal-color-btn');
+    const sizeBtns = document.querySelectorAll('.modal-size-btn');
     const sizeSelect = document.getElementById('size-select');
     const variantInput = document.getElementById('variant-id');
+    const stockMessage = document.getElementById('stock-message');
+    const addBtn = document.getElementById('add-to-cart-btn');
     const form = document.getElementById('add-to-cart-form');
 
     let selectedColor = colorBtns.length > 0 ? colorBtns[0].dataset.color : null;
-    let selectedSize = null;
+    let selectedSize = sizeBtns.length > 0 ? sizeBtns[0].dataset.size : null;
 
     // Color selection
     colorBtns.forEach(btn => {
@@ -357,7 +353,18 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
 
-    // Size selection
+    // Size button selection
+    sizeBtns.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        sizeBtns.forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        selectedSize = btn.dataset.size;
+        updateVariant();
+      });
+    });
+
+    // Size dropdown selection
     if (sizeSelect) {
       sizeSelect.addEventListener('change', function() {
         selectedSize = sizeSelect.value;
@@ -365,7 +372,6 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
 
-    // Update variant ID based on selections
     function updateVariant() {
       if (!variants || !Array.isArray(variants)) return;
 
@@ -387,6 +393,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
       if (variant && variantInput) {
         variantInput.value = variant.id;
+        
+        // Update stock message and button state
+        updateStockDisplay(variant);
+      }
+    }
+
+    function updateStockDisplay(variant) {
+      if (!stockMessage || !addBtn) return;
+
+      if (variant.available) {
+        stockMessage.textContent = 'In stock';
+        stockMessage.className = 'modal-stock-message in-stock';
+        stockMessage.style.display = 'block';
+        addBtn.disabled = false;
+        addBtn.innerHTML = '<span>ADD TO CART</span><span>→</span>';
+      } else {
+        stockMessage.textContent = 'Out of stock';
+        stockMessage.className = 'modal-stock-message out-of-stock';
+        stockMessage.style.display = 'block';
+        addBtn.disabled = true;
+        addBtn.innerHTML = '<span>OUT OF STOCK</span>';
       }
     }
 
@@ -399,7 +426,6 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         
         const formData = new FormData(form);
-        const addBtn = document.getElementById('add-to-cart-btn');
         
         if (addBtn) {
           addBtn.innerHTML = '<span>ADDING...</span>';
@@ -431,7 +457,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Add spinning animation for loading
+  // Add spinning animation
   const style = document.createElement('style');
   style.textContent = '@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }';
   document.head.appendChild(style);
