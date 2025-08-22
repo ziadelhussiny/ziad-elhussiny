@@ -9,45 +9,46 @@
 }
 
 .top-section {
-  height: 195px; /* Half of 390px for the top frame */
+  height: 195px;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
 }
-.top-background {
-  width: 100%;
-  height: 100%;
+
+.top-frame {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  z-index: 0;
 }
+
 .top-content {
   position: relative;
   z-index: 1;
-  height: 100%;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 10px;
-  padding: 10px;
-}
-.top-row {
-  grid-column: 1 / span 5;
-  grid-row: 1;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  justify-content: space-between;
+  width: 100%;
 }
+
 .brand-name {
   font-size: 20px;
   font-weight: bold;
   text-transform: uppercase;
+  color: #000;
 }
+
 .tagline {
   font-size: 16px;
+  color: #000;
 }
+
 .choose-button {
   background-color: #ffff00;
   color: #000000;
@@ -55,136 +56,185 @@
   border: none;
   cursor: pointer;
   font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
+
 .choose-button:hover {
   background-color: #000000;
   color: #ffff00;
 }
-.image-1 { grid-column: 4; grid-row: 1 / span 2; }
-.image-2 { grid-column: 5; grid-row: 1 / span 2; }
 
 .bottom-section {
-  height: 195px; /* Half of 390px for the bottom frame */
+  height: 195px;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
 }
-.bottom-background {
-  width: 100%;
-  height: 100%;
+
+.bottom-frame {
   position: absolute;
   top: 0;
-  left: 0;
-  z-index: 0;
+  right: 0;
+  width: 60%;
+  height: 100%;
   object-fit: cover;
+  z-index: 0;
 }
-.bottom-content {
+
+.main-content {
   position: relative;
   z-index: 1;
-  height: 100%;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 10px;
-  padding: 10px;
+  padding: 40px;
+  width: 50%;
+  background-color: rgba(255, 255, 255, 0.95);
+  margin: 20px 0 20px 20px;
 }
-.main-content {
-  grid-column: 1 / span 3;
-  grid-row: 1 / span 2;
-  padding: 20px;
-  background-color: rgba(255, 255, 255, 0.8);
-}
+
 .title {
   font-size: 48px;
   font-weight: bold;
   line-height: 1.1;
-  margin: 0;
+  margin: 0 0 15px 0;
+  color: #000;
 }
+
 .subtitle {
   font-size: 18px;
-  margin: 10px 0;
+  margin: 0 0 20px 0;
+  color: #000;
+  line-height: 1.4;
 }
+
 .shop-button {
-  background: linear-gradient(to right, #ffff00 50%, #000000 50%);
-  background-size: 200% 100%;
-  background-position: right bottom;
+  background-color: #000000;
   color: #ffffff;
-  padding: 10px 20px;
+  padding: 12px 24px;
   border: none;
   cursor: pointer;
   font-weight: bold;
-  transition: background-position 0.3s ease, color 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
 }
+
 .shop-button:hover {
-  background-position: left bottom;
-  color: #000000;
+  background-color: #333333;
+  transform: translateY(-1px);
 }
-.image-3 { grid-column: 4; grid-row: 1 / span 2; }
-.image-4 { grid-column: 5; grid-row: 1 / span 2; }
 
 .additional-content {
-  margin-top: 10px;
+  margin-top: 15px;
 }
+
 .additional-image {
   max-width: 100%;
   height: auto;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .gift-guide-banner {
+    height: auto;
+  }
+  
+  .top-section,
+  .bottom-section {
+    height: auto;
+    min-height: 150px;
+    padding: 20px;
+  }
+  
+  .top-content {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .main-content {
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  .title {
+    font-size: 32px;
+  }
+  
+  .subtitle {
+    font-size: 16px;
+  }
+  
+  .bottom-frame {
+    width: 100%;
+    opacity: 0.3;
+  }
+}
 {%- endstyle -%}
 
 <div class="gift-guide-banner">
+  <!-- Top Section with Header Frame -->
   <div class="top-section">
-    {% if section.settings.top_background_image != blank %}
-      <img src="{{ section.settings.top_background_image | image_url: width: 1440 }}" alt="Top Background Image" loading="lazy" width="1440" height="195" class="top-background">
-    {% else %}
-      <div style="width: 100%; height: 195px; background-color: #f0f0f0;"></div>
+    {% if section.settings.top_frame_image != blank %}
+      <img src="{{ section.settings.top_frame_image | image_url: width: 1440 }}" 
+           alt="Top Frame with Items" 
+           loading="lazy" 
+           width="1440" 
+           height="195" 
+           class="top-frame">
     {% endif %}
+    
     <div class="top-content">
-      <div class="top-row">
-        <div class="brand-name">{{ section.settings.brand_text }}</div>
-        <div class="tagline">{{ section.settings.tagline_text }}</div>
-        {% if section.settings.choose_button_link != blank %}
-          <a href="{{ section.settings.choose_button_link }}" class="choose-button">{{ section.settings.choose_button_text }}</a>
-        {% else %}
-          <button class="choose-button">{{ section.settings.choose_button_text }}</button>
-        {% endif %}
-      </div>
-      <div class="image-1"></div>
-      <div class="image-2"></div>
-      {% if section.settings.additional_tagline_image != blank %}
-        <div class="additional-content">
-          <img src="{{ section.settings.additional_tagline_image | image_url }}" alt="Additional Tagline Image" class="additional-image">
-        </div>
+      <div class="brand-name">{{ section.settings.brand_text }}</div>
+      <div class="tagline">{{ section.settings.tagline_text }}</div>
+      {% if section.settings.choose_button_link != blank %}
+        <a href="{{ section.settings.choose_button_link }}" class="choose-button">
+          {{ section.settings.choose_button_text }}
+        </a>
+      {% else %}
+        <button class="choose-button">{{ section.settings.choose_button_text }}</button>
       {% endif %}
     </div>
   </div>
+
+  <!-- Bottom Section with Side Frame -->
   <div class="bottom-section">
-    {% if section.settings.bottom_background_image != blank %}
-      <img src="{{ section.settings.bottom_background_image | image_url: width: 1440 }}" alt="Bottom Background Image" loading="lazy" width="1440" height="195" class="bottom-background">
-    {% else %}
-      <div style="width: 100%; height: 195px; background-color: #f0f0f0;"></div>
+    {% if section.settings.bottom_frame_image != blank %}
+      <img src="{{ section.settings.bottom_frame_image | image_url: width: 864 }}" 
+           alt="Bottom Frame with Items" 
+           loading="lazy" 
+           width="864" 
+           height="195" 
+           class="bottom-frame">
     {% endif %}
-    <div class="bottom-content">
-      <div class="main-content">
-        <h1 class="title">{{ section.settings.title_text }}</h1>
-        <p class="subtitle">{{ section.settings.subtitle_text }}</p>
-        {% if section.settings.shop_button_link != blank %}
-          <a href="{{ section.settings.shop_button_link }}" class="shop-button">{{ section.settings.shop_button_text }}</a>
-        {% else %}
-          <button class="shop-button">{{ section.settings.shop_button_text }}</button>
-        {% endif %}
-        {% if section.settings.additional_subtitle_text != blank %}
-          <div class="additional-content">
-            <p>{{ section.settings.additional_subtitle_text }}</p>
-          </div>
-        {% endif %}
-        {% if section.settings.additional_shop_button_image != blank %}
-          <div class="additional-content">
-            <img src="{{ section.settings.additional_shop_button_image | image_url }}" alt="Additional Shop Button Image" class="additional-image">
-          </div>
-        {% endif %}
-      </div>
-      <div class="image-3"></div>
-      <div class="image-4"></div>
+    
+    <div class="main-content">
+      <h1 class="title">{{ section.settings.title_text }}</h1>
+      <p class="subtitle">{{ section.settings.subtitle_text }}</p>
+      
+      {% if section.settings.shop_button_link != blank %}
+        <a href="{{ section.settings.shop_button_link }}" class="shop-button">
+          {{ section.settings.shop_button_text }}
+        </a>
+      {% else %}
+        <button class="shop-button">{{ section.settings.shop_button_text }}</button>
+      {% endif %}
+      
+      {% if section.settings.additional_subtitle_text != blank %}
+        <div class="additional-content">
+          <p>{{ section.settings.additional_subtitle_text }}</p>
+        </div>
+      {% endif %}
+      
+      {% if section.settings.additional_shop_button_image != blank %}
+        <div class="additional-content">
+          <img src="{{ section.settings.additional_shop_button_image | image_url }}" 
+               alt="Additional Shop Button Image" 
+               class="additional-image">
+        </div>
+      {% endif %}
     </div>
   </div>
 </div>
@@ -195,15 +245,15 @@
   "settings": [
     {
       "type": "image_picker",
-      "id": "top_background_image",
-      "label": "Top Background Image",
-      "info": "Recommended dimensions: 1440x195. This is the top frame with items like glasses, compass, etc."
+      "id": "top_frame_image",
+      "label": "Top Frame Image",
+      "info": "Frame with items like glasses, compass, etc. that appears behind the header content. Recommended dimensions: 1440x195"
     },
     {
       "type": "image_picker",
-      "id": "bottom_background_image",
-      "label": "Bottom Background Image",
-      "info": "Recommended dimensions: 1440x195. This is the bottom frame with items like glasses, compass, etc."
+      "id": "bottom_frame_image",
+      "label": "Bottom Frame Image", 
+      "info": "Frame with items that appears beside 'The Gift Guide' content. Recommended dimensions: 864x195"
     },
     {
       "type": "text",
@@ -216,12 +266,6 @@
       "id": "tagline_text",
       "label": "Tagline Text",
       "default": "Find the ideal gift for your loved ones."
-    },
-    {
-      "type": "image_picker",
-      "id": "additional_tagline_image",
-      "label": "Additional Tagline Image",
-      "info": "Optional image to add below the tagline."
     },
     {
       "type": "text",
