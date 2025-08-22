@@ -21,7 +21,7 @@
   </div>
 
   <div class="product-grid">
-    {%- for handle in products -%}
+    {%- for handle in handles -%}
       {%- assign product = all_products[handle] -%}
       {%- if product -%}
         <div class="product-card">
@@ -50,17 +50,36 @@
 <style>
 .gift-guide-section{max-width:1200px;margin:0 auto;padding:40px 20px;font-family:Helvetica,Arial,sans-serif;}
 .gift-guide-header{text-align:center;margin-bottom:30px;}
-.cta-button{display:inline-block;padding:14px 32px;background:#000;color:#fff;text-decoration:none;border-radius:4px;}
-.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:30px;}
-.product-card{background:#fff;border:1px solid #eee;border-radius:8px;overflow:hidden;text-align:center;}
-.img-wrap{position:relative;}
-.img-wrap img{width:100%;aspect-ratio:1/1;object-fit:cover;}
-.quick-btn{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:50%;background:#000;color:#fff;border:none;font-size:20px;cursor:pointer;line-height:1;}
-.quick-btn:hover{background:#333;}
-.price{margin:8px 0;font-weight:600;}
+.gift-guide-header h2{font-size:2.5rem;margin-bottom:15px;color:#333;}
+.gift-guide-header p{font-size:1.1rem;color:#666;margin-bottom:25px;}
+.cta-button{display:inline-block;padding:14px 32px;background:#000;color:#fff;text-decoration:none;border-radius:4px;font-weight:600;text-transform:uppercase;transition:background 0.3s ease;}
+.cta-button:hover{background:#333;}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:30px;margin-top:40px;}
+.product-card{background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden;text-align:center;transition:transform 0.3s ease,box-shadow 0.3s ease;}
+.product-card:hover{transform:translateY(-5px);box-shadow:0 10px 25px rgba(0,0,0,0.1);}
+.img-wrap{position:relative;overflow:hidden;}
+.img-wrap img{width:100%;aspect-ratio:1/1;object-fit:cover;transition:transform 0.3s ease;}
+.product-card:hover .img-wrap img{transform:scale(1.05);}
+.quick-btn{position:absolute;top:15px;right:15px;width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,0.8);color:#fff;border:none;font-size:20px;cursor:pointer;line-height:1;opacity:0;transition:opacity 0.3s ease,background 0.3s ease;}
+.product-card:hover .quick-btn{opacity:1;}
+.quick-btn:hover{background:#000;}
+.product-card h3{margin:15px;font-size:1.1rem;color:#333;font-weight:600;}
+.price{margin:0 15px 20px;font-weight:700;font-size:1.2rem;color:#000;}
 .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;}
-.modal-content{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;padding:30px;border-radius:8px;max-width:400px;width:90%;}
-.close{position:absolute;top:10px;right:15px;font-size:28px;cursor:pointer;}
+.modal-content{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;padding:30px;border-radius:12px;max-width:400px;width:90%;box-shadow:0 20px 40px rgba(0,0,0,0.2);}
+.close{position:absolute;top:15px;right:20px;font-size:28px;cursor:pointer;color:#999;transition:color 0.3s ease;}
+.close:hover{color:#333;}
+.modal h3{margin-bottom:15px;color:#333;}
+.modal img{border-radius:8px;}
+.modal select{width:100%;padding:10px;border:1px solid #ddd;border-radius:4px;margin:10px 0;}
+.modal .cta-button{margin-top:15px;}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .product-grid{grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px;}
+  .gift-guide-header h2{font-size:2rem;}
+  .modal-content{padding:20px;margin:20px;}
+}
 </style>
 
 <script>
@@ -72,34 +91,83 @@
   /* open modal */
   document.addEventListener('click', e => {
     if (!e.target.classList.contains('quick-btn')) return;
+    e.preventDefault();
 
     const id = e.target.dataset.id;
     fetch(`/products/${id}.js`)
       .then(r => r.json())
       .then(p => renderModal(p))
-      .catch(console.error);
+      .catch(err => {
+        console.error('Error loading product:', err);
+        alert('Sorry, there was an error loading the product details.');
+      });
   });
 
   /* close modal */
   close.onclick = () => modal.style.display = 'none';
   modal.onclick  = e => { if (e.target === modal) modal.style.display = 'none'; };
 
+  /* close modal with escape key */
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modal.style.display === 'block') {
+      modal.style.display = 'none';
+    }
+  });
+
   /* render HTML inside modal */
   function renderModal(p) {
-    const variants = p.variants.map(v => `<option value="${v.id}">${v.title}</option>`).join('');
+    if (!p || !p.variants || p.variants.length === 0) {
+      inner.innerHTML = '<p>Product details unavailable.</p>';
+      modal.style.display = 'block';
+      return;
+    }
+
+    const variants = p.variants.map(v => 
+      `<option value="${v.id}" ${!v.available ? 'disabled' : ''}>${v.title}${!v.available ? ' - Sold Out' : ''}</option>`
+    ).join('');
+    
+    const price = p.price_min ? (p.price_min / 100).toFixed(2) : '0.00';
+    const imageUrl = p.images && p.images[0] ? p.images[0] : p.featured_image;
+    
     inner.innerHTML = `
       <h3>${p.title}</h3>
-      <img src="${p.images[0]}" alt="" style="width:100%;max-width:200px;margin-bottom:15px;">
-      <p>${p.price_min | money}</p>
-      <form action="/cart/add" method="post">
-        <label>Variant:
-          <select name="id">${variants}</select>
-        </label><br><br>
-        <button type="submit" class="cta-button">ADD TO CART</button>
+      ${imageUrl ? `<img src="${imageUrl}" alt="${p.title}" style="width:100%;max-width:200px;margin-bottom:15px;border-radius:8px;">` : ''}
+      <p style="font-size:1.2rem;font-weight:700;margin:15px 0;">$${price}</p>
+      ${p.description ? `<p style="font-size:0.9rem;color:#666;margin-bottom:20px;">${p.description.substring(0, 150)}${p.description.length > 150 ? '...' : ''}</p>` : ''}
+      <form action="/cart/add" method="post" onsubmit="return handleAddToCart(event)">
+        <label style="display:block;margin-bottom:15px;text-align:left;">
+          <strong>Variant:</strong><br>
+          <select name="id" required style="width:100%;padding:10px;border:1px solid #ddd;border-radius:4px;margin-top:5px;">${variants}</select>
+        </label>
+        <button type="submit" class="cta-button" style="width:100%;">ADD TO CART</button>
       </form>
     `;
     modal.style.display = 'block';
   }
+
+  /* handle add to cart form submission */
+  window.handleAddToCart = function(event) {
+    event.preventDefault();
+    const form = event.target;
+    const formData = new FormData(form);
+    
+    fetch('/cart/add.js', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      modal.style.display = 'none';
+      // Show success message or redirect
+      alert('Product added to cart!');
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Sorry, there was an error adding the product to cart.');
+    });
+    
+    return false;
+  };
 })();
 </script>
 
