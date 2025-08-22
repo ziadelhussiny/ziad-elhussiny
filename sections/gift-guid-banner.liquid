@@ -178,11 +178,12 @@
       {% else %}
         <button class="shop-now-btn">{{ section.settings.shop_now_text | default: 'SHOP NOW →' }}</button>
       {% endif %}
-      {% if section.settings.sustainable_text != blank %}
-  <p class="sustainable-line">{{ section.settings.sustainable_text }}</p>
-{% endif %}
+
     </div>
   </div>
+        {% if section.settings.sustainable_text != blank %}
+  <p class="sustainable-line">{{ section.settings.sustainable_text }}</p>
+{% endif %}
 </div>
 
 {% schema %}
