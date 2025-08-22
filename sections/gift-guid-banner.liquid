@@ -1,80 +1,123 @@
 {%- style -%}
-.gift-guide-banner{
-  position:relative;
-  height:390px;
-  max-width:1440px;
-  margin:0 auto;
-  overflow:hidden;
-  background:#ffffff;
+.gift-guide-banner {
+  background-color: #ffffff;
+  position: relative;
+  height: 390px;
+  max-width: 1440px;
+  margin: 0 auto;
+  overflow: hidden;
 }
-
-/* --- NEW: two background images --- */
-.bg-top,
-.bg-left-bottom{
-  position:absolute;
-  object-fit:cover;
+.gift-guide-background {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  object-fit: cover;
 }
-.bg-top{
-  top:0;
-  left:0;
-  width:100%;
-  height:100px;            /* height of top-row */
+.gift-guide-content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 10px;
+  padding: 10px;
 }
-.bg-left-bottom{
-  bottom:0;
-  left:0;
-  width:60%;               /* tweak as needed */
-  height:290px;            /* 390 - 100 = 290 */
+.top-row {
+  grid-column: 1 / span 5;
+  grid-row: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
 }
-
-/* everything else stays identical */
-.gift-guide-content{
-  position:relative;
-  z-index:1;
-  height:100%;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  grid-template-rows:repeat(4,1fr);
-  gap:10px;
-  padding:10px;
+.brand-name {
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
 }
-.top-row{
-  grid-column:1 / span 5;
-  grid-row:1;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:0 20px;
+.tagline {
+  font-size: 16px;
 }
-.main-content{
-  grid-column:1 / span 3;
-  grid-row:2 / span 3;
-  padding:20px;
-  background:rgba(255,255,255,.8);
+.choose-button {
+  background-color: #ffff00;
+  color: #000000;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
-/* … keep the rest of your existing CSS … */
+.choose-button:hover {
+  background-color: #000000;
+  color: #ffff00;
+}
+.main-content {
+  grid-column: 1 / span 3;
+  grid-row: 2 / span 3;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+.title {
+  font-size: 48px;
+  font-weight: bold;
+  line-height: 1.1;
+  margin: 0;
+}
+.subtitle {
+  font-size: 18px;
+  margin: 10px 0;
+}
+.shop-button {
+  background: linear-gradient(to right, #ffff00 50%, #000000 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-position 0.3s ease, color 0.3s ease;
+}
+.shop-button:hover {
+  background-position: left bottom;
+  color: #000000;
+}
+.image-1 { grid-column: 4; grid-row: 1 / span 2; }
+.image-2 { grid-column: 5; grid-row: 1 / span 2; }
+.image-3 { grid-column: 4; grid-row: 3 / span 2; }
+.image-4 { grid-column: 5; grid-row: 3 / span 2; }
 {%- endstyle -%}
 
 <div class="gift-guide-banner">
-  <!-- NEW: two background images -->
-  {%- if section.settings.bg_top != blank -%}
-    <img src="{{ section.settings.bg_top | image_url: width: 1440 }}" alt="" class="bg-top" loading="lazy">
-  {%- endif -%}
-  {%- if section.settings.bg_left_bottom != blank -%}
-    <img src="{{ section.settings.bg_left_bottom | image_url: width: 864 }}" alt="" class="bg-left-bottom" loading="lazy">
-  {%- endif -%}
-
-  <!-- existing content grid -->
   <div class="gift-guide-content">
+    {% if section.settings.background_image != blank %}
+      <img src="{{ section.settings.background_image | image_url: width: 1440 }}" alt="Background Image" loading="lazy" width="1440" height="390" class="gift-guide-background">
+    {% else %}
+      <div style="width: 100%; height: 390px; background-color: #f0f0f0;"></div>
+    {% endif %}
     <div class="top-row">
       <div class="brand-name">{{ section.settings.brand_text }}</div>
       <div class="tagline">{{ section.settings.tagline_text }}</div>
-      …
+      {% if section.settings.choose_button_link != blank %}
+        <a href="{{ section.settings.choose_button_link }}" class="choose-button">{{ section.settings.choose_button_text }}</a>
+      {% else %}
+        <button class="choose-button">{{ section.settings.choose_button_text }}</button>
+      {% endif %}
     </div>
     <div class="main-content">
       <h1 class="title">{{ section.settings.title_text }}</h1>
-      …
+      <p class="subtitle">{{ section.settings.subtitle_text }}</p>
+      {% if section.settings.shop_button_link != blank %}
+        <a href="{{ section.settings.shop_button_link }}" class="shop-button">{{ section.settings.shop_button_text }}</a>
+      {% else %}
+        <button class="shop-button">{{ section.settings.shop_button_text }}</button>
+      {% endif %}
     </div>
+    <!-- Placeholder for images (replace with actual image tags if needed) -->
     <div class="image-1"></div>
     <div class="image-2"></div>
     <div class="image-3"></div>
@@ -88,20 +131,61 @@
   "settings": [
     {
       "type": "image_picker",
-      "id": "bg_top",
-      "label": "Background Image — Top",
-      "info": "Full-width image behind the header row (1440×100 recommended)"
+      "id": "background_image",
+      "label": "Background Image",
+      "info": "Recommended dimensions: 1440x390. This is the frame with items like glasses, compass, etc."
     },
     {
-      "type": "image_picker",
-      "id": "bg_left_bottom",
-      "label": "Background Image — Left Bottom",
-      "info": "Image behind the main content block (864×290 recommended)"
+      "type": "text",
+      "id": "brand_text",
+      "label": "Brand Name",
+      "default": "TISSO VISON"
     },
-    /* keep the rest of your existing settings … */
+    {
+      "type": "text",
+      "id": "tagline_text",
+      "label": "Tagline Text",
+      "default": "Find the ideal gift for your loved ones."
+    },
+    {
+      "type": "text",
+      "id": "choose_button_text",
+      "label": "Choose Gift Button Text",
+      "default": "CHOOSE GIFT →"
+    },
+    {
+      "type": "url",
+      "id": "choose_button_link",
+      "label": "Choose Gift Button Link"
+    },
+    {
+      "type": "text",
+      "id": "title_text",
+      "label": "Main Title",
+      "default": "The Gift Guide"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle_text",
+      "label": "Subtitle Text",
+      "default": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season."
+    },
+    {
+      "type": "text",
+      "id": "shop_button_text",
+      "label": "Shop Now Button Text",
+      "default": "SHOP NOW →"
+    },
+    {
+      "type": "url",
+      "id": "shop_button_link",
+      "label": "Shop Now Button Link"
+    }
   ],
   "presets": [
-    { "name": "Gift Guide Banner" }
+    {
+      "name": "Gift Guide Banner"
+    }
   ]
 }
 {% endschema %}
