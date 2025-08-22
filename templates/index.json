@@ -82,7 +82,7 @@
         "padding_bottom": 36
       }
     },
-    "custom_product_tHTQaf": {
+    "custom_product_tqxCCR": {
       "type": "custom-product",
       "name": "Gift Guide",
       "settings": {
@@ -90,8 +90,7 @@
         "description": "Discover Joy: Your Ultimate Holiday Gift Destination.",
         "cta_text": "SHOP NOW",
         "cta_url": "",
-        "button_positions": "top-right,top-right,top-right,top-right,top-right,top-right",
-        "product_1": "blue-silk-tuxedo",
+        "product_1": "black-leather-bag",
         "product_2": "",
         "product_3": "",
         "product_4": "",
@@ -104,6 +103,6 @@
     "gift_guid_banner_cHARja",
     "featured_collection",
     "featured_collection_rgxVcE",
-    "custom_product_tHTQaf"
+    "custom_product_tqxCCR"
   ]
 }
