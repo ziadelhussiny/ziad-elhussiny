@@ -14,22 +14,25 @@
   top: 0;
   left: 0;
   z-index: 0;
+  object-fit: cover;
 }
 .gift-guide-content {
   position: relative;
   z-index: 1;
   height: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 10px;
+  padding: 10px;
 }
 .top-row {
+  grid-column: 1 / span 5;
+  grid-row: 1;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 2;
+  padding: 0 20px;
 }
 .brand-name {
   font-size: 20px;
@@ -53,12 +56,10 @@
   color: #ffff00;
 }
 .main-content {
-  position: absolute;
-  top: 50%;
-  left: 20px;
-  transform: translateY(-50%);
-  z-index: 2;
-  max-width: 400px;
+  grid-column: 1 / span 3;
+  grid-row: 2 / span 3;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 .title {
   font-size: 48px;
@@ -85,6 +86,10 @@
   background-position: left bottom;
   color: #000000;
 }
+.image-1 { grid-column: 4; grid-row: 1 / span 2; }
+.image-2 { grid-column: 5; grid-row: 1 / span 2; }
+.image-3 { grid-column: 4; grid-row: 3 / span 2; }
+.image-4 { grid-column: 5; grid-row: 3 / span 2; }
 {%- endstyle -%}
 
 <div class="gift-guide-banner">
@@ -112,6 +117,11 @@
         <button class="shop-button">{{ section.settings.shop_button_text }}</button>
       {% endif %}
     </div>
+    <!-- Placeholder for images (replace with actual image tags if needed) -->
+    <div class="image-1"></div>
+    <div class="image-2"></div>
+    <div class="image-3"></div>
+    <div class="image-4"></div>
   </div>
 </div>
 
