@@ -2,21 +2,26 @@
 .holiday-gift-section {
   background-color: #ffffff;
   position: relative;
-  height: 390px;
+  height: auto;
   max-width: 1440px;
   margin: 0 auto;
   overflow: hidden;
   border: 1px solid #e0e0e0;
 }
 
-.header-area {
-  height: 195px;
-  position: relative;
+.header-content-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 40px;
+  padding: 15px 40px;
+  background-color: #ffffff;
   border-bottom: 1px solid #f0f0f0;
+}
+
+.header-area {
+  height: 195px;
+  position: relative;
+  display: block;
 }
 
 .header-frame-img {
@@ -31,14 +36,7 @@
 }
 
 .header-overlay {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(1px);
+  display: none;
 }
 
 .brand-title {
@@ -150,18 +148,17 @@
     height: auto;
   }
   
+  .header-content-row {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+    padding: 20px;
+  }
+  
   .header-area,
   .content-area {
     height: auto;
     min-height: 150px;
-    padding: 20px;
-  }
-  
-  .header-overlay {
-    flex-direction: column;
-    gap: 15px;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.9);
   }
   
   .text-content-box {
@@ -211,7 +208,20 @@
 {%- endstyle -%}
 
 <div class="holiday-gift-section">
-  <!-- Header Section with Top Frame -->
+  <!-- Header Content Row (Above Frame) -->
+  <div class="header-content-row">
+    <div class="brand-title">{{ section.settings.brand_name | default: 'TISSO VISON' }}</div>
+    <div class="header-tagline">{{ section.settings.header_tagline | default: 'Find the ideal gift for your loved ones.' }}</div>
+    {% if section.settings.choose_gift_url != blank %}
+      <a href="{{ section.settings.choose_gift_url }}" class="gift-choose-btn">
+        {{ section.settings.choose_gift_text | default: 'CHOOSE GIFT →' }}
+      </a>
+    {% else %}
+      <button class="gift-choose-btn">{{ section.settings.choose_gift_text | default: 'CHOOSE GIFT →' }}</button>
+    {% endif %}
+  </div>
+
+  <!-- Header Frame Section -->
   <div class="header-area">
     {% if section.settings.header_frame != blank %}
       <img src="{{ section.settings.header_frame | image_url: width: 1440, height: 195 }}" 
@@ -219,18 +229,6 @@
            class="header-frame-img"
            loading="lazy">
     {% endif %}
-    
-    <div class="header-overlay">
-      <div class="brand-title">{{ section.settings.brand_name | default: 'TISSO VISON' }}</div>
-      <div class="header-tagline">{{ section.settings.header_tagline | default: 'Find the ideal gift for your loved ones.' }}</div>
-      {% if section.settings.choose_gift_url != blank %}
-        <a href="{{ section.settings.choose_gift_url }}" class="gift-choose-btn">
-          {{ section.settings.choose_gift_text | default: 'CHOOSE GIFT →' }}
-        </a>
-      {% else %}
-        <button class="gift-choose-btn">{{ section.settings.choose_gift_text | default: 'CHOOSE GIFT →' }}</button>
-      {% endif %}
-    </div>
   </div>
 
   <!-- Content Section with Side Frame -->
