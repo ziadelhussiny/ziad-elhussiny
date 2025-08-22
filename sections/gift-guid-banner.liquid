@@ -1,160 +1,181 @@
-{% comment %}  Hero Banner – two responsive frames  {% endcomment %}
-
 {%- style -%}
-/* ----------  RESET / BASE  ---------- */
-.hero-banner{
-  position:relative;
-  width:100%;
-  overflow:hidden;
-  background:#f8f7f4;
+.gift-guide-banner {
+  background-color: #ffffff;
+  position: relative;
+  height: 390px;
+  max-width: 1440px;
+  margin: 0 auto;
+  overflow: hidden;
 }
-.hero-banner__frame{
-  display:block;
-  width:100%;
-  height:auto;
+.gift-guide-background {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
 }
-
-/* ----------  DESKTOP FRAME (890×402)  ---------- */
-@media (max-width:1023px){
-  .hero-banner__desktop{display:none;}
+.gift-guide-content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
 }
-@media (min-width:1024px){
-  .hero-banner__mobile{display:none;}
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
 }
-
-/* ----------  TEXT LAYER  ---------- */
-.hero-banner__txt{
-  position:absolute;
-  inset:0;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  pointer-events:none;
+.brand-name {
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
 }
-.hero-banner__eyebrow{
-  font-size:clamp(.875rem,1.4vw,1rem);
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  margin:0 0 12px;
+.tagline {
+  font-size: 16px;
 }
-.hero-banner__headline{
-  font-size:clamp(1.6rem,4vw,3.2rem);
-  line-height:1.15;
-  max-width:22ch;
-  margin:0 0 24px;
-  text-align:center;
+.choose-button {
+  background-color: #ffff00;
+  color: #000000;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
-.hero-banner__buttons{
-  display:flex;
-  gap:20px;
-  flex-wrap:wrap;
-  justify-content:center;
+.choose-button:hover {
+  background-color: #000000;
+  color: #ffff00;
 }
-.btn{
-  pointer-events:auto;
-  padding:14px 32px;
-  border-radius:4px;
-  font-weight:600;
-  text-decoration:none;
-  transform:scale(1);
-  transition:transform .2s ease-out;
+.main-content {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  z-index: 2;
+  max-width: 400px;
 }
-.btn:hover{
-  transform:scale(1.1); /* exact Figma spec */
+.title {
+  font-size: 48px;
+  font-weight: bold;
+  line-height: 1.1;
+  margin: 0;
 }
-.btn--primary{
-  background:#111;
-  color:#fff;
+.subtitle {
+  font-size: 18px;
+  margin: 10px 0;
 }
-.btn--secondary{
-  background:transparent;
-  border:2px solid #111;
-  color:#111;
+.shop-button {
+  background: linear-gradient(to right, #ffff00 50%, #000000 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-position 0.3s ease, color 0.3s ease;
+}
+.shop-button:hover {
+  background-position: left bottom;
+  color: #000000;
 }
 {%- endstyle -%}
 
-<section class="hero-banner">
-  <!-- 1440×390  -->
-  <img class="hero-banner__frame hero-banner__mobile"
-       src="{{ section.settings.img_mobile | image_url: width: 1440 }}"
-       alt="{{ section.settings.img_mobile.alt | escape }}"
-       width="1440" height="390">
-
-  <!-- 890×402  -->
-  <img class="hero-banner__frame hero-banner__desktop"
-       src="{{ section.settings.img_desktop | image_url: width: 890 }}"
-       alt="{{ section.settings.img_desktop.alt | escape }}"
-       width="890" height="402">
-
-  <!-- Editable text overlay -->
-  <div class="hero-banner__txt">
-    <p class="hero-banner__eyebrow">{{ section.settings.eyebrow }}</p>
-    <h1 class="hero-banner__headline">{{ section.settings.headline }}</h1>
-
-    <div class="hero-banner__buttons">
-      <a class="btn btn--primary"
-         href="{{ section.settings.primary_link }}">
-        {{ section.settings.primary_text }}
-      </a>
-
-      <a class="btn btn--secondary"
-         href="{{ section.settings.secondary_link }}">
-        {{ section.settings.secondary_text }}
-      </a>
+<div class="gift-guide-banner">
+  <div class="gift-guide-content">
+    {% if section.settings.background_image != blank %}
+      <img src="{{ section.settings.background_image | image_url: width: 1440 }}" alt="Background Image" loading="lazy" width="1440" height="390" class="gift-guide-background">
+    {% else %}
+      <div style="width: 100%; height: 390px; background-color: #f0f0f0;"></div>
+    {% endif %}
+    <div class="top-row">
+      <div class="brand-name">{{ section.settings.brand_text }}</div>
+      <div class="tagline">{{ section.settings.tagline_text }}</div>
+      {% if section.settings.choose_button_link != blank %}
+        <a href="{{ section.settings.choose_button_link }}" class="choose-button">{{ section.settings.choose_button_text }}</a>
+      {% else %}
+        <button class="choose-button">{{ section.settings.choose_button_text }}</button>
+      {% endif %}
+    </div>
+    <div class="main-content">
+      <h1 class="title">{{ section.settings.title_text }}</h1>
+      <p class="subtitle">{{ section.settings.subtitle_text }}</p>
+      {% if section.settings.shop_button_link != blank %}
+        <a href="{{ section.settings.shop_button_link }}" class="shop-button">{{ section.settings.shop_button_text }}</a>
+      {% else %}
+        <button class="shop-button">{{ section.settings.shop_button_text }}</button>
+      {% endif %}
     </div>
   </div>
-</section>
+</div>
 
 {% schema %}
 {
-  "name": "Hero Banner",
+  "name": "Gift Guide Banner",
   "settings": [
     {
       "type": "image_picker",
-      "id": "img_mobile",
-      "label": "Frame 1 – 1440×390 (Mobile / Default)"
-    },
-    {
-      "type": "image_picker",
-      "id": "img_desktop",
-      "label": "Frame 2 – 890×402 (Desktop)"
+      "id": "background_image",
+      "label": "Background Image",
+      "info": "Recommended dimensions: 1440x390. This is the frame with items like glasses, compass, etc."
     },
     {
       "type": "text",
-      "id": "eyebrow",
-      "label": "Eyebrow (red box 1)",
+      "id": "brand_text",
+      "label": "Brand Name",
       "default": "TISSO VISON"
     },
     {
       "type": "text",
-      "id": "headline",
-      "label": "Headline (red box 2)",
+      "id": "tagline_text",
+      "label": "Tagline Text",
       "default": "Find the ideal gift for your loved ones."
     },
     {
       "type": "text",
-      "id": "primary_text",
-      "label": "Primary CTA text",
-      "default": "CHOOSE GIFT"
+      "id": "choose_button_text",
+      "label": "Choose Gift Button Text",
+      "default": "CHOOSE GIFT →"
     },
     {
       "type": "url",
-      "id": "primary_link",
-      "label": "Primary CTA link"
+      "id": "choose_button_link",
+      "label": "Choose Gift Button Link"
     },
     {
       "type": "text",
-      "id": "secondary_text",
-      "label": "Secondary CTA text",
-      "default": "SHOP NOW"
+      "id": "title_text",
+      "label": "Main Title",
+      "default": "The Gift Guide"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle_text",
+      "label": "Subtitle Text",
+      "default": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season."
+    },
+    {
+      "type": "text",
+      "id": "shop_button_text",
+      "label": "Shop Now Button Text",
+      "default": "SHOP NOW →"
     },
     {
       "type": "url",
-      "id": "secondary_link",
-      "label": "Secondary CTA link"
+      "id": "shop_button_link",
+      "label": "Shop Now Button Link"
     }
   ],
-  "presets": [{ "name": "Hero Banner" }]
+  "presets": [
+    {
+      "name": "Gift Guide Banner"
+    }
+  ]
 }
 {% endschema %}
