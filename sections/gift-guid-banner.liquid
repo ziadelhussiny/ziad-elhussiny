@@ -473,114 +473,6 @@
     right:0;
   }
 }
-/* --- CLOSE BUTTON --- */
-.close-btn {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  font-size: 24px;
-  font-weight: bold;
-  color: #000;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  line-height: 1;
-}
-
-.mobile-menu-header {
-  text-align: center;
-  margin-bottom: 40px;
-  padding: 20px 30px 20px 30px;
-  border-bottom: 1px solid #f0f0f0;
-  position: relative;
-}
-
-.mobile-menu-title {
-  font-size: 24px;
-  font-weight: bold;
-  color: #000;
-  margin-bottom: 10px;
-}
-
-.mobile-menu-tagline {
-  font-size: 16px;
-  color: #666;
-  line-height: 1.4;
-}
-
-/* Ensure mobile menu content padding accounts for close button */
-.mobile-menu-content {
-  padding: 80px 30px 30px;
-}
-
-/* Adjust mobile view to match image layout */
-@media (max-width: 768px) {
-  .mobile-menu-header {
-    padding-top: 40px; /* Adjust for close button space */
-  }
-
-  .mobile-menu-title {
-    font-size: 20px; /* Match the image text size */
-  }
-
-  .mobile-menu-tagline {
-    font-size: 14px; /* Match the image text size */
-  }
-
-  .gift-choose-btn {
-    display: inline-block; /* Show the button as in the image */
-    width: 100%;
-    max-width: 250px;
-    margin: 0 auto 20px;
-    padding: 12px 24px;
-    font-size: 16px;
-  }
-}
-
-@media (max-width: 480px) {
-  .close-btn {
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-  }
-
-  .mobile-menu-title {
-    font-size: 18px;
-  }
-
-  .mobile-menu-tagline {
-    font-size: 13px;
-  }
-
-  .gift-choose-btn {
-    max-width: 220px;
-    padding: 10px 20px;
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 360px) {
-  .close-btn {
-    top: 8px;
-    right: 8px;
-    font-size: 18px;
-  }
-
-  .mobile-menu-title {
-    font-size: 16px;
-  }
-
-  .mobile-menu-tagline {
-    font-size: 12px;
-  }
-
-  .gift-choose-btn {
-    max-width: 200px;
-    padding: 8px 16px;
-    font-size: 13px;
-  }
-}
 {%- endstyle -%}
 
 <!-- ---------------- MARK-UP ---------------- -->
@@ -607,28 +499,26 @@
   <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
   
   <!-- Mobile Menu Content -->
-<!-- Mobile Menu Content -->
-<div class="mobile-menu-content" id="mobile-menu-content">
-  <div class="mobile-menu-header">
-    <button class="close-btn" id="close-btn">×</button>
-    <div class="mobile-menu-title">{{ section.settings.brand_name | default: 'TISSO VISON' }}</div>
-    <div class="mobile-menu-tagline">{{ section.settings.header_tagline | default: 'Find the ideal gift for your loved ones.' }}</div>
-  </div>
-  
-  <div class="mobile-menu-actions">
-    {% if section.settings.choose_gift_url != blank %}
-      <a href="{{ section.settings.choose_gift_url }}" class="gift-choose-btn">{{ section.settings.choose_gift_text | default: 'CHOOSE GIFT →' }}</a>
-    {% else %}
-      <button class="gift-choose-btn">{{ section.settings.choose_gift_text | default: 'CHOOSE GIFT →' }}</button>
-    {% endif %}
+  <div class="mobile-menu-content" id="mobile-menu-content">
+    <div class="mobile-menu-header">
+      <div class="mobile-menu-title">{{ section.settings.brand_name | default: 'TISSO VISON' }}</div>
+      <div class="mobile-menu-tagline">{{ section.settings.header_tagline | default: 'Find the ideal gift for your loved ones.' }}</div>
+    </div>
     
-    {% if section.settings.shop_now_url != blank %}
-      <a href="{{ section.settings.shop_now_url }}" class="shop-now-btn">{{ section.settings.shop_now_text | default: 'SHOP NOW →' }}</a>
-    {% else %}
-      <button class="shop-now-btn">{{ section.settings.shop_now_text | default: 'SHOP NOW →' }}</button>
-    {% endif %}
+    <div class="mobile-menu-actions">
+      {% if section.settings.choose_gift_url != blank %}
+        <a href="{{ section.settings.choose_gift_url }}" class="gift-choose-btn">{{ section.settings.choose_gift_text | default: 'CHOOSE GIFT →' }}</a>
+      {% else %}
+        <button class="gift-choose-btn">{{ section.settings.choose_gift_text | default: 'CHOOSE GIFT →' }}</button>
+      {% endif %}
+      
+      {% if section.settings.shop_now_url != blank %}
+        <a href="{{ section.settings.shop_now_url }}" class="shop-now-btn">{{ section.settings.shop_now_text | default: 'SHOP NOW →' }}</a>
+      {% else %}
+        <button class="shop-now-btn">{{ section.settings.shop_now_text | default: 'SHOP NOW →' }}</button>
+      {% endif %}
+    </div>
   </div>
-</div>
 
   <!-- Top frame image -->
   <div class="header-area">
@@ -666,40 +556,38 @@ document.addEventListener('DOMContentLoaded', function() {
   const hamburgerMenu = document.getElementById('hamburger-menu');
   const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
   const mobileMenuContent = document.getElementById('mobile-menu-content');
-  const closeBtn = document.getElementById('close-btn');
-
+  
   function toggleMobileMenu() {
     const isActive = hamburgerMenu.classList.contains('active');
     
     if (isActive) {
+      // Close menu
       hamburgerMenu.classList.remove('active');
       mobileMenuOverlay.classList.remove('active');
       mobileMenuContent.classList.remove('active');
       document.body.style.overflow = '';
     } else {
+      // Open menu
       hamburgerMenu.classList.add('active');
       mobileMenuOverlay.classList.add('active');
       mobileMenuContent.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
   }
-
+  
   // Toggle menu on hamburger click
   hamburgerMenu.addEventListener('click', toggleMobileMenu);
-
+  
   // Close menu on overlay click
   mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
-
-  // Close menu on close button click
-  closeBtn.addEventListener('click', toggleMobileMenu);
-
+  
   // Close menu on escape key
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && hamburgerMenu.classList.contains('active')) {
       toggleMobileMenu();
     }
   });
-
+  
   // Close menu on window resize (if switching from mobile to desktop)
   window.addEventListener('resize', function() {
     if (window.innerWidth > 768 && hamburgerMenu.classList.contains('active')) {
