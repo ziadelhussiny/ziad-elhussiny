@@ -122,7 +122,13 @@
 .modal-product-info{margin-bottom:20px;}
 .modal-product-title{font-size:1.5rem;font-weight:600;color:#333;margin:0 0 10px 0;line-height:1.3;}
 .modal-product-price{font-size:1.8rem;font-weight:700;color:#333;margin:0 0 15px 0;}
-.modal-product-description{font-size:1.1rem;color:#666;line-height:1.6;margin:0 0 25px 0;}
+.modal-product-description{font-size:1.1rem;color:#666;line-height:1.6;margin:0 0 20px 0;}
+
+/* Product Rating Stars */
+.modal-product-rating{margin-bottom:25px;}
+.rating-stars{display:flex;gap:2px;margin-bottom:8px;}
+.rating-stars .star{color:#000;font-size:1.2rem;line-height:1;}
+.rating-text{font-size:0.9rem;color:#666;font-weight:500;}
 
 /* Enhanced Form Styles */
 .modal-form-group{margin-bottom:25px;}
@@ -133,7 +139,7 @@
 .modal-color-option{flex:1;position:relative;}
 .modal-color-btn{width:100%;padding:14px 18px;border:none;background:#fff;color:#374151;font-size:0.9rem;font-weight:500;cursor:pointer;transition:all 0.15s ease;text-align:center;min-height:48px;display:flex;align-items:center;justify-content:center;position:relative;border-right:1px solid #d1d5db;}
 .modal-color-btn:last-child{border-right:none;}
-.modal-color-btn:hover{background:#f9fafb;}
+.modal-color-btn:hover{background:#000;color:#fff;}
 .modal-color-btn.selected{background:#111827;color:#ffffff;font-weight:600;}
 .modal-color-btn:focus{outline:2px;outline-offset:-2px;}
 
@@ -193,6 +199,8 @@
   .modal-product-title{font-size:1.2rem;}
   .modal-product-price{font-size:1.4rem;}
   .modal-product-description{font-size:1rem;}
+  .rating-stars .star{font-size:1rem;}
+  .rating-text{font-size:0.8rem;}
   .modal-color-options{flex-direction:row;gap:2px;}
   .modal-color-option{flex:1;}
   .modal-color-btn{min-height:44px;font-size:0.8rem;padding:10px 8px;}
@@ -212,6 +220,8 @@
   .modal-product-title{font-size:2.1rem;}
   .modal-product-price{font-size:2.1rem;}
   .modal-product-description{font-size:1.5rem;}
+  .rating-stars .star{font-size:1.3rem;}
+  .rating-text{font-size:1.1rem;}
   .modal-color-btn{min-height:40px;font-size:1.5rem;padding:8px 6px;}
   .modal-size-select{min-height:40px;font-size:1.5rem;}
   .modal-add-to-cart{min-height:44px;padding:14px;font-size:1.5rem;}
@@ -229,6 +239,8 @@
   .modal-product-title{font-size:1rem;}
   .modal-product-price{font-size:1.2rem;}
   .modal-product-description{font-size:0.9rem;}
+  .rating-stars .star{font-size:0.9rem;}
+  .rating-text{font-size:0.75rem;}
   .modal-color-btn{min-height:36px;font-size:0.7rem;padding:6px 4px;}
   .modal-size-select{min-height:36px;font-size:0.8rem;}
   .modal-add-to-cart{min-height:40px;padding:12px;font-size:0.8rem;}
@@ -502,6 +514,18 @@ document.addEventListener('DOMContentLoaded', function() {
              <h3 class="modal-product-title">${product.title}</h3>
              <div class="modal-product-price">€${price}</div>
              ${product.description ? `<div class="modal-product-description">${product.description.substring(0, 150)}${product.description.length > 150 ? '...' : ''}</div>` : ''}
+             
+             <!-- Product Rating Stars -->
+             <div class="modal-product-rating">
+               <div class="rating-stars">
+                 <span class="star">★</span>
+                 <span class="star">★</span>
+                 <span class="star">★</span>
+                 <span class="star">★</span>
+                 <span class="star">★</span>
+               </div>
+               <span class="rating-text">5.0 (24 reviews)</span>
+             </div>
            </div>
            
            <form id="add-to-cart-form" action="/cart/add" method="post">
