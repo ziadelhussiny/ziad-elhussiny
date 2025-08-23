@@ -178,6 +178,15 @@
   color:#333;
 }
 
+/* --- SHOP NOW BUTTON POSITIONING --- */
+.shop-now-btn{
+  position:absolute;
+  bottom:-60px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:10;
+}
+
 /* --- BUTTONS: left→right reveal --- */
 .gift-choose-btn,
 .shop-now-btn{
@@ -203,8 +212,11 @@
 .sustainable-line{
   font-size:14px;
   color:#666;
-  margin-top:12px;
+  margin-top:20px;
   text-align:center;
+  padding:15px 20px;
+  background:#f8f8f8;
+  border-top:1px solid #e0e0e0;
 }
 /* SHOP NOW  black→yellow */
 .shop-now-btn{
@@ -307,8 +319,10 @@
   }
   
   .shop-now-btn{
+    position:static;
+    transform:none;
     display:block;
-    margin:0 auto;
+    margin:20px auto 0;
     text-align:center;
     max-width:200px;
   }
@@ -317,6 +331,13 @@
   .holiday-gift-section{
     display:flex;
     flex-direction:column;
+  }
+  
+  /* Mobile sustainable text styling */
+  .sustainable-line{
+    margin-top:15px;
+    padding:12px 15px;
+    font-size:13px;
   }
 }
 
@@ -608,7 +629,7 @@ document.addEventListener('DOMContentLoaded', function() {
       "type": "textarea",
       "id": "sustainable_text",
       "label": "Sustainable / Extra Line",
-      "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+      "default": "SUSTAINABLE, ETHICALLY MADE ACTIVEWEAR"
     },
     {
       "type": "image_picker",
