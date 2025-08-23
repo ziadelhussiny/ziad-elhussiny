@@ -7,7 +7,6 @@
   border:1px solid #e0e0e0;  overflow:hidden;
 }
 
-/* --- HEADER BAR --- */
 .header-content-row{
   display:flex;
   align-items:center;
@@ -34,7 +33,6 @@
   color:#000;
 }
 
-/* --- HAMBURGER MENU --- */
 .hamburger-menu{
   display:none;
   cursor:pointer;
@@ -45,7 +43,6 @@
   position: relative;
 }
 
-/* SVG Icons */
 .hamburger-icon,
 .close-icon{
   width: 30px;
@@ -63,7 +60,6 @@
   display: none;
 }
 
-/* Active state - show close icon, hide hamburger icon */
 .hamburger-menu.active .hamburger-icon{
   display: none !important;
 }
@@ -76,7 +72,7 @@
 
 
 
-/* Mobile Menu Overlay */
+
 .mobile-menu-overlay{
   position:fixed;
   top:0;
@@ -91,7 +87,7 @@
   visibility: hidden;
 }
 
-/* Hide mobile menu elements on desktop by default */
+
 @media(min-width:769px){
   .mobile-menu-overlay,
   .mobile-menu-content,
@@ -100,14 +96,14 @@
     visibility: hidden !important;
   }
   
-  /* Ensure mobile menu is completely hidden on desktop */
+  
   .mobile-menu-overlay.active,
   .mobile-menu-content.active{
     display:none !important;
     visibility: hidden !important;
   }
   
-  /* Desktop layout adjustments */
+  
   .brand-title{
     position: absolute;
     left: 40px;
@@ -135,7 +131,7 @@
   visibility: visible;
 }
 
-/* Mobile Menu Content */
+
 .mobile-menu-content{
   position:fixed;
   top:0;
@@ -197,7 +193,7 @@
   transition:all 0.3s ease;
 }
 
-/* Mobile menu gift button styling */
+
 .mobile-menu-actions .gift-choose-btn{
   color:#000;
   background-image:linear-gradient(to right, #000 0%, #000 50%, #ffff00 50%, #ffff00 100%);
@@ -209,7 +205,7 @@
   color:#ffff00;
 }
 
-/* Mobile menu shop now button styling */
+
 .mobile-menu-actions .shop-now-btn{
   color:#fff;
   background-image:linear-gradient(to right, #ffff00 0%, #ffff00 50%, #000 50%, #000 100%);
@@ -224,7 +220,7 @@
   background-color: #ffff00;
 }
 
-/* --- FRAMES: full-width auto --- */
+
 .header-area,
 .content-area{
   height:300px;
@@ -243,11 +239,11 @@
   position:absolute;
   top:0;
   right:0;
-  width:calc(60% - 30px);   /* 40 % of area, minus left text-card offset */
+  width:calc(60% - 30px);   
   height:100%;
   object-fit:cover;
 }
-/* --- TEXT BOX --- */
+
 .text-content-box{
   position:absolute;
   top:50%;
@@ -255,9 +251,9 @@
   transform:translateY(-50%);
   width:40%;
   max-width:600px;
-  /* background:rgba(255,255,255,.98); */
+  
   padding:40px;
-  /* box-shadow:0 4px 12px rgba(0,0,0,.12); */
+  
 }
 .main-heading{
   font-size:48px;
@@ -271,7 +267,7 @@
   color:#333;
 }
 
-/* --- SHOP NOW BUTTON POSITIONING --- */
+
 .shop-now-btn{
   position:absolute;
   bottom:20px;
@@ -283,7 +279,7 @@
   border-radius:6px;
 }
 
-/* Desktop vs Mobile Button Visibility */
+
 .desktop-shop-btn{
   display:block;
 }
@@ -292,7 +288,7 @@
   display:none !important;
 }
 
-/* --- BUTTONS: left→right reveal --- */
+
 .gift-choose-btn,
 .shop-now-btn{
   padding:12px 24px;
@@ -304,7 +300,7 @@
   background-size:200% 100%;
   transition:background-position .4s ease, color .4s ease;
 }
-/* CHOOSE GIFT  yellow→black */
+
 .gift-choose-btn{
   color:#000;
   background-image:linear-gradient(to right, #000 0%, #000 50%, #ffff00 50%, #ffff00 100%);
@@ -323,7 +319,7 @@
   background:#f8f8f8;
   border-top:1px solid #e0e0e0;
 }
-/* SHOP NOW  black→yellow */
+
 .shop-now-btn{
   color:#fff;
   background-image:linear-gradient(to right, #ffff00 0%, #ffff00 50%, #000 50%, #000 100%);
@@ -334,7 +330,7 @@
   color:#000;
 }
 
-/* --- RESPONSIVE --- */
+
 @media(max-width:1024px){
   .header-content-row{
     padding:15px 25px;
@@ -366,18 +362,18 @@
     position:relative;
   }
   
-  /* Hide desktop elements on mobile */
+  
   .header-tagline,
   .gift-choose-btn{
     display:none;
   }
   
-  /* Show hamburger menu on mobile */
+  
   .hamburger-menu{
     display:flex !important;
   }
   
-  /* Ensure mobile menu elements are properly positioned on mobile */
+  
   .mobile-menu-overlay{
     position:fixed;
     z-index: 999;
@@ -388,19 +384,19 @@
     z-index: 1000;
   }
   
-  /* Ensure hamburger menu is properly visible on mobile */
+  
   .hamburger-menu{
     z-index: 1001;
   }
   
-  /* Ensure close icon is visible when active */
+  
   .hamburger-menu.active .close-icon{
     display: block !important;
     opacity: 1;
     visibility: visible;
   }
   
-  /* Ensure brand title is centered on mobile */
+  
   .brand-title{
     position: absolute;
     left: 50%;
@@ -408,14 +404,14 @@
     z-index: 10;
   }
   
-  /* Mobile layout: Single column, centered content */
+  
   .holiday-gift-section{
     display:flex;
     flex-direction:column;
     text-align:center;
   }
   
-  /* Main Content Area - Full width, centered */
+  
   .content-area{
     height:auto;
     position:static;
@@ -437,12 +433,12 @@
     text-align:center;
   }
   
-  /* Hide Side Frame Image on mobile */
+  
   .content-frame-img{
     display:none;
   }
   
-  /* Header Frame Image - Full width below content */
+  
   .header-area{
     height:auto;
     position:relative;
@@ -461,7 +457,7 @@
     display:block;
   }
   
-  /* Typography - Centered and optimized for mobile */
+  
   .main-heading{
     font-size:42px;
     text-align:center;
@@ -477,7 +473,7 @@
     color:#333;
   }
   
-  /* SHOP NOW Button - Positioned over Header Frame Image */
+  
   .shop-now-btn{
     position:absolute;
     top:50%;
@@ -493,7 +489,7 @@
     z-index:10;
   }
   
-  /* Show mobile button, hide desktop button on mobile */
+  
   .desktop-shop-btn{
     display:none !important;
   }
@@ -502,7 +498,7 @@
     display:block !important;
   }
   
-  /* Mobile sustainable text styling */
+  
   .sustainable-line{
     margin-top:20px;
     padding:20px;
@@ -629,9 +625,9 @@
 }
 {%- endstyle -%}
 
-<!-- ---------------- MARK-UP ---------------- -->
+
 <div class="holiday-gift-section">
-  <!-- Header bar -->
+  
   <div class="header-content-row">
     <div class="brand-title">{{ section.settings.brand_name | default: 'TISSO VISON' }}</div>
     <div class="header-tagline">{{ section.settings.header_tagline | default: 'Find the ideal gift for your loved ones.' }}</div>
@@ -641,7 +637,7 @@
       <button class="gift-choose-btn">{{ section.settings.choose_gift_text | default: 'CHOOSE GIFT →' }}</button>
     {% endif %}
     
-                   <!-- Hamburger Menu for Mobile -->
+                   
       <div class="hamburger-menu" id="hamburger-menu">
         <svg class="hamburger-icon" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect x="3" y="8" width="24" height="3" fill="#000000" rx="1.5"/>
@@ -654,10 +650,10 @@
       </div>
   </div>
 
-  <!-- Mobile Menu Overlay -->
+  
   <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
   
-  <!-- Mobile Menu Content -->
+  
   <div class="mobile-menu-content" id="mobile-menu-content">
     <div class="mobile-menu-header">
       <div class="mobile-menu-title">{{ section.settings.brand_name | default: 'TISSO VISON' }}</div>
@@ -673,13 +669,13 @@
     </div>
   </div>
 
-  <!-- Top frame image -->
+  
   <div class="header-area">
     {% if section.settings.header_frame != blank %}
       <img src="{{ section.settings.header_frame | image_url: width: 1440, height: 195 }}" alt="" class="header-frame-img" loading="lazy">
     {% endif %}
     
-    <!-- SHOP NOW Button positioned over Header Frame Image -->
+    
     {% if section.settings.shop_now_url != blank %}
       <a href="{{ section.settings.shop_now_url }}" class="shop-now-btn mobile-shop-btn">{{ section.settings.shop_now_text | default: 'SHOP NOW →' }}</a>
     {% else %}
@@ -687,7 +683,7 @@
     {% endif %}
   </div>
 
-  <!-- Bottom frame image + text -->
+  
   <div class="content-area">
     {% if section.settings.side_frame != blank %}
       <img src="{{ section.settings.side_frame | image_url: width: 936, height: 195 }}" alt="" class="content-frame-img" loading="lazy">
@@ -697,7 +693,7 @@
       <h1 class="main-heading">{{ section.settings.main_title | default: 'The Gift Guide' }}</h1>
       <p class="description-text">{{ section.settings.description | default: 'Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.' }}</p>
 
-      <!-- SHOP NOW Button for Desktop -->
+      
       {% if section.settings.shop_now_url != blank %}
         <a href="{{ section.settings.shop_now_url }}" class="shop-now-btn desktop-shop-btn">{{ section.settings.shop_now_text | default: 'SHOP NOW →' }}</a>
       {% else %}
@@ -710,7 +706,7 @@
   {% endif %}
 </div>
 
-<!-- Mobile Menu JavaScript -->
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const hamburgerMenu = document.getElementById('hamburger-menu');
@@ -721,13 +717,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const isActive = hamburgerMenu.classList.contains('active');
     
     if (isActive) {
-      // Close menu
+    
       hamburgerMenu.classList.remove('active');
       mobileMenuOverlay.classList.remove('active');
       mobileMenuContent.classList.remove('active');
       document.body.style.overflow = '';
     } else {
-      // Open menu
+     
       hamburgerMenu.classList.add('active');
       mobileMenuOverlay.classList.add('active');
       mobileMenuContent.classList.add('active');
@@ -735,20 +731,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
   
-  // Toggle menu on hamburger click
+
   hamburgerMenu.addEventListener('click', toggleMobileMenu);
   
-  // Close menu on overlay click
+
   mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
   
-  // Close menu on escape key
+
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape' && hamburgerMenu.classList.contains('active')) {
       toggleMobileMenu();
     }
   });
   
-  // Close menu on window resize (if switching from mobile to desktop)
   window.addEventListener('resize', function() {
     if (window.innerWidth > 768 && hamburgerMenu.classList.contains('active')) {
       toggleMobileMenu();
