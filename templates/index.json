@@ -13,6 +13,8 @@
       "type": "gift-guid-banner",
       "name": "Gift Guide Banner",
       "settings": {
+        "header_frame": "shopify://shop_images/Frame_3.svg",
+        "side_frame": "shopify://shop_images/Frame_2.svg",
         "frame_fit": "cover",
         "brand_name": "TISSO VISON",
         "header_tagline": "Find the ideal gift for your loved ones.",
