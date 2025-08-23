@@ -710,8 +710,18 @@ document.addEventListener('DOMContentLoaded', function() {
          if (variant && variantInput) {
            variantInput.value = variant.id;
            
-                   // Check if any variants are available
-        const hasAvailableVariants = variants.some(v => v.available !== false);
+                   // Debug: Log variant availability
+        console.log('Variants stock status:', variants.map(v => ({ id: v.id, available: v.available, inventory_quantity: v.inventory_quantity })));
+        
+        // Check if any variants are available (check both available property and inventory quantity)
+        const hasAvailableVariants = variants.some(v => {
+          const isAvailable = v.available === true;
+          const hasInventory = v.inventory_quantity && v.inventory_quantity > 0;
+          const inventoryNotTracked = v.inventory_management === null || v.inventory_management === 'shopify';
+          
+          return isAvailable || (hasInventory && inventoryNotTracked);
+        });
+        console.log('Has available variants:', hasAvailableVariants);
         
         if (hasAvailableVariants) {
           // Update stock message and button state
@@ -733,8 +743,14 @@ document.addEventListener('DOMContentLoaded', function() {
          if (variants && variants.length > 0 && variantInput) {
            variantInput.value = variants[0].id;
            
-           // Check if any variants are available
-           const hasAvailableVariants = variants.some(v => v.available !== false);
+           // Check if any variants are available (comprehensive check)
+           const hasAvailableVariants = variants.some(v => {
+             const isAvailable = v.available === true;
+             const hasInventory = v.inventory_quantity && v.inventory_quantity > 0;
+             const inventoryNotTracked = v.inventory_management === null || v.inventory_management === 'shopify';
+             
+             return isAvailable || (hasInventory && inventoryNotTracked);
+           });
            
            if (hasAvailableVariants) {
              updateStockDisplay(variants[0]);
@@ -755,14 +771,29 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateStockDisplay(variant) {
       if (!stockMessage || !addBtn) return;
 
-      // Check if variant exists and is available
-      if (variant && variant.available !== false) {
+      // Debug: Log variant stock info
+      console.log('updateStockDisplay - Variant:', { 
+        id: variant?.id, 
+        available: variant?.available, 
+        inventory_quantity: variant?.inventory_quantity 
+      });
+
+      // Check if variant exists and is available (comprehensive check)
+      const isAvailable = variant && (
+        variant.available === true || 
+        (variant.inventory_quantity && variant.inventory_quantity > 0 && 
+         (variant.inventory_management === null || variant.inventory_management === 'shopify'))
+      );
+      
+      if (isAvailable) {
+        console.log('Setting stock status: In stock');
         stockMessage.textContent = 'In stock';
         stockMessage.className = 'modal-stock-message in-stock';
         stockMessage.style.display = 'block';
         addBtn.disabled = false;
         addBtn.innerHTML = '<span>ADD TO CART</span><span>→</span>';
       } else {
+        console.log('Setting stock status: Out of stock');
         stockMessage.textContent = 'Out of stock';
         stockMessage.className = 'modal-stock-message out-of-stock';
         stockMessage.style.display = 'block';
