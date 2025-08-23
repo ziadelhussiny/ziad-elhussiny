@@ -270,12 +270,77 @@ document.addEventListener('DOMContentLoaded', function() {
     const imageUrl = product.images && product.images[0] ? product.images[0] : product.featured_image;
     const variants = product.variants || [{ id: product.id, title: 'Default', available: true }];
     
-    // Extract unique options
-    const colors = [...new Set(variants.map(v => v.option1).filter(Boolean))];
-    const sizes = [...new Set(variants.map(v => v.option2 || v.option3).filter(Boolean))];
+    // FIXED: Better logic to determine which option is color vs size
+    const optionNames = product.options || [];
+    
+    // Try to intelligently determine which options are colors vs sizes
+    let colorOptions = [];
+    let sizeOptions = [];
+    
+    if (optionNames.length > 0) {
+      const option1Values = [...new Set(variants.map(v => v.option1).filter(Boolean))];
+      const option2Values = [...new Set(variants.map(v => v.option2).filter(Boolean))];
+      const option3Values = [...new Set(variants.map(v => v.option3).filter(Boolean))];
+      
+      // Common color names
+      const colorKeywords = ['color', 'colour', 'red', 'blue', 'green', 'black', 'white', 'grey', 'gray', 'yellow', 'pink', 'purple', 'brown', 'orange'];
+      // Common size indicators
+      const sizeKeywords = ['size', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'small', 'medium', 'large', 'extra'];
+      
+      // Check option names
+      const option1Name = (optionNames[0] || '').toLowerCase();
+      const option2Name = (optionNames[1] || '').toLowerCase();
+      const option3Name = (optionNames[2] || '').toLowerCase();
+      
+      // Determine based on option names first
+      if (colorKeywords.some(keyword => option1Name.includes(keyword))) {
+        colorOptions = option1Values;
+        if (sizeKeywords.some(keyword => option2Name.includes(keyword))) {
+          sizeOptions = option2Values;
+        } else if (option3Values.length > 0 && sizeKeywords.some(keyword => option3Name.includes(keyword))) {
+          sizeOptions = option3Values;
+        } else {
+          sizeOptions = option2Values.length > 0 ? option2Values : option3Values;
+        }
+      } else if (sizeKeywords.some(keyword => option1Name.includes(keyword))) {
+        sizeOptions = option1Values;
+        if (colorKeywords.some(keyword => option2Name.includes(keyword))) {
+          colorOptions = option2Values;
+        } else if (option3Values.length > 0 && colorKeywords.some(keyword => option3Name.includes(keyword))) {
+          colorOptions = option3Values;
+        } else {
+          colorOptions = option2Values.length > 0 ? option2Values : option3Values;
+        }
+      } else {
+        // Fallback: check actual values
+        const isOption1Color = option1Values.some(val => 
+          colorKeywords.some(keyword => val.toLowerCase().includes(keyword))
+        );
+        const isOption1Size = option1Values.some(val => 
+          sizeKeywords.some(keyword => val.toLowerCase().includes(keyword)) || 
+          /^(xs|s|m|l|xl|xxl|\d+)$/i.test(val)
+        );
+        
+        if (isOption1Color && !isOption1Size) {
+          colorOptions = option1Values;
+          sizeOptions = option2Values.length > 0 ? option2Values : option3Values;
+        } else if (isOption1Size && !isOption1Color) {
+          sizeOptions = option1Values;
+          colorOptions = option2Values.length > 0 ? option2Values : option3Values;
+        } else {
+          // Default fallback
+          colorOptions = option1Values;
+          sizeOptions = option2Values.length > 0 ? option2Values : option3Values;
+        }
+      }
+    }
+
+    // Remove duplicates and filter out empty values
+    colorOptions = [...new Set(colorOptions)].filter(Boolean);
+    sizeOptions = [...new Set(sizeOptions)].filter(Boolean);
     
     // Check if we should use button or dropdown for sizes
-    const useSizeButtons = sizes.length <= 6 && sizes.every(size => size.length <= 3);
+    const useSizeButtons = sizeOptions.length <= 6 && sizeOptions.every(size => size.length <= 3);
 
     inner.innerHTML = `
       <div class="modal-product">
@@ -286,11 +351,11 @@ document.addEventListener('DOMContentLoaded', function() {
           ${product.description ? `<div class="modal-product-description">${product.description.substring(0, 120)}${product.description.length > 120 ? '...' : ''}</div>` : ''}
           
           <form id="add-to-cart-form" action="/cart/add" method="post">
-            ${colors.length > 1 ? `
+            ${colorOptions.length > 1 ? `
               <div class="modal-form-group">
                 <label class="modal-form-label">Color</label>
                 <div class="modal-color-options" id="color-options">
-                  ${colors.map((color, index) => `
+                  ${colorOptions.map((color, index) => `
                     <div class="modal-color-option">
                       <button type="button" class="modal-color-btn ${index === 0 ? 'selected' : ''}" data-color="${color}">
                         ${color}
@@ -301,12 +366,12 @@ document.addEventListener('DOMContentLoaded', function() {
               </div>
             ` : ''}
             
-            ${sizes.length > 1 ? `
+            ${sizeOptions.length > 1 ? `
               <div class="modal-form-group">
                 <label class="modal-form-label">Size</label>
                 ${useSizeButtons ? `
                   <div class="modal-size-button-style" id="size-button-container">
-                    ${sizes.map((size, index) => `
+                    ${sizeOptions.map((size, index) => `
                       <button type="button" class="modal-size-btn ${index === 0 ? 'selected' : ''}" data-size="${size}">
                         ${size}
                       </button>
@@ -316,7 +381,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   <div class="modal-size-wrapper">
                     <select class="modal-size-select" id="size-select" required>
                       <option value="">Choose your size</option>
-                      ${sizes.map(size => `<option value="${size}">${size}</option>`).join('')}
+                      ${sizeOptions.map(size => `<option value="${size}">${size}</option>`).join('')}
                     </select>
                   </div>
                 `}
@@ -336,10 +401,10 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     `;
 
-    setupFormInteractions(variants);
+    setupFormInteractions(variants, colorOptions, sizeOptions);
   }
 
-  function setupFormInteractions(variants, useSizeButtons) {
+  function setupFormInteractions(variants, colorOptions, sizeOptions) {
     const colorBtns = document.querySelectorAll('.modal-color-btn');
     const sizeBtns = document.querySelectorAll('.modal-size-btn');
     const sizeSelect = document.getElementById('size-select');
@@ -348,8 +413,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const addBtn = document.getElementById('add-to-cart-btn');
     const form = document.getElementById('add-to-cart-form');
 
-    let selectedColor = colorBtns.length > 0 ? colorBtns[0].dataset.color : null;
-    let selectedSize = sizeBtns.length > 0 ? sizeBtns[0].dataset.size : null;
+    let selectedColor = colorOptions.length > 0 ? colorOptions[0] : null;
+    let selectedSize = sizeOptions.length > 0 ? sizeOptions[0] : null;
 
     // Color selection
     colorBtns.forEach(btn => {
@@ -384,16 +449,19 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateVariant() {
       if (!variants || !Array.isArray(variants)) return;
 
+      // FIXED: More precise variant matching
       let variant = variants.find(v => {
-        if (selectedColor && selectedSize) {
-          return (v.option1 === selectedColor || v.option2 === selectedColor) && 
-                 (v.option2 === selectedSize || v.option3 === selectedSize);
-        } else if (selectedColor) {
-          return v.option1 === selectedColor || v.option2 === selectedColor;
-        } else if (selectedSize) {
-          return v.option2 === selectedSize || v.option3 === selectedSize;
-        }
-        return true;
+        const matchesColor = !selectedColor || 
+          v.option1 === selectedColor || 
+          v.option2 === selectedColor || 
+          v.option3 === selectedColor;
+          
+        const matchesSize = !selectedSize || 
+          v.option1 === selectedSize || 
+          v.option2 === selectedSize || 
+          v.option3 === selectedSize;
+          
+        return matchesColor && matchesSize;
       });
 
       if (!variant) {
