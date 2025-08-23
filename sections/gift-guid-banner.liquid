@@ -32,11 +32,14 @@
 
 /* --- HAMBURGER MENU --- */
 .hamburger-menu{
-  display:flex;
+  display:flex !important;
   flex-direction:column;
   cursor:pointer;
   padding:8px;
   z-index:1001;
+  background: rgba(255,255,255,0.95);
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .hamburger-line{
@@ -52,30 +55,37 @@
   box-shadow:0 0 0 2px #000 !important;
   min-height:3px;
   min-width:25px;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .hamburger-menu.active .hamburger-line:nth-child(1){
   transform:rotate(45deg) translate(5px, 5px);
   background:#000 !important;
   background-color:#000 !important;
-  border:1px solid #000 !important;
-  box-shadow:0 0 0 1px #000 !important;
+  border:2px solid #000 !important;
+  box-shadow:0 0 0 2px #000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .hamburger-menu.active .hamburger-line:nth-child(2){
   opacity:0;
   background:#000 !important;
   background-color:#000 !important;
-  border:1px solid #000 !important;
-  box-shadow:0 0 0 1px #000 !important;
+  border:2px solid #000 !important;
+  box-shadow:0 0 0 2px #000 !important;
+  visibility: visible !important;
 }
 
 .hamburger-menu.active .hamburger-line:nth-child(3){
   transform:rotate(-45deg) translate(7px, -6px);
   background:#000 !important;
   background-color:#000 !important;
-  border:1px solid #000 !important;
-  box-shadow:0 0 0 1px #000 !important;
+  border:2px solid #000 !important;
+  box-shadow:0 0 0 2px #000 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 /* Force black color for all hamburger states */
@@ -611,12 +621,12 @@ div.holiday-gift-section div.header-content-row div.hamburger-menu div.hamburger
       <button class="gift-choose-btn">{{ section.settings.choose_gift_text | default: 'CHOOSE GIFT →' }}</button>
     {% endif %}
     
-    <!-- Hamburger Menu for Mobile -->
-    <div class="hamburger-menu" id="hamburger-menu">
-      <div class="hamburger-line"></div>
-      <div class="hamburger-line"></div>
-      <div class="hamburger-line"></div>
-    </div>
+         <!-- Hamburger Menu for Mobile -->
+     <div class="hamburger-menu" id="hamburger-menu">
+       <div class="hamburger-line" style="background-color: #000 !important; border: 2px solid #000 !important;"></div>
+       <div class="hamburger-line" style="background-color: #000 !important; border: 2px solid #000 !important;"></div>
+       <div class="hamburger-line" style="background-color: #000 !important; border: 2px solid #000 !important;"></div>
+     </div>
   </div>
 
   <!-- Mobile Menu Overlay -->
