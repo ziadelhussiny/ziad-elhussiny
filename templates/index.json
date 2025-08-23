@@ -25,7 +25,7 @@
         "sustainable_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
       }
     },
-    "custom_product_rWVxih": {
+    "custom_product_kdCp6A": {
       "type": "custom-product",
       "name": "Gift Guide",
       "settings": {
@@ -45,6 +45,6 @@
   },
   "order": [
     "gift_guid_banner_cHARja",
-    "custom_product_rWVxih"
+    "custom_product_kdCp6A"
   ]
 }
