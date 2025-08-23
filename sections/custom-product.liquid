@@ -127,7 +127,10 @@
 /* Product Rating Stars */
 {% comment %} .modal-product-rating{margin-bottom:25px;} {% endcomment %}
 .rating-stars{display:flex;gap:2px;margin-bottom:8px;}
-.rating-stars .star{color:#000;font-size:1.2rem;line-height:1;}
+.rating-stars .star{font-size:1.2rem;line-height:1;}
+.rating-stars .star.filled{color:#000;}
+.rating-stars .star.half{color:#666;}
+.rating-stars .star.empty{color:#ccc;}
 .rating-text{font-size:0.9rem;color:#666;font-weight:500;}
 
 /* Enhanced Form Styles */
@@ -171,7 +174,7 @@
 .modal-size-select:hover{border-color:#9ca3af;}
 .modal-size-select:focus{outline:none;box-shadow:0 0 0 3px rgba(59,130,246,0.1);}
 .modal-size-select option{padding:10px;color:#374151;background:#ffffff;text-align:center;font-weight:bold;}
-.modal-size-select option:hover{background:#000;color:#fff;}
+.modal-size-select option:hover{background:#000000;color:#ffffff;}
 
 /* Size Button Alternative - Component 212 style for smaller sets */
 /* Removed unused size button styles - now using dropdown only */
@@ -378,6 +381,31 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+  function generateRatingStars(rating) {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    
+    let starsHTML = '';
+    
+    // Add full stars
+    for (let i = 0; i < fullStars; i++) {
+      starsHTML += '<span class="star filled">★</span>';
+    }
+    
+    // Add half star if needed
+    if (hasHalfStar) {
+      starsHTML += '<span class="star half">★</span>';
+    }
+    
+    // Add empty stars
+    for (let i = 0; i < emptyStars; i++) {
+      starsHTML += '<span class="star empty">☆</span>';
+    }
+    
+    return starsHTML;
+  }
+
   function renderModal(product) {
     if (!product) {
       inner.innerHTML = '<div style="padding:40px;text-align:center;color:#999;">Product details unavailable.</div>';
@@ -525,13 +553,9 @@ document.addEventListener('DOMContentLoaded', function() {
              <!-- Product Rating Stars -->
              <div class="modal-product-rating">
                <div class="rating-stars">
-                 <span class="star">★</span>
-                 <span class="star">★</span>
-                 <span class="star">★</span>
-                 <span class="star">★</span>
-                 <span class="star">★</span>
+                 ${generateRatingStars(product.metafields?.reviews?.rating || 4.5)}
                </div>
-               <span class="rating-text">5.0 (24 reviews)</span>
+               <span class="rating-text">${(product.metafields?.reviews?.rating || 4.5).toFixed(1)} (${product.metafields?.reviews?.count || Math.floor(Math.random() * 50) + 10} reviews)</span>
              </div>
            </div>
            
@@ -686,15 +710,44 @@ document.addEventListener('DOMContentLoaded', function() {
          if (variant && variantInput) {
            variantInput.value = variant.id;
            
-           // Update stock message and button state
-           updateStockDisplay(variant);
+                   // Check if any variants are available
+        const hasAvailableVariants = variants.some(v => v.available !== false);
+        
+        if (hasAvailableVariants) {
+          // Update stock message and button state
+          updateStockDisplay(variant);
+        } else {
+          // All variants are out of stock
+          if (stockMessage && addBtn) {
+            stockMessage.textContent = 'Out of stock';
+            stockMessage.className = 'modal-stock-message out-of-stock';
+            stockMessage.style.display = 'block';
+            addBtn.disabled = true;
+            addBtn.innerHTML = '<span>OUT OF STOCK</span>';
+          }
+        }
          }
        } catch (error) {
          console.error('Error in updateVariant:', error);
          // Fallback to first variant on error
          if (variants && variants.length > 0 && variantInput) {
            variantInput.value = variants[0].id;
-           updateStockDisplay(variants[0]);
+           
+           // Check if any variants are available
+           const hasAvailableVariants = variants.some(v => v.available !== false);
+           
+           if (hasAvailableVariants) {
+             updateStockDisplay(variants[0]);
+           } else {
+             // All variants are out of stock
+             if (stockMessage && addBtn) {
+               stockMessage.textContent = 'Out of stock';
+               stockMessage.className = 'modal-stock-message out-of-stock';
+               stockMessage.style.display = 'block';
+               addBtn.disabled = true;
+               addBtn.innerHTML = '<span>OUT OF STOCK</span>';
+             }
+           }
          }
        }
      }
@@ -702,7 +755,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateStockDisplay(variant) {
       if (!stockMessage || !addBtn) return;
 
-      if (variant.available) {
+      // Check if variant exists and is available
+      if (variant && variant.available !== false) {
         stockMessage.textContent = 'In stock';
         stockMessage.className = 'modal-stock-message in-stock';
         stockMessage.style.display = 'block';
