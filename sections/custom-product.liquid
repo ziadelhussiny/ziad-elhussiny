@@ -100,25 +100,13 @@
 .modal-form-group{margin-bottom:25px;}
 .modal-form-label{display:block;font-weight:600;color:#333;margin-bottom:12px;font-size:1rem;}
 
-/* Enhanced Color Options - Component 208-211 Style */
+/* Enhanced Color Options - Single Button Style (Matching Image) */
 .modal-color-options{display:flex;flex-direction:column;gap:8px;margin-bottom:0;}
 .modal-color-option{position:relative;width:100%;}
-.modal-color-btn{width:100%;padding:0;border:1px solid #d1d5db;border-radius:6px;background:#fff;cursor:pointer;transition:all 0.15s ease;min-height:48px;display:flex;position:relative;overflow:hidden;}
-.modal-color-btn:hover{border-color:#9ca3af;}
-.modal-color-btn.selected{border-color:#111827;}
+.modal-color-btn{width:100%;padding:14px 18px;border:1px solid #d1d5db;border-radius:6px;background:#fff;cursor:pointer;transition:all 0.15s ease;min-height:48px;display:flex;align-items:center;justify-content:center;position:relative;text-align:center;font-size:0.9rem;font-weight:500;color:#374151;}
+.modal-color-btn:hover{border-color:#9ca3af;background:#f9fafb;}
+.modal-color-btn.selected{border-color:#111827;background:#111827;color:#ffffff;font-weight:600;}
 .modal-color-btn:focus{outline:2px solid #3b82f6;outline-offset:-2px;}
-
-/* Two-part button structure */
-.modal-color-btn-left{flex:1;padding:14px 18px;background:#f9fafb;color:#374151;font-size:0.9rem;font-weight:500;display:flex;align-items:center;justify-content:center;position:relative;border-right:1px solid #d1d5db;transition:all 0.15s ease;}
-.modal-color-btn-right{flex:1;padding:14px 18px;background:#ffffff;color:#374151;font-size:0.9rem;font-weight:500;display:flex;align-items:center;justify-content:center;transition:all 0.15s ease;}
-
-/* Selected state styling */
-.modal-color-btn.selected .modal-color-btn-left{background:#111827;color:#ffffff;font-weight:600;}
-.modal-color-btn.selected .modal-color-btn-right{background:#111827;color:#ffffff;font-weight:600;}
-
-/* Hover effects */
-.modal-color-btn:hover .modal-color-btn-left{background:#f3f4f6;}
-.modal-color-btn:hover .modal-color-btn-right{background:#f9fafb;}
 
 /* Left-edge color indicators - Component 208-211 style */
 .modal-color-btn[data-color*="Red"] .modal-color-btn-left:before,
@@ -432,14 +420,13 @@ document.addEventListener('DOMContentLoaded', function() {
                <div class="modal-form-group">
                  <label class="modal-form-label">Color</label>
                  <div class="modal-color-options" id="color-options">
-                   ${colorOptions.map((color, index) => `
-                     <div class="modal-color-option">
-                       <button type="button" class="modal-color-btn ${index === 0 ? 'selected' : ''}" data-color="${color}">
-                         <div class="modal-color-btn-left">${color}</div>
-                         <div class="modal-color-btn-right">${colorOptions.length > 1 ? (colorOptions[1] !== color ? colorOptions[1] : colorOptions[2] || 'Color') : 'Color'}</div>
-                       </button>
-                     </div>
-                   `).join('')}
+                                       ${colorOptions.map((color, index) => `
+                      <div class="modal-color-option">
+                        <button type="button" class="modal-color-btn ${index === 0 ? 'selected' : ''}" data-color="${color}">
+                          ${color}
+                        </button>
+                      </div>
+                    `).join('')}
                  </div>
                </div>
              ` : ''}
