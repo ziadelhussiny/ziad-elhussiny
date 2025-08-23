@@ -256,6 +256,13 @@
     display:flex;
   }
   
+  /* Mobile layout: Main Content under header, then Header Frame Image */
+  .content-area{
+    height:auto;
+    position:static;
+    order:1;
+  }
+  
   .text-content-box{
     position:static;
     width:100%;
@@ -263,12 +270,30 @@
     margin:0;
     padding:25px 20px;
     transform:none;
+    box-shadow:none;
+    background:rgba(255,255,255,1);
   }
   
-  .header-frame-img,
+  /* Hide Side Frame Image on mobile */
   .content-frame-img{
+    display:none;
+  }
+  
+  /* Header Frame Image moved to bottom on mobile */
+  .header-area{
+    height:auto;
+    position:static;
+    order:2;
+    margin-top:0;
+  }
+  
+  .header-frame-img{
+    position:static;
     width:100%;
-    opacity:.3;
+    height:auto;
+    opacity:1;
+    max-height:200px;
+    object-fit:cover;
   }
   
   .main-heading{
@@ -286,6 +311,12 @@
     margin:0 auto;
     text-align:center;
     max-width:200px;
+  }
+  
+  /* Reorder elements for mobile */
+  .holiday-gift-section{
+    display:flex;
+    flex-direction:column;
   }
 }
 
@@ -308,6 +339,10 @@
   
   .description-text{
     font-size:15px;
+  }
+  
+  .header-frame-img{
+    max-height:150px;
   }
   
   .mobile-menu-content{
@@ -343,6 +378,10 @@
   
   .description-text{
     font-size:14px;
+  }
+  
+  .header-frame-img{
+    max-height:120px;
   }
   
   .mobile-menu-content{
