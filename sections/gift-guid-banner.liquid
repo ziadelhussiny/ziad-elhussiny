@@ -653,8 +653,6 @@
       {% else %}
         <button class="gift-choose-btn">{{ section.settings.choose_gift_text | default: 'CHOOSE GIFT →' }}</button>
       {% endif %}
-      
-
     </div>
   </div>
 
@@ -664,7 +662,12 @@
       <img src="{{ section.settings.header_frame | image_url: width: 1440, height: 195 }}" alt="" class="header-frame-img" loading="lazy">
     {% endif %}
     
-
+    <!-- SHOP NOW Button positioned over Header Frame Image -->
+    {% if section.settings.shop_now_url != blank %}
+      <a href="{{ section.settings.shop_now_url }}" class="shop-now-btn mobile-shop-btn">{{ section.settings.shop_now_text | default: 'SHOP NOW →' }}</a>
+    {% else %}
+      <button class="shop-now-btn mobile-shop-btn">{{ section.settings.shop_now_text | default: 'SHOP NOW →' }}</button>
+    {% endif %}
   </div>
 
   <!-- Bottom frame image + text -->
