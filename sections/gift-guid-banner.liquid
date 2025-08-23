@@ -42,10 +42,11 @@
 .hamburger-line{
   width:25px;
   height:3px;
-  background:#000;
+  background:#000 !important;
   margin:3px 0;
   transition:all 0.3s ease;
   border-radius:2px;
+  color:#000 !important;
 }
 
 .hamburger-menu.active .hamburger-line:nth-child(1){
@@ -63,13 +64,12 @@
   background:#000 !important;
 }
 
-/* Ensure hamburger is always black */
-.hamburger-menu .hamburger-line{
+/* Force black color for all hamburger states */
+.hamburger-menu .hamburger-line,
+.hamburger-menu.active .hamburger-line,
+.hamburger-menu:hover .hamburger-line{
   background:#000 !important;
-}
-
-.hamburger-menu.active .hamburger-line{
-  background:#000 !important;
+  color:#000 !important;
 }
 
 /* Mobile Menu Overlay */
@@ -208,7 +208,7 @@
 }
 
 .mobile-shop-btn{
-  display:none;
+  display:none !important;
 }
 
 /* --- BUTTONS: left→right reveal --- */
@@ -383,11 +383,11 @@
   
   /* Show mobile button, hide desktop button on mobile */
   .desktop-shop-btn{
-    display:none;
+    display:none !important;
   }
   
   .mobile-shop-btn{
-    display:block;
+    display:block !important;
   }
   
   /* Mobile sustainable text styling */
