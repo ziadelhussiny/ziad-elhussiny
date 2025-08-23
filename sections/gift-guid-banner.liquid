@@ -60,6 +60,11 @@
   transform:rotate(-45deg) translate(7px, -6px);
 }
 
+/* Ensure hamburger is always black */
+.hamburger-menu .hamburger-line{
+  background:#000 !important;
+}
+
 /* Mobile Menu Overlay */
 .mobile-menu-overlay{
   display:none;
@@ -305,7 +310,7 @@
   /* Header Frame Image - Full width below content */
   .header-area{
     height:auto;
-    position:static;
+    position:relative;
     order:2;
     margin-top:0;
     width:100%;
@@ -337,27 +342,31 @@
     color:#333;
   }
   
-  /* SHOP NOW Button - Centered above Header Frame Image */
+  /* SHOP NOW Button - Positioned over Header Frame Image */
   .shop-now-btn{
-    position:static;
-    transform:none;
+    position:absolute;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
     display:inline-block;
-    margin:0 auto 40px;
+    margin:0;
     text-align:center;
     max-width:250px;
     padding:16px 32px;
     font-size:16px;
     border-radius:6px;
+    z-index:10;
   }
   
   /* Mobile sustainable text styling */
   .sustainable-line{
-    margin-top:0;
+    margin-top:20px;
     padding:20px;
     font-size:14px;
     background:#f8f8f8;
     border-top:1px solid #e0e0e0;
     text-align:center;
+    order:3;
   }
 }
 
@@ -388,7 +397,7 @@
     max-width:220px;
     padding:14px 28px;
     font-size:15px;
-    margin:0 auto 35px;
+    bottom:15px;
   }
   
   .header-frame-img{
@@ -398,6 +407,7 @@
   .sustainable-line{
     padding:18px 15px;
     font-size:13px;
+    margin-top:15px;
   }
   
   .mobile-menu-content{
@@ -441,7 +451,7 @@
     max-width:200px;
     padding:12px 24px;
     font-size:14px;
-    margin:0 auto 30px;
+    bottom:12px;
   }
   
   .header-frame-img{
@@ -451,6 +461,7 @@
   .sustainable-line{
     padding:15px 12px;
     font-size:12px;
+    margin-top:12px;
   }
   
   .mobile-menu-content{
