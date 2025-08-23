@@ -165,12 +165,12 @@
 .modal-color-btn[data-color*="Purple"]:before,
 .modal-color-btn[data-color*="purple"]:before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:#8b5cf6;}
 
-/* Size Selection Styles - Dropdown Style (Matching Image) */
-.modal-size-wrapper{position:relative;margin-bottom:0;}
-.modal-size-select{width:100%;padding:14px 18px;border:1px solid #d1d5db;border-radius:6px;font-size:0.9rem;color:#374151;background:#ffffff;cursor:pointer;transition:all 0.15s ease;appearance:none;background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");background-position:right 16px center;background-repeat:no-repeat;background-size:18px;padding-right:50px;min-height:48px;font-weight:500;font-family:inherit;}
-.modal-size-select:hover{border-color:#9ca3af;}
-.modal-size-select:focus{outline:none;box-shadow:0 0 0 3px rgba(59,130,246,0.1);}
-.modal-size-select option{padding:10px;color:#374151;background:#ffffff;}
+/* Size Selection Styles - Button Style (Clone-like) */
+.modal-size-options{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:0;}
+.modal-size-btn{flex:1;min-width:60px;padding:12px 16px;border:2px solid #d1d5db;border-radius:6px;font-size:0.9rem;color:#374151;background:#ffffff;cursor:pointer;transition:all 0.15s ease;font-weight:500;font-family:inherit;text-align:center;min-height:48px;display:flex;align-items:center;justify-content:center;}
+.modal-size-btn:hover{border-color:#9ca3af;background:#f9fafb;}
+.modal-size-btn.selected{border-color:#000;background:#000;color:#fff;}
+.modal-size-btn:focus{outline:none;box-shadow:0 0 0 3px rgba(0,0,0,0.1);}
 
 /* Size Button Alternative - Component 212 style for smaller sets */
 /* Removed unused size button styles - now using dropdown only */
@@ -204,7 +204,7 @@
   .modal-color-options{flex-direction:row;gap:2px;}
   .modal-color-option{flex:1;}
   .modal-color-btn{min-height:44px;font-size:0.8rem;padding:10px 8px;}
-  .modal-size-select{min-height:44px;font-size:0.9rem;}
+  .modal-size-btn{min-height:44px;font-size:0.9rem;padding:10px 14px;}
   .modal-add-to-cart{min-height:48px;padding:16px;font-size:0.9rem;}
 }
 
@@ -223,8 +223,10 @@
   .rating-stars .star{font-size:1.3rem;}
   .rating-text{font-size:1.1rem;}
   .modal-color-btn{min-height:40px;font-size:1.5rem;padding:8px 6px;}
-  .modal-size-select{min-height:40px;font-size:1.5rem;}
+  .modal-size-btn{min-height:40px;font-size:1.5rem;padding:8px 12px;min-width:45px;}
   .modal-add-to-cart{min-height:44px;padding:14px;font-size:1.5rem;}
+  
+  .modal-size-options{gap:4px;}
 }
 
 @media (max-width: 360px) {
@@ -242,11 +244,13 @@
   .rating-stars .star{font-size:0.9rem;}
   .rating-text{font-size:0.75rem;}
   .modal-color-btn{min-height:36px;font-size:0.7rem;padding:6px 4px;}
-  .modal-size-select{min-height:36px;font-size:0.8rem;}
+  .modal-size-btn{min-height:36px;font-size:0.8rem;padding:6px 10px;min-width:40px;}
   .modal-add-to-cart{min-height:40px;padding:12px;font-size:0.8rem;}
   
   .modal-form-label{font-size:0.9rem;margin-bottom:8px;}
   .modal-form-group{margin-bottom:20px;}
+  
+  .modal-size-options{gap:3px;}
 }
 
 /* Additional Mobile Optimizations */
@@ -254,6 +258,9 @@
   .modal-product-image{border:1px solid #e3f2fd;border-radius:8px 8px 0 0;}
   .modal-content{border-radius:8px;}
   .modal-close{width:28px;height:28px;font-size:18px;top:12px;right:12px;}
+  
+  .modal-size-options{gap:6px;}
+  .modal-size-btn{min-width:50px;padding:10px 12px;}
 }
 
 @media (max-width: 480px) {
@@ -547,11 +554,12 @@ document.addEventListener('DOMContentLoaded', function() {
                            ${sizeOptions.length > 1 ? `
                 <div class="modal-form-group">
                   <label class="modal-form-label">Size</label>
-                  <div class="modal-size-wrapper">
-                    <select class="modal-size-select" id="size-select" required>
-                      <option value="" disabled selected>Choose your size</option>
-                      ${sizeOptions.map(size => `<option value="${size}">${size}</option>`).join('')}
-                    </select>
+                  <div class="modal-size-options">
+                    ${sizeOptions.map(size => `
+                      <button type="button" class="modal-size-btn" data-size="${size}">
+                        ${size}
+                      </button>
+                    `).join('')}
                   </div>
                 </div>
               ` : ''}
@@ -596,7 +604,7 @@ document.addEventListener('DOMContentLoaded', function() {
        }
 
                const colorBtns = document.querySelectorAll('.modal-color-btn');
-        const sizeSelect = document.getElementById('size-select');
+        const sizeBtns = document.querySelectorAll('.modal-size-btn');
         const variantInput = document.getElementById('variant-id');
         const stockMessage = document.getElementById('stock-message');
         const addBtn = document.getElementById('add-to-cart-btn');
@@ -607,6 +615,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         let selectedColor = colorOptions.length > 0 ? colorOptions[0] : null;
         let selectedSize = sizeOptions.length > 0 ? sizeOptions[0] : null;
+        
+        // Auto-select first size option if available
+        if (sizeOptions.length > 0 && sizeBtns.length > 0) {
+          sizeBtns[0].classList.add('selected');
+        }
 
      // Color selection
      colorBtns.forEach(btn => {
@@ -619,13 +632,16 @@ document.addEventListener('DOMContentLoaded', function() {
        });
      });
 
-     // Size dropdown selection
-     if (sizeSelect) {
-       sizeSelect.addEventListener('change', function() {
-         selectedSize = sizeSelect.value;
+     // Size button selection
+     sizeBtns.forEach(btn => {
+       btn.addEventListener('click', function(e) {
+         e.preventDefault();
+         sizeBtns.forEach(b => b.classList.remove('selected'));
+         btn.classList.add('selected');
+         selectedSize = btn.dataset.size;
          updateVariant();
        });
-     }
+     });
 
          function updateVariant() {
        try {
