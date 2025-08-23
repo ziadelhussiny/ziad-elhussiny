@@ -268,11 +268,21 @@
     display:flex;
   }
   
-  /* Mobile layout: Main Content under header, then Header Frame Image */
+  /* Mobile layout: Single column, centered content */
+  .holiday-gift-section{
+    display:flex;
+    flex-direction:column;
+    text-align:center;
+  }
+  
+  /* Main Content Area - Full width, centered */
   .content-area{
     height:auto;
     position:static;
     order:1;
+    width:100%;
+    padding:40px 20px;
+    background:#ffffff;
   }
   
   .text-content-box{
@@ -280,10 +290,11 @@
     width:100%;
     max-width:none;
     margin:0;
-    padding:25px 20px;
+    padding:0;
     transform:none;
     box-shadow:none;
-    background:rgba(255,255,255,1);
+    background:transparent;
+    text-align:center;
   }
   
   /* Hide Side Frame Image on mobile */
@@ -291,12 +302,13 @@
     display:none;
   }
   
-  /* Header Frame Image moved to bottom on mobile */
+  /* Header Frame Image - Full width below content */
   .header-area{
     height:auto;
     position:static;
     order:2;
     margin-top:0;
+    width:100%;
   }
   
   .header-frame-img{
@@ -304,40 +316,48 @@
     width:100%;
     height:auto;
     opacity:1;
-    max-height:200px;
+    max-height:250px;
     object-fit:cover;
+    display:block;
   }
   
+  /* Typography - Centered and optimized for mobile */
   .main-heading{
-    font-size:36px;
+    font-size:42px;
     text-align:center;
+    margin:0 0 20px 0;
+    line-height:1.2;
   }
   
   .description-text{
-    font-size:16px;
+    font-size:18px;
     text-align:center;
+    margin:0 0 30px 0;
+    line-height:1.5;
+    color:#333;
   }
   
+  /* SHOP NOW Button - Centered above Header Frame Image */
   .shop-now-btn{
     position:static;
     transform:none;
-    display:block;
-    margin:20px auto 0;
+    display:inline-block;
+    margin:0 auto 40px;
     text-align:center;
-    max-width:200px;
-  }
-  
-  /* Reorder elements for mobile */
-  .holiday-gift-section{
-    display:flex;
-    flex-direction:column;
+    max-width:250px;
+    padding:16px 32px;
+    font-size:16px;
+    border-radius:6px;
   }
   
   /* Mobile sustainable text styling */
   .sustainable-line{
-    margin-top:15px;
-    padding:12px 15px;
-    font-size:13px;
+    margin-top:0;
+    padding:20px;
+    font-size:14px;
+    background:#f8f8f8;
+    border-top:1px solid #e0e0e0;
+    text-align:center;
   }
 }
 
@@ -350,20 +370,34 @@
     font-size:18px;
   }
   
-  .text-content-box{
-    padding:20px 15px;
+  .content-area{
+    padding:30px 15px;
   }
   
   .main-heading{
-    font-size:28px;
+    font-size:36px;
+    margin:0 0 18px 0;
   }
   
   .description-text{
+    font-size:16px;
+    margin:0 0 25px 0;
+  }
+  
+  .shop-now-btn{
+    max-width:220px;
+    padding:14px 28px;
     font-size:15px;
+    margin:0 auto 35px;
   }
   
   .header-frame-img{
-    max-height:150px;
+    max-height:200px;
+  }
+  
+  .sustainable-line{
+    padding:18px 15px;
+    font-size:13px;
   }
   
   .mobile-menu-content{
@@ -389,20 +423,34 @@
     font-size:16px;
   }
   
-  .text-content-box{
-    padding:15px 12px;
+  .content-area{
+    padding:25px 12px;
   }
   
   .main-heading{
-    font-size:24px;
+    font-size:30px;
+    margin:0 0 15px 0;
   }
   
   .description-text{
+    font-size:15px;
+    margin:0 0 20px 0;
+  }
+  
+  .shop-now-btn{
+    max-width:200px;
+    padding:12px 24px;
     font-size:14px;
+    margin:0 auto 30px;
   }
   
   .header-frame-img{
-    max-height:120px;
+    max-height:180px;
+  }
+  
+  .sustainable-line{
+    padding:15px 12px;
+    font-size:12px;
   }
   
   .mobile-menu-content{
