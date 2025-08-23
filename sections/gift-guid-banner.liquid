@@ -67,11 +67,11 @@
 
 /* Active state - show close icon, hide hamburger icon */
 .hamburger-menu.active .hamburger-icon{
-  display: none;
+  display: none !important;
 }
 
 .hamburger-menu.active .close-icon{
-  display: block;
+  display: block !important;
 }
 
 
@@ -80,7 +80,6 @@
 
 /* Mobile Menu Overlay */
 .mobile-menu-overlay{
-  display:none;
   position:fixed;
   top:0;
   left:0;
@@ -90,6 +89,8 @@
   z-index:999;
   opacity:0;
   transition:opacity 0.3s ease;
+  pointer-events: none;
+  visibility: hidden;
 }
 
 /* Hide mobile menu elements on desktop by default */
@@ -98,17 +99,25 @@
   .mobile-menu-content,
   .hamburger-menu{
     display:none !important;
+    visibility: hidden !important;
+  }
+  
+  /* Ensure mobile menu is completely hidden on desktop */
+  .mobile-menu-overlay.active,
+  .mobile-menu-content.active{
+    display:none !important;
+    visibility: hidden !important;
   }
 }
 
 .mobile-menu-overlay.active{
   opacity:1;
-  display:block;
+  pointer-events: auto;
+  visibility: visible;
 }
 
 /* Mobile Menu Content */
 .mobile-menu-content{
-  display:none;
   position:fixed;
   top:0;
   left:-100%;
@@ -120,11 +129,12 @@
   transition:left 0.3s ease;
   box-shadow:5px 0 15px rgba(0,0,0,0.1);
   overflow-y:auto;
+  visibility: hidden;
 }
 
 .mobile-menu-content.active{
   left:0;
-  display:block;
+  visibility: visible;
 }
 
 .mobile-menu-header{
@@ -159,6 +169,40 @@
   text-align:center;
   padding:16px 24px;
   font-size:16px;
+  font-weight:bold;
+  text-decoration:none;
+  display:inline-block;
+  cursor:pointer;
+  border:none;
+  border-radius:6px;
+  transition:all 0.3s ease;
+}
+
+/* Mobile menu gift button styling */
+.mobile-menu-actions .gift-choose-btn{
+  color:#000;
+  background-image:linear-gradient(to right, #000 0%, #000 50%, #ffff00 50%, #ffff00 100%);
+  background-position:100% 0;
+}
+
+.mobile-menu-actions .gift-choose-btn:hover{
+  background-position:0 0;
+  color:#ffff00;
+}
+
+/* Mobile menu shop now button styling */
+.mobile-menu-actions .shop-now-btn{
+  color:#fff;
+  background-image:linear-gradient(to right, #ffff00 0%, #ffff00 50%, #000 50%, #000 100%);
+  background-position:100% 0;
+  background-color: #000;
+  border: 2px solid #000;
+}
+
+.mobile-menu-actions .shop-now-btn:hover{
+  background-position:0 0;
+  color:#000;
+  background-color: #ffff00;
 }
 
 /* --- FRAMES: full-width auto --- */
@@ -314,10 +358,13 @@
     display:flex !important;
   }
   
-  /* Ensure mobile menu elements are visible on mobile */
-  .mobile-menu-overlay,
+  /* Ensure mobile menu elements are properly positioned on mobile */
+  .mobile-menu-overlay{
+    position:fixed;
+  }
+  
   .mobile-menu-content{
-    display:block;
+    position:fixed;
   }
   
   /* Ensure brand title is centered on mobile */
