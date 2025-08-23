@@ -39,11 +39,12 @@
 
 /* --- HAMBURGER MENU --- */
 .hamburger-menu{
-  display:flex !important;
+  display:none;
   cursor:pointer;
   padding:8px;
   z-index:1001;
   background: rgba(255,255,255,0.95);
+  border: 1px solid #ccc;
   border-radius: 4px;
   position: relative;
 }
@@ -66,11 +67,11 @@
 
 /* Active state - show close icon, hide hamburger icon */
 .hamburger-menu.active .hamburger-icon{
-  display: none !important;
+  display: none;
 }
 
 .hamburger-menu.active .close-icon{
-  display: block !important;
+  display: block;
 }
 
 
@@ -91,12 +92,23 @@
   transition:opacity 0.3s ease;
 }
 
+/* Hide mobile menu elements on desktop by default */
+@media(min-width:769px){
+  .mobile-menu-overlay,
+  .mobile-menu-content,
+  .hamburger-menu{
+    display:none !important;
+  }
+}
+
 .mobile-menu-overlay.active{
   opacity:1;
+  display:block;
 }
 
 /* Mobile Menu Content */
 .mobile-menu-content{
+  display:none;
   position:fixed;
   top:0;
   left:-100%;
@@ -112,6 +124,7 @@
 
 .mobile-menu-content.active{
   left:0;
+  display:block;
 }
 
 .mobile-menu-header{
@@ -202,14 +215,9 @@
   left:50%;
   transform:translateX(-50%);
   z-index:10;
-  width: 220px;
-  height: 50px;
-  padding: 0;
-  font-size: 16px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding:16px 32px;
+  font-size:16px;
+  border-radius:6px;
 }
 
 /* Desktop vs Mobile Button Visibility */
@@ -303,7 +311,13 @@
   
   /* Show hamburger menu on mobile */
   .hamburger-menu{
-    display:flex;
+    display:flex !important;
+  }
+  
+  /* Ensure mobile menu elements are visible on mobile */
+  .mobile-menu-overlay,
+  .mobile-menu-content{
+    display:block;
   }
   
   /* Ensure brand title is centered on mobile */
@@ -389,14 +403,11 @@
     top:50%;
     left:50%;
     transform:translate(-50%, -50%);
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    display:inline-block;
     margin:0;
     text-align:center;
-    width: 220px;
-    height: 50px;
-    padding: 0;
+    max-width:250px;
+    padding:16px 32px;
     font-size:16px;
     border-radius:6px;
     z-index:10;
@@ -451,9 +462,8 @@
   }
   
   .shop-now-btn{
-    width: 200px;
-    height: 45px;
-    padding: 0;
+    max-width:220px;
+    padding:14px 28px;
     font-size:15px;
     top:50%;
     transform:translate(-50%, -50%);
@@ -511,9 +521,8 @@
   }
   
   .shop-now-btn{
-    width: 180px;
-    height: 40px;
-    padding: 0;
+    max-width:200px;
+    padding:12px 24px;
     font-size:14px;
     top:50%;
     transform:translate(-50%, -50%);
@@ -560,7 +569,7 @@
           <rect x="3" y="20" width="24" height="3" fill="#000000" rx="1.5"/>
         </svg>
         <svg class="close-icon" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none;">
-          <path d="M8 8L22 22M22 8L8 22" stroke="#000000" stroke-width="3" stroke-linecap="round"/>
+          <path d="M6 6L24 24M24 6L6 24" stroke="#000000" stroke-width="4" stroke-linecap="round"/>
         </svg>
       </div>
   </div>
