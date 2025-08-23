@@ -15,6 +15,7 @@
   padding:15px 40px;
   background:#ffffff;
   border-bottom:1px solid #f0f0f0;
+  position:relative;
 }
 
 .brand-title{
@@ -27,6 +28,107 @@
 .header-tagline{
   font-size:16px;
   color:#000;
+}
+
+/* --- HAMBURGER MENU --- */
+.hamburger-menu{
+  display:none;
+  flex-direction:column;
+  cursor:pointer;
+  padding:8px;
+  z-index:1001;
+}
+
+.hamburger-line{
+  width:25px;
+  height:3px;
+  background:#000;
+  margin:3px 0;
+  transition:all 0.3s ease;
+  border-radius:2px;
+}
+
+.hamburger-menu.active .hamburger-line:nth-child(1){
+  transform:rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-menu.active .hamburger-line:nth-child(2){
+  opacity:0;
+}
+
+.hamburger-menu.active .hamburger-line:nth-child(3){
+  transform:rotate(-45deg) translate(7px, -6px);
+}
+
+/* Mobile Menu Overlay */
+.mobile-menu-overlay{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.8);
+  z-index:999;
+  opacity:0;
+  transition:opacity 0.3s ease;
+}
+
+.mobile-menu-overlay.active{
+  opacity:1;
+}
+
+/* Mobile Menu Content */
+.mobile-menu-content{
+  position:fixed;
+  top:0;
+  right:-100%;
+  width:300px;
+  height:100%;
+  background:#fff;
+  z-index:1000;
+  padding:80px 30px 30px;
+  transition:right 0.3s ease;
+  box-shadow:-5px 0 15px rgba(0,0,0,0.1);
+  overflow-y:auto;
+}
+
+.mobile-menu-content.active{
+  right:0;
+}
+
+.mobile-menu-header{
+  text-align:center;
+  margin-bottom:40px;
+  padding-bottom:20px;
+  border-bottom:1px solid #f0f0f0;
+}
+
+.mobile-menu-title{
+  font-size:24px;
+  font-weight:bold;
+  color:#000;
+  margin-bottom:10px;
+}
+
+.mobile-menu-tagline{
+  font-size:16px;
+  color:#666;
+  line-height:1.4;
+}
+
+.mobile-menu-actions{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.mobile-menu-actions .gift-choose-btn,
+.mobile-menu-actions .shop-now-btn{
+  width:100%;
+  text-align:center;
+  padding:16px 24px;
+  font-size:16px;
 }
 
 /* --- FRAMES: full-width auto --- */
@@ -116,29 +218,141 @@
 }
 
 /* --- RESPONSIVE --- */
+@media(max-width:1024px){
+  .header-content-row{
+    padding:15px 25px;
+  }
+  
+  .text-content-box{
+    padding:30px;
+    left:20px;
+  }
+  
+  .main-heading{
+    font-size:42px;
+  }
+  
+  .description-text{
+    font-size:17px;
+  }
+}
+
 @media(max-width:768px){
   .holiday-gift-section{height:auto;}
+  
   .header-content-row{
-    flex-direction:column;
-    gap:15px;
-    text-align:center;
-    padding:20px;
+    padding:15px 20px;
+    position:relative;
   }
+  
+  /* Hide desktop elements on mobile */
+  .header-tagline,
+  .gift-choose-btn{
+    display:none;
+  }
+  
+  /* Show hamburger menu on mobile */
+  .hamburger-menu{
+    display:flex;
+  }
+  
   .text-content-box{
     position:static;
     width:100%;
     max-width:none;
     margin:0;
-    padding:20px;
+    padding:25px 20px;
     transform:none;
   }
+  
   .header-frame-img,
   .content-frame-img{
     width:100%;
     opacity:.3;
   }
-  .main-heading{font-size:32px;}
-  .description-text{font-size:16px;}
+  
+  .main-heading{
+    font-size:36px;
+    text-align:center;
+  }
+  
+  .description-text{
+    font-size:16px;
+    text-align:center;
+  }
+  
+  .shop-now-btn{
+    display:block;
+    margin:0 auto;
+    text-align:center;
+    max-width:200px;
+  }
+}
+
+@media(max-width:480px){
+  .header-content-row{
+    padding:12px 15px;
+  }
+  
+  .brand-title{
+    font-size:18px;
+  }
+  
+  .text-content-box{
+    padding:20px 15px;
+  }
+  
+  .main-heading{
+    font-size:28px;
+  }
+  
+  .description-text{
+    font-size:15px;
+  }
+  
+  .mobile-menu-content{
+    width:280px;
+    padding:70px 20px 20px;
+  }
+  
+  .mobile-menu-title{
+    font-size:22px;
+  }
+  
+  .mobile-menu-tagline{
+    font-size:15px;
+  }
+}
+
+@media(max-width:360px){
+  .header-content-row{
+    padding:10px 12px;
+  }
+  
+  .brand-title{
+    font-size:16px;
+  }
+  
+  .text-content-box{
+    padding:15px 12px;
+  }
+  
+  .main-heading{
+    font-size:24px;
+  }
+  
+  .description-text{
+    font-size:14px;
+  }
+  
+  .mobile-menu-content{
+    width:100%;
+    right:-100%;
+  }
+  
+  .mobile-menu-content.active{
+    right:0;
+  }
 }
 {%- endstyle -%}
 
@@ -153,6 +367,38 @@
     {% else %}
       <button class="gift-choose-btn">{{ section.settings.choose_gift_text | default: 'CHOOSE GIFT →' }}</button>
     {% endif %}
+    
+    <!-- Hamburger Menu for Mobile -->
+    <div class="hamburger-menu" id="hamburger-menu">
+      <div class="hamburger-line"></div>
+      <div class="hamburger-line"></div>
+      <div class="hamburger-line"></div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+  
+  <!-- Mobile Menu Content -->
+  <div class="mobile-menu-content" id="mobile-menu-content">
+    <div class="mobile-menu-header">
+      <div class="mobile-menu-title">{{ section.settings.brand_name | default: 'TISSO VISON' }}</div>
+      <div class="mobile-menu-tagline">{{ section.settings.header_tagline | default: 'Find the ideal gift for your loved ones.' }}</div>
+    </div>
+    
+    <div class="mobile-menu-actions">
+      {% if section.settings.choose_gift_url != blank %}
+        <a href="{{ section.settings.choose_gift_url }}" class="gift-choose-btn">{{ section.settings.choose_gift_text | default: 'CHOOSE GIFT →' }}</a>
+      {% else %}
+        <button class="gift-choose-btn">{{ section.settings.choose_gift_text | default: 'CHOOSE GIFT →' }}</button>
+      {% endif %}
+      
+      {% if section.settings.shop_now_url != blank %}
+        <a href="{{ section.settings.shop_now_url }}" class="shop-now-btn">{{ section.settings.shop_now_text | default: 'SHOP NOW →' }}</a>
+      {% else %}
+        <button class="shop-now-btn">{{ section.settings.shop_now_text | default: 'SHOP NOW →' }}</button>
+      {% endif %}
+    </div>
   </div>
 
   <!-- Top frame image -->
@@ -184,6 +430,53 @@
     <p class="sustainable-line">{{ section.settings.sustainable_text }}</p>
   {% endif %}
 </div>
+
+<!-- Mobile Menu JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const hamburgerMenu = document.getElementById('hamburger-menu');
+  const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+  const mobileMenuContent = document.getElementById('mobile-menu-content');
+  
+  function toggleMobileMenu() {
+    const isActive = hamburgerMenu.classList.contains('active');
+    
+    if (isActive) {
+      // Close menu
+      hamburgerMenu.classList.remove('active');
+      mobileMenuOverlay.classList.remove('active');
+      mobileMenuContent.classList.remove('active');
+      document.body.style.overflow = '';
+    } else {
+      // Open menu
+      hamburgerMenu.classList.add('active');
+      mobileMenuOverlay.classList.add('active');
+      mobileMenuContent.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+  
+  // Toggle menu on hamburger click
+  hamburgerMenu.addEventListener('click', toggleMobileMenu);
+  
+  // Close menu on overlay click
+  mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
+  
+  // Close menu on escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && hamburgerMenu.classList.contains('active')) {
+      toggleMobileMenu();
+    }
+  });
+  
+  // Close menu on window resize (if switching from mobile to desktop)
+  window.addEventListener('resize', function() {
+    if (window.innerWidth > 768 && hamburgerMenu.classList.contains('active')) {
+      toggleMobileMenu();
+    }
+  });
+});
+</script>
 
 {% schema %}
 {
