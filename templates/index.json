@@ -31,10 +31,7 @@
       "type": "custom-product",
       "name": "Gift Guide",
       "settings": {
-        "title": "The Gift Guide",
-        "description": "Discover Joy: Your Ultimate Holiday Gift Destination.",
-        "cta_text": "SHOP NOW",
-        "cta_url": "",
+        "title": "Tisso Vison In The Wild",
         "button_positions": "top-right,top-right,top-right,top-right,top-right,top-right",
         "product_1": "blue-silk-tuxedo",
         "product_2": "black-leather-bag",
