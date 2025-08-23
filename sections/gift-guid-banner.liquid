@@ -42,26 +42,34 @@
 .hamburger-line{
   width:25px;
   height:3px;
+  background-color:#000 !important;
   background:#000 !important;
   margin:3px 0;
   transition:all 0.3s ease;
   border-radius:2px;
   color:#000 !important;
+  border:1px solid #000;
 }
 
 .hamburger-menu.active .hamburger-line:nth-child(1){
   transform:rotate(45deg) translate(5px, 5px);
   background:#000 !important;
+  background-color:#000 !important;
+  border:1px solid #000 !important;
 }
 
 .hamburger-menu.active .hamburger-line:nth-child(2){
   opacity:0;
   background:#000 !important;
+  background-color:#000 !important;
+  border:1px solid #000 !important;
 }
 
 .hamburger-menu.active .hamburger-line:nth-child(3){
   transform:rotate(-45deg) translate(7px, -6px);
   background:#000 !important;
+  background-color:#000 !important;
+  border:1px solid #000 !important;
 }
 
 /* Force black color for all hamburger states */
@@ -69,7 +77,28 @@
 .hamburger-menu.active .hamburger-line,
 .hamburger-menu:hover .hamburger-line{
   background:#000 !important;
+  background-color:#000 !important;
   color:#000 !important;
+  border:1px solid #000 !important;
+}
+
+/* Additional specificity to override any conflicting styles */
+.hamburger-menu .hamburger-line::before,
+.hamburger-menu .hamburger-line::after{
+  background:#000 !important;
+  background-color:#000 !important;
+}
+
+/* Maximum specificity to ensure hamburger lines are always black */
+#hamburger-menu .hamburger-line,
+#hamburger-menu.active .hamburger-line,
+#hamburger-menu:hover .hamburger-line{
+  background:#000 !important;
+  background-color:#000 !important;
+  color:#000 !important;
+  border:1px solid #000 !important;
+  opacity:1 !important;
+  visibility:visible !important;
 }
 
 /* Mobile Menu Overlay */
