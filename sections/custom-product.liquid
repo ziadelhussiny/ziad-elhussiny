@@ -16,7 +16,9 @@
 -%}
 
 <section class="gift-guide-section">
-
+  <div class="gift-guide-header">
+    <h2>{{ title }}</h2>
+  </div>
 
   <div class="product-grid">
     {%- for handle in handles -%}
@@ -656,7 +658,12 @@ document.addEventListener('DOMContentLoaded', function() {
 {
   "name": "Gift Guide",
   "settings": [
-
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "The Gift Guide"
+    },
     {
       "type": "text",
       "id": "button_positions",
