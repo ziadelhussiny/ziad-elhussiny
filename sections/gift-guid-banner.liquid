@@ -55,6 +55,8 @@
   width: 30px;
   height: 30px;
   transition: all 0.3s ease;
+  fill: #000;
+  stroke: #000;
 }
 
 .hamburger-icon{
@@ -361,10 +363,24 @@
   /* Ensure mobile menu elements are properly positioned on mobile */
   .mobile-menu-overlay{
     position:fixed;
+    z-index: 999;
   }
   
   .mobile-menu-content{
     position:fixed;
+    z-index: 1000;
+  }
+  
+  /* Ensure hamburger menu is properly visible on mobile */
+  .hamburger-menu{
+    z-index: 1001;
+  }
+  
+  /* Ensure close icon is visible when active */
+  .hamburger-menu.active .close-icon{
+    display: block !important;
+    opacity: 1;
+    visibility: visible;
   }
   
   /* Ensure brand title is centered on mobile */
@@ -652,12 +668,7 @@
       <img src="{{ section.settings.header_frame | image_url: width: 1440, height: 195 }}" alt="" class="header-frame-img" loading="lazy">
     {% endif %}
     
-    <!-- SHOP NOW Button for Mobile - Positioned over Header Frame Image -->
-    {% if section.settings.shop_now_url != blank %}
-      <a href="{{ section.settings.shop_now_url }}" class="shop-now-btn mobile-shop-btn">{{ section.settings.shop_now_text | default: 'SHOP NOW →' }}</a>
-    {% else %}
-      <button class="shop-now-btn mobile-shop-btn">{{ section.settings.shop_now_text | default: 'SHOP NOW →' }}</button>
-    {% endif %}
+
   </div>
 
   <!-- Bottom frame image + text -->
