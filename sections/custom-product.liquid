@@ -16,11 +16,7 @@
 -%}
 
 <section class="gift-guide-section">
-  <div class="gift-guide-header">
-    <h2>{{ title }}</h2>
-    <p>{{ desc }}</p>
-    <a href="{{ cta_url }}" class="cta-button">{{ cta_text }}</a>
-  </div>
+
 
   <div class="product-grid">
     {%- for handle in handles -%}
@@ -660,29 +656,7 @@ document.addEventListener('DOMContentLoaded', function() {
 {
   "name": "Gift Guide",
   "settings": [
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Section Title",
-      "default": "The Gift Guide"
-    },
-    {
-      "type": "textarea",
-      "id": "description",
-      "label": "Description",
-      "default": "Discover Joy: Your Ultimate Holiday Gift Destination."
-    },
-    {
-      "type": "text",
-      "id": "cta_text",
-      "label": "CTA Button Text",
-      "default": "SHOP NOW"
-    },
-    {
-      "type": "url",
-      "id": "cta_url",
-      "label": "CTA Button URL"
-    },
+
     {
       "type": "text",
       "id": "button_positions",
