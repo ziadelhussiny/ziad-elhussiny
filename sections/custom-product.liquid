@@ -181,55 +181,87 @@ document.addEventListener('DOMContentLoaded', function() {
     const productPrice = e.target.dataset.price;
     const productImage = e.target.dataset.image;
     
+    console.log('Button clicked with data:', { productId, productHandle, productTitle, productPrice, productImage });
+    
     // Show loading
     inner.innerHTML = '<div style="padding:40px;text-align:center;"><div style="display:inline-block;width:30px;height:30px;border:3px solid #f3f3f3;border-top:3px solid #333;border-radius:50%;animation:spin 1s linear infinite;"></div><p style="margin-top:15px;color:#666;">Loading product...</p></div>';
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
 
-    // Fetch product data
-    if (productId) {
+    // If we have basic product data, try to render with that first
+    if (productTitle && productPrice && productImage) {
+      console.log('Using basic product data');
+      const basicProduct = {
+        id: productId,
+        handle: productHandle,
+        title: productTitle,
+        price: parseFloat(productPrice.replace(/[^\d.]/g, '')) * 100, // Convert to cents
+        images: [productImage],
+        featured_image: productImage,
+        variants: [{ id: productId, title: 'Default', available: true, price: parseFloat(productPrice.replace(/[^\d.]/g, '')) * 100 }],
+        options: [],
+        description: ''
+      };
+      
+      currentProduct = basicProduct;
+      renderModal(basicProduct);
+      return;
+    }
+
+    // Fallback to API fetch
+    if (productHandle) {
+      console.log('Fetching by handle:', productHandle);
+      fetchByHandle(productHandle);
+    } else if (productId) {
+      console.log('Fetching by ID:', productId);
       fetch(`/products/${productId}.js`)
         .then(r => {
-          if (!r.ok) throw new Error('Product not found');
+          console.log('API Response status:', r.status);
+          if (!r.ok) throw new Error(`HTTP ${r.status}: Product not found`);
           return r.json();
         })
         .then(p => {
+          console.log('Product data received:', p);
           currentProduct = p;
           renderModal(p);
         })
         .catch(err => {
+          console.error('Fetch by ID failed:', err);
           if (productHandle) {
             fetchByHandle(productHandle);
           } else {
-            showError();
+            showError(err.message);
           }
         });
-    } else if (productHandle) {
-      fetchByHandle(productHandle);
     } else {
-      showError();
+      showError('No product ID or handle provided');
     }
   });
 
   function fetchByHandle(handle) {
     fetch(`/products/${handle}.js`)
       .then(r => {
-        if (!r.ok) throw new Error('Handle fetch failed');
+        console.log('Handle fetch response status:', r.status);
+        if (!r.ok) throw new Error(`HTTP ${r.status}: Handle fetch failed`);
         return r.json();
       })
       .then(p => {
+        console.log('Product data from handle:', p);
         currentProduct = p;
         renderModal(p);
       })
       .catch(err => {
-        showError();
+        console.error('Handle fetch failed:', err);
+        showError(err.message);
       });
   }
 
-  function showError() {
+  function showError(errorMsg = 'Unknown error') {
+    console.error('Showing error:', errorMsg);
     inner.innerHTML = `
       <div style="padding:40px;text-align:center;">
-        <p style="color:#999;margin-bottom:20px;">Sorry, product details could not be loaded.</p>
+        <p style="color:#999;margin-bottom:15px;">Sorry, product details could not be loaded.</p>
+        <p style="color:#666;margin-bottom:20px;font-size:0.9em;">Error: ${errorMsg}</p>
         <button onclick="document.getElementById('quick-modal').style.display='none'; document.body.style.overflow='';" 
                 style="padding:10px 20px;background:#000;color:#fff;border:none;border-radius:4px;cursor:pointer;">
           Close
