@@ -184,10 +184,7 @@
 .modal-add-to-cart:hover{background:#333;}
 .modal-add-to-cart:disabled{background:#ccc;cursor:not-allowed;}
 
-/* Out of Stock Messaging */
-.modal-stock-message{padding:10px 15px;background:#f8f8f8;border:1px solid #ddd;color:#666;font-size:1.5rem;text-align:center;margin-top:15px;border-radius:4px;}
-.modal-stock-message.in-stock{background:#f0f8f0;color:#2d5a27;border-color:#c3e6c3;}
-.modal-stock-message.out-of-stock{background:#fdf2f2;color:#991b1b;border-color:#fecaca;}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -589,7 +586,7 @@ document.addEventListener('DOMContentLoaded', function() {
              
              <input type="hidden" name="id" id="variant-id" value="${variants[0].id}" required>
              
-             <div id="stock-message" class="modal-stock-message" style="display:none;"></div>
+
              
              <button type="submit" class="modal-add-to-cart" id="add-to-cart-btn">
                <span>ADD TO CART</span>
@@ -629,7 +626,6 @@ document.addEventListener('DOMContentLoaded', function() {
                const colorBtns = document.querySelectorAll('.modal-color-btn');
         const sizeSelect = document.getElementById('size-select');
         const variantInput = document.getElementById('variant-id');
-        const stockMessage = document.getElementById('stock-message');
         const addBtn = document.getElementById('add-to-cart-btn');
         const form = document.getElementById('add-to-cart-form');
 
@@ -710,10 +706,15 @@ document.addEventListener('DOMContentLoaded', function() {
          if (variant && variantInput) {
            variantInput.value = variant.id;
            
-                   // Debug: Log variant availability
-        console.log('Variants stock status:', variants.map(v => ({ id: v.id, available: v.available, inventory_quantity: v.inventory_quantity })));
+                   // Debug: Log variants stock status
+        console.log('Variants stock status:', variants.map(v => ({ 
+          id: v.id, 
+          available: v.available, 
+          inventory_quantity: v.inventory_quantity,
+          inventory_management: v.inventory_management
+        })));
         
-        // Check if any variants are available (check both available property and inventory quantity)
+        // Check if any variants are available (comprehensive check)
         const hasAvailableVariants = variants.some(v => {
           const isAvailable = v.available === true;
           const hasInventory = v.inventory_quantity && v.inventory_quantity > 0;
@@ -721,17 +722,15 @@ document.addEventListener('DOMContentLoaded', function() {
           
           return isAvailable || (hasInventory && inventoryNotTracked);
         });
+        
         console.log('Has available variants:', hasAvailableVariants);
         
         if (hasAvailableVariants) {
-          // Update stock message and button state
-          updateStockDisplay(variant);
+          // Update button state for available variants
+          updateButtonState(variant);
         } else {
           // All variants are out of stock
-          if (stockMessage && addBtn) {
-            stockMessage.textContent = 'Out of stock';
-            stockMessage.className = 'modal-stock-message out-of-stock';
-            stockMessage.style.display = 'block';
+          if (addBtn) {
             addBtn.disabled = true;
             addBtn.innerHTML = '<span>OUT OF STOCK</span>';
           }
@@ -743,6 +742,14 @@ document.addEventListener('DOMContentLoaded', function() {
          if (variants && variants.length > 0 && variantInput) {
            variantInput.value = variants[0].id;
            
+           // Debug: Log variants stock status
+           console.log('Error fallback - Variants stock status:', variants.map(v => ({ 
+             id: v.id, 
+             available: v.available, 
+             inventory_quantity: v.inventory_quantity,
+             inventory_management: v.inventory_management
+           })));
+           
            // Check if any variants are available (comprehensive check)
            const hasAvailableVariants = variants.some(v => {
              const isAvailable = v.available === true;
@@ -752,14 +759,13 @@ document.addEventListener('DOMContentLoaded', function() {
              return isAvailable || (hasInventory && inventoryNotTracked);
            });
            
+           console.log('Error fallback - Has available variants:', hasAvailableVariants);
+           
            if (hasAvailableVariants) {
-             updateStockDisplay(variants[0]);
+             updateButtonState(variants[0]);
            } else {
              // All variants are out of stock
-             if (stockMessage && addBtn) {
-               stockMessage.textContent = 'Out of stock';
-               stockMessage.className = 'modal-stock-message out-of-stock';
-               stockMessage.style.display = 'block';
+             if (addBtn) {
                addBtn.disabled = true;
                addBtn.innerHTML = '<span>OUT OF STOCK</span>';
              }
@@ -768,14 +774,15 @@ document.addEventListener('DOMContentLoaded', function() {
        }
      }
 
-    function updateStockDisplay(variant) {
-      if (!stockMessage || !addBtn) return;
+    function updateButtonState(variant) {
+      if (!addBtn) return;
 
       // Debug: Log variant stock info
-      console.log('updateStockDisplay - Variant:', { 
+      console.log('updateButtonState - Variant:', { 
         id: variant?.id, 
         available: variant?.available, 
-        inventory_quantity: variant?.inventory_quantity 
+        inventory_quantity: variant?.inventory_quantity,
+        inventory_management: variant?.inventory_management
       });
 
       // Check if variant exists and is available (comprehensive check)
@@ -786,17 +793,11 @@ document.addEventListener('DOMContentLoaded', function() {
       );
       
       if (isAvailable) {
-        console.log('Setting stock status: In stock');
-        stockMessage.textContent = 'In stock';
-        stockMessage.className = 'modal-stock-message in-stock';
-        stockMessage.style.display = 'block';
+        console.log('Setting button state: Enabled');
         addBtn.disabled = false;
         addBtn.innerHTML = '<span>ADD TO CART</span><span>→</span>';
       } else {
-        console.log('Setting stock status: Out of stock');
-        stockMessage.textContent = 'Out of stock';
-        stockMessage.className = 'modal-stock-message out-of-stock';
-        stockMessage.style.display = 'block';
+        console.log('Setting button state: Disabled');
         addBtn.disabled = true;
         addBtn.innerHTML = '<span>OUT OF STOCK</span>';
       }
