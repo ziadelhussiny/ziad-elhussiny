@@ -80,99 +80,91 @@
 .quick-btn.bottom-center{bottom:15px;left:50%;transform:translateX(-50%);}
 .quick-btn.bottom-right{bottom:15px;right:15px;}
 
-/* Enhanced Modal Design */
+/* Enhanced Modal Design - Matching the Image Layout */
 .modal{display:none;position:fixed;inset:0;z-index:10000;}
 .modal-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(2px);}
-.modal-content{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:0;width:90%;max-width:380px;max-height:90vh;overflow-y:auto;box-shadow:0 10px 30px rgba(0,0,0,0.3);}
-.modal-close{position:absolute;top:12px;right:15px;background:none;border:none;font-size:20px;color:#999;cursor:pointer;z-index:1;width:25px;height:25px;display:flex;align-items:center;justify-content:center;font-weight:300;}
+.modal-content{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:8px;width:90%;max-width:600px;max-height:90vh;overflow-y:auto;box-shadow:0 10px 30px rgba(0,0,0,0.3);}
+.modal-close{position:absolute;top:15px;right:15px;background:none;border:none;font-size:24px;color:#999;cursor:pointer;z-index:1;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-weight:300;}
 .modal-close:hover{color:#333;}
 
-/* Modal Content Styles */
-.modal-product{padding:0;}
-.modal-product-image{width:100%;height:150px;object-fit:cover;display:block;margin-bottom:0;}
-.modal-content-inner{padding:20px;}
-.modal-product-title{font-size:1rem;font-weight:500;color:#333;margin:0 0 5px 0;line-height:1.3;}
-.modal-product-price{font-size:1rem;font-weight:400;color:#333;margin:0 0 8px 0;}
-.modal-product-description{font-size:0.85rem;color:#666;line-height:1.4;margin:0 0 20px 0;}
+/* Modal Content Styles - Two Column Layout */
+.modal-product{display:flex;padding:0;min-height:400px;}
+.modal-product-image{width:50%;height:400px;object-fit:cover;display:block;margin:0;border:2px solid #e3f2fd;border-radius:8px 0 0 8px;}
+.modal-content-inner{width:50%;padding:30px;display:flex;flex-direction:column;justify-content:space-between;}
+.modal-product-info{margin-bottom:20px;}
+.modal-product-title{font-size:1.5rem;font-weight:600;color:#333;margin:0 0 10px 0;line-height:1.3;}
+.modal-product-price{font-size:1.8rem;font-weight:700;color:#333;margin:0 0 15px 0;}
+.modal-product-description{font-size:0.95rem;color:#666;line-height:1.5;margin:0 0 25px 0;}
 
 /* Enhanced Form Styles */
-.modal-form-group{margin-bottom:20px;}
-.modal-form-label{display:block;font-weight:500;color:#333;margin-bottom:8px;font-size:0.9rem;}
+.modal-form-group{margin-bottom:25px;}
+.modal-form-label{display:block;font-weight:600;color:#333;margin-bottom:12px;font-size:1rem;}
 
 /* Enhanced Color Options - Exact Component Match from Image */
-.modal-color-options{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:0;border:1px solid #d1d5db;border-radius:4px;background:#fff;overflow:hidden;}
+.modal-color-options{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:0;border:1px solid #d1d5db;border-radius:6px;background:#fff;overflow:hidden;}
 .modal-color-option{position:relative;}
-.modal-color-btn{width:100%;padding:12px 16px;border:none;background:#ffffff;color:#374151;font-size:0.875rem;font-weight:400;cursor:pointer;transition:all 0.15s ease;text-align:center;border-right:1px solid #d1d5db;min-height:44px;display:flex;align-items:center;justify-content:center;position:relative;}
+.modal-color-btn{width:100%;padding:14px 18px;border:none;background:#ffffff;color:#374151;font-size:0.9rem;font-weight:500;cursor:pointer;transition:all 0.15s ease;text-align:center;border-right:1px solid #d1d5db;min-height:48px;display:flex;align-items:center;justify-content:center;position:relative;}
 .modal-color-btn:last-child{border-right:none;}
 .modal-color-btn:hover{background:#f9fafb;}
-.modal-color-btn.selected{background:#111827;color:#ffffff;font-weight:500;}
+.modal-color-btn.selected{background:#111827;color:#ffffff;font-weight:600;border-left:4px solid #dc2626;}
 .modal-color-btn:focus{outline:2px solid #3b82f6;outline-offset:-2px;}
 
 /* Color-specific styling with actual color indicators - Component 209 & 211 style */
 .modal-color-btn[data-color*="Red"]:before,
-.modal-color-btn[data-color*="red"]:before{content:'';width:12px;height:12px;background:#dc2626;border-radius:50%;margin-right:8px;border:1px solid #e5e7eb;}
+.modal-color-btn[data-color*="red"]:before{content:'';width:14px;height:14px;background:#dc2626;border-radius:50%;margin-right:10px;border:1px solid #e5e7eb;}
 .modal-color-btn[data-color*="Blue"]:before,
-.modal-color-btn[data-color*="blue"]:before{content:'';width:12px;height:12px;background:#2563eb;border-radius:50%;margin-right:8px;border:1px solid #e5e7eb;}
+.modal-color-btn[data-color*="blue"]:before{content:'';width:14px;height:14px;background:#2563eb;border-radius:50%;margin-right:10px;border:1px solid #e5e7eb;}
 .modal-color-btn[data-color*="Grey"]:before,
 .modal-color-btn[data-color*="Gray"]:before,
 .modal-color-btn[data-color*="grey"]:before,
-.modal-color-btn[data-color*="gray"]:before{content:'';width:12px;height:12px;background:#6b7280;border-radius:50%;margin-right:8px;border:1px solid #e5e7eb;}
+.modal-color-btn[data-color*="gray"]:before{content:'';width:14px;height:14px;background:#6b7280;border-radius:50%;margin-right:10px;border:1px solid #e5e7eb;}
 .modal-color-btn[data-color*="White"]:before,
-.modal-color-btn[data-color*="white"]:before{content:'';width:12px;height:12px;background:#ffffff;border-radius:50%;margin-right:8px;border:2px solid #d1d5db;}
+.modal-color-btn[data-color*="white"]:before{content:'';width:14px;height:14px;background:#ffffff;border-radius:50%;margin-right:10px;border:2px solid #d1d5db;}
 .modal-color-btn[data-color*="Black"]:before,
-.modal-color-btn[data-color*="black"]:before{content:'';width:12px;height:12px;background:#111827;border-radius:50%;margin-right:8px;border:1px solid #e5e7eb;}
+.modal-color-btn[data-color*="black"]:before{content:'';width:14px;height:14px;background:#111827;border-radius:50%;margin-right:10px;border:1px solid #e5e7eb;}
 .modal-color-btn[data-color*="Green"]:before,
-.modal-color-btn[data-color*="green"]:before{content:'';width:12px;height:12px;background:#16a34a;border-radius:50%;margin-right:8px;border:1px solid #e5e7eb;}
+.modal-color-btn[data-color*="green"]:before{content:'';width:14px;height:14px;background:#16a34a;border-radius:50%;margin-right:10px;border:1px solid #e5e7eb;}
 .modal-color-btn[data-color*="Yellow"]:before,
-.modal-color-btn[data-color*="yellow"]:before{content:'';width:12px;height:12px;background:#eab308;border-radius:50%;margin-right:8px;border:1px solid #e5e7eb;}
+.modal-color-btn[data-color*="yellow"]:before{content:'';width:14px;height:14px;background:#eab308;border-radius:50%;margin-right:10px;border:1px solid #e5e7eb;}
 .modal-color-btn[data-color*="Pink"]:before,
-.modal-color-btn[data-color*="pink"]:before{content:'';width:12px;height:12px;background:#ec4899;border-radius:50%;margin-right:8px;border:1px solid #e5e7eb;}
+.modal-color-btn[data-color*="pink"]:before{content:'';width:14px;height:14px;background:#ec4899;border-radius:50%;margin-right:10px;border:1px solid #e5e7eb;}
 .modal-color-btn[data-color*="Purple"]:before,
-.modal-color-btn[data-color*="purple"]:before{content:'';width:12px;height:12px;background:#8b5cf6;border-radius:50%;margin-right:8px;border:1px solid #e5e7eb;}
+.modal-color-btn[data-color*="purple"]:before{content:'';width:14px;height:14px;background:#8b5cf6;border-radius:50%;margin-right:10px;border:1px solid #e5e7eb;}
 
 /* Size Selection Styles - Component 212 & 213 style */
 .modal-size-wrapper{position:relative;margin-bottom:0;}
-.modal-size-select{width:100%;padding:12px 16px;border:1px solid #d1d5db;border-radius:4px;font-size:0.875rem;color:#374151;background:#ffffff;cursor:pointer;transition:all 0.15s ease;appearance:none;background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");background-position:right 12px center;background-repeat:no-repeat;background-size:16px;padding-right:40px;min-height:44px;font-weight:400;}
+.modal-size-select{width:100%;padding:14px 18px;border:1px solid #d1d5db;border-radius:6px;font-size:0.9rem;color:#374151;background:#ffffff;cursor:pointer;transition:all 0.15s ease;appearance:none;background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");background-position:right 16px center;background-repeat:no-repeat;background-size:18px;padding-right:50px;min-height:48px;font-weight:500;}
 .modal-size-select:hover{border-color:#9ca3af;}
 .modal-size-select:focus{outline:none;border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,0.1);}
-.modal-size-select option{padding:8px;color:#374151;background:#ffffff;}
+.modal-size-select option{padding:10px;color:#374151;background:#ffffff;}
 
 /* Size Button Alternative - Component 212 style for smaller sets */
-.modal-size-button-style{border:1px solid #d1d5db;background:#ffffff;margin-bottom:0;border-radius:4px;overflow:hidden;}
-.modal-size-btn{width:100%;padding:12px 16px;border:none;background:#ffffff;color:#374151;font-size:0.875rem;cursor:pointer;transition:all 0.15s ease;text-align:center;font-weight:400;min-height:44px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #d1d5db;}
+.modal-size-button-style{border:1px solid #d1d5db;background:#ffffff;margin-bottom:0;border-radius:6px;overflow:hidden;}
+.modal-size-btn{width:100%;padding:14px 18px;border:none;background:#ffffff;color:#374151;font-size:0.9rem;cursor:pointer;transition:all 0.15s ease;text-align:center;font-weight:500;min-height:48px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #d1d5db;}
 .modal-size-btn:last-child{border-bottom:none;}
 .modal-size-btn:hover{background:#f9fafb;}
-.modal-size-btn.selected{background:#111827;color:#ffffff;font-weight:500;}
+.modal-size-btn.selected{background:#111827;color:#ffffff;font-weight:600;}
 .modal-size-btn:focus{outline:2px solid #3b82f6;outline-offset:-2px;}
 .modal-size-btn:disabled{background:#f3f4f6;color:#9ca3af;cursor:not-allowed;}
 
-/* Add to Cart Button */
-.modal-add-to-cart{width:100%;padding:15px;background:#000;color:#fff;border:none;font-size:0.9rem;font-weight:500;text-transform:uppercase;border-radius:0;cursor:pointer;transition:background 0.3s ease;margin-top:20px;display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:0.5px;}
+/* Add to Cart Button - Matching the Image */
+.modal-add-to-cart{width:100%;padding:18px;background:#000;color:#fff;border:none;font-size:1rem;font-weight:600;text-transform:uppercase;border-radius:6px;cursor:pointer;transition:background 0.3s ease;margin-top:30px;display:flex;align-items:center;justify-content:center;gap:10px;letter-spacing:0.5px;min-height:54px;}
 .modal-add-to-cart:hover{background:#333;}
 .modal-add-to-cart:disabled{background:#ccc;cursor:not-allowed;}
 
 /* Out of Stock Messaging */
-.modal-stock-message{padding:8px 12px;background:#f8f8f8;border:1px solid #ddd;color:#666;font-size:0.8rem;text-align:center;margin-top:10px;}
+.modal-stock-message{padding:10px 15px;background:#f8f8f8;border:1px solid #ddd;color:#666;font-size:0.85rem;text-align:center;margin-top:15px;border-radius:4px;}
 .modal-stock-message.in-stock{background:#f0f8f0;color:#2d5a27;border-color:#c3e6c3;}
 .modal-stock-message.out-of-stock{background:#fdf2f2;color:#991b1b;border-color:#fecaca;}
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .product-grid{grid-template-columns:repeat(2,1fr);gap:15px;}
-  .gift-guide-header h2{font-size:2rem;}
-  .modal-content{width:95%;max-width:400px;}
-  .modal-color-btn{padding:8px 12px;font-size:0.8rem;}
-  .modal-size-options{grid-template-columns:repeat(3, 1fr);}
-}
-
-@media (max-width: 480px) {
-  .product-grid{grid-template-columns:1fr;gap:15px;}
-  .quick-btn{width:28px;height:28px;font-size:16px;}
-  .quick-btn.top-left,.quick-btn.center-left,.quick-btn.bottom-left{left:10px;}
-  .quick-btn.top-right,.quick-btn.center-right,.quick-btn.bottom-right{right:10px;}
-  .quick-btn.top-left,.quick-btn.top-center,.quick-btn.top-right{top:10px;}
-  .quick-btn.bottom-left,.quick-btn.bottom-center,.quick-btn.bottom-right{bottom:10px;}
-  .modal-size-options{grid-template-columns:repeat(2, 1fr);}
+  .modal-content{max-width:500px;}
+  .modal-product{flex-direction:column;}
+  .modal-product-image{width:100%;height:250px;border-radius:8px 8px 0 0;}
+  .modal-content-inner{width:100%;padding:25px;}
+  .modal-product-title{font-size:1.3rem;}
+  .modal-product-price{font-size:1.5rem;}
 }
 </style>
 
@@ -414,64 +406,66 @@ document.addEventListener('DOMContentLoaded', function() {
      // Determine size display method based on count and length
      const useSizeButtons = sizeOptions.length <= 6 && sizeOptions.every(size => size.length <= 4);
 
-    inner.innerHTML = `
-      <div class="modal-product">
-        ${imageUrl ? `<img src="${imageUrl}" alt="${product.title}" class="modal-product-image">` : ''}
-        <div class="modal-content-inner">
-          <h3 class="modal-product-title">${product.title}</h3>
-          <div class="modal-product-price">€${price}</div>
-          ${product.description ? `<div class="modal-product-description">${product.description.substring(0, 120)}${product.description.length > 120 ? '...' : ''}</div>` : ''}
-          
-          <form id="add-to-cart-form" action="/cart/add" method="post">
-            ${colorOptions.length > 1 ? `
-              <div class="modal-form-group">
-                <label class="modal-form-label">Color</label>
-                <div class="modal-color-options" id="color-options">
-                  ${colorOptions.map((color, index) => `
-                    <div class="modal-color-option">
-                      <button type="button" class="modal-color-btn ${index === 0 ? 'selected' : ''}" data-color="${color}">
-                        ${color}
-                      </button>
-                    </div>
-                  `).join('')}
-                </div>
-              </div>
-            ` : ''}
-            
-            ${sizeOptions.length > 1 ? `
-              <div class="modal-form-group">
-                <label class="modal-form-label">Size</label>
-                ${useSizeButtons ? `
-                  <div class="modal-size-button-style" id="size-button-container">
-                    ${sizeOptions.map((size, index) => `
-                      <button type="button" class="modal-size-btn ${index === 0 ? 'selected' : ''}" data-size="${size}">
-                        ${size}
-                      </button>
-                    `).join('')}
-                  </div>
-                ` : `
-                  <div class="modal-size-wrapper">
-                    <select class="modal-size-select" id="size-select" required>
-                      <option value="" disabled ${sizeOptions.length > 0 ? 'selected' : ''}>Choose your size</option>
-                      ${sizeOptions.map(size => `<option value="${size}">${size}</option>`).join('')}
-                    </select>
-                  </div>
-                `}
-              </div>
-            ` : ''}
-            
-            <input type="hidden" name="id" id="variant-id" value="${variants[0].id}" required>
-            
-            <div id="stock-message" class="modal-stock-message" style="display:none;"></div>
-            
-            <button type="submit" class="modal-add-to-cart" id="add-to-cart-btn">
-              <span>ADD TO CART</span>
-              <span>→</span>
-            </button>
-          </form>
-        </div>
-      </div>
-    `;
+         inner.innerHTML = `
+       <div class="modal-product">
+         ${imageUrl ? `<img src="${imageUrl}" alt="${product.title}" class="modal-product-image">` : ''}
+         <div class="modal-content-inner">
+           <div class="modal-product-info">
+             <h3 class="modal-product-title">${product.title}</h3>
+             <div class="modal-product-price">€${price}</div>
+             ${product.description ? `<div class="modal-product-description">${product.description.substring(0, 150)}${product.description.length > 150 ? '...' : ''}</div>` : ''}
+           </div>
+           
+           <form id="add-to-cart-form" action="/cart/add" method="post">
+             ${colorOptions.length > 1 ? `
+               <div class="modal-form-group">
+                 <label class="modal-form-label">Color</label>
+                 <div class="modal-color-options" id="color-options">
+                   ${colorOptions.map((color, index) => `
+                     <div class="modal-color-option">
+                       <button type="button" class="modal-color-btn ${index === 0 ? 'selected' : ''}" data-color="${color}">
+                         ${color}
+                       </button>
+                     </div>
+                   `).join('')}
+                 </div>
+               </div>
+             ` : ''}
+             
+             ${sizeOptions.length > 1 ? `
+               <div class="modal-form-group">
+                 <label class="modal-form-label">Size</label>
+                 ${useSizeButtons ? `
+                   <div class="modal-size-button-style" id="size-button-container">
+                     ${sizeOptions.map((size, index) => `
+                       <button type="button" class="modal-size-btn ${index === 0 ? 'selected' : ''}" data-size="${size}">
+                         ${size}
+                       </button>
+                     `).join('')}
+                   </div>
+                 ` : `
+                   <div class="modal-size-wrapper">
+                     <select class="modal-size-select" id="size-select" required>
+                       <option value="" disabled ${sizeOptions.length > 0 ? 'selected' : ''}>Choose your size</option>
+                       ${sizeOptions.map(size => `<option value="${size}">${size}</option>`).join('')}
+                     </select>
+                   </div>
+                 `}
+               </div>
+             ` : ''}
+             
+             <input type="hidden" name="id" id="variant-id" value="${variants[0].id}" required>
+             
+             <div id="stock-message" class="modal-stock-message" style="display:none;"></div>
+             
+             <button type="submit" class="modal-add-to-cart" id="add-to-cart-btn">
+               <span>ADD TO CART</span>
+               <span>→</span>
+             </button>
+           </form>
+         </div>
+       </div>
+     `;
 
     setupFormInteractions(variants, colorOptions, sizeOptions, optionNames);
   }
