@@ -648,11 +648,13 @@
     </div>
     
     <div class="mobile-menu-actions">
-      {% if section.settings.shop_now_url != blank %}
-        <a href="{{ section.settings.shop_now_url }}" class="shop-now-btn">{{ section.settings.shop_now_text | default: 'SHOP NOW →' }}</a>
+      {% if section.settings.choose_gift_url != blank %}
+        <a href="{{ section.settings.choose_gift_url }}" class="gift-choose-btn">{{ section.settings.choose_gift_text | default: 'CHOOSE GIFT →' }}</a>
       {% else %}
-        <button class="shop-now-btn">{{ section.settings.shop_now_text | default: 'SHOP NOW →' }}</button>
+        <button class="gift-choose-btn">{{ section.settings.choose_gift_text | default: 'CHOOSE GIFT →' }}</button>
       {% endif %}
+      
+
     </div>
   </div>
 
