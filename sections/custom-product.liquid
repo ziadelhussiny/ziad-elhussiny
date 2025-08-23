@@ -284,6 +284,13 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
+    // Debug logging
+    console.log('Product data received:', product);
+    console.log('Product variants:', product.variants);
+    console.log('Product options:', product.options);
+    console.log('Product options type:', typeof product.options);
+    console.log('Product options is array:', Array.isArray(product.options));
+
     // Handle price formatting
     let price = '0.00';
     if (product.price_min) {
@@ -293,77 +300,114 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     const imageUrl = product.images && product.images[0] ? product.images[0] : product.featured_image;
-    const variants = product.variants || [{ id: product.id, title: 'Default', available: true }];
-    const optionNames = product.options || [];
     
-    // Enhanced variant detection logic
-    let colorOptions = [];
-    let sizeOptions = [];
-    
-    if (variants.length > 1 && optionNames.length > 0) {
-      // Extract unique values for each option
-      const option1Values = [...new Set(variants.map(v => v.option1).filter(Boolean))];
-      const option2Values = [...new Set(variants.map(v => v.option2).filter(Boolean))];
-      const option3Values = [...new Set(variants.map(v => v.option3).filter(Boolean))];
-      
-      // Common color and size keywords
-      const colorKeywords = ['color', 'colour', 'red', 'blue', 'green', 'black', 'white', 'grey', 'gray', 'yellow', 'pink', 'purple', 'brown', 'orange', 'navy', 'beige', 'tan'];
-      const sizeKeywords = ['size', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'small', 'medium', 'large', 'extra', '2xl', '3xl', '4xl', '5xl'];
-      
-      // Check option names first
-      const option1Name = (optionNames[0] || '').toLowerCase();
-      const option2Name = (optionNames[1] || '').toLowerCase();
-      const option3Name = (optionNames[2] || '').toLowerCase();
-      
-      // Determine which option is color vs size based on names
-      if (colorKeywords.some(keyword => option1Name.includes(keyword))) {
-        colorOptions = option1Values;
-        if (sizeKeywords.some(keyword => option2Name.includes(keyword))) {
-          sizeOptions = option2Values;
-        } else if (option3Values.length > 0 && sizeKeywords.some(keyword => option3Name.includes(keyword))) {
-          sizeOptions = option3Values;
-        } else {
-          sizeOptions = option2Values.length > 0 ? option2Values : option3Values;
-        }
-      } else if (sizeKeywords.some(keyword => option1Name.includes(keyword))) {
-        sizeOptions = option1Values;
-        if (colorKeywords.some(keyword => option2Name.includes(keyword))) {
-          colorOptions = option2Values;
-        } else if (option3Values.length > 0 && colorKeywords.some(keyword => option3Name.includes(keyword))) {
-          colorOptions = option3Values;
-        } else {
-          colorOptions = option2Values.length > 0 ? option2Values : option3Values;
-        }
-      } else {
-        // Fallback: analyze actual values to determine type
-        const isOption1Color = option1Values.some(val => 
-          colorKeywords.some(keyword => val.toLowerCase().includes(keyword))
-        );
-        const isOption1Size = option1Values.some(val => 
-          sizeKeywords.some(keyword => val.toLowerCase().includes(keyword)) || 
-          /^(xs|s|m|l|xl|xxl|2xl|3xl|4xl|5xl|\d+)$/i.test(val)
-        );
-        
-        if (isOption1Color && !isOption1Size) {
-          colorOptions = option1Values;
-          sizeOptions = option2Values.length > 0 ? option2Values : option3Values;
-        } else if (isOption1Size && !isOption1Color) {
-          sizeOptions = option1Values;
-          colorOptions = option2Values.length > 0 ? option2Values : option3Values;
-        } else {
-          // Default fallback
-          colorOptions = option1Values;
-          sizeOptions = option2Values.length > 0 ? option2Values : option3Values;
-        }
-      }
+    // Ensure variants is always an array
+    let variants = [];
+    if (product.variants && Array.isArray(product.variants)) {
+      variants = product.variants;
+    } else if (product.variants && typeof product.variants === 'object') {
+      // If variants is an object, try to convert it
+      variants = Object.values(product.variants);
+    } else {
+      // Fallback to default variant
+      variants = [{ id: product.id, title: 'Default', available: true }];
     }
-
-    // Remove duplicates and filter out empty values
-    colorOptions = [...new Set(colorOptions)].filter(Boolean);
-    sizeOptions = [...new Set(sizeOptions)].filter(Boolean);
     
-    // Determine size display method based on count and length
-    const useSizeButtons = sizeOptions.length <= 6 && sizeOptions.every(size => size.length <= 4);
+    // Ensure optionNames is always an array
+    let optionNames = [];
+    if (product.options && Array.isArray(product.options)) {
+      optionNames = product.options;
+    } else if (product.options && typeof product.options === 'object') {
+      // If options is an object, try to convert it
+      optionNames = Object.values(product.options);
+    } else {
+      optionNames = [];
+    }
+    
+    console.log('Processed variants:', variants);
+    console.log('Processed optionNames:', optionNames);
+    
+              // Enhanced variant detection logic
+     let colorOptions = [];
+     let sizeOptions = [];
+     
+     try {
+       // Ensure optionNames is an array and has content
+       if (variants.length > 1 && Array.isArray(optionNames) && optionNames.length > 0) {
+         // Extract unique values for each option
+         const option1Values = [...new Set(variants.map(v => v.option1).filter(Boolean))];
+         const option2Values = [...new Set(variants.map(v => v.option2).filter(Boolean))];
+         const option3Values = [...new Set(variants.map(v => v.option3).filter(Boolean))];
+         
+         // Common color and size keywords
+         const colorKeywords = ['color', 'colour', 'red', 'blue', 'green', 'black', 'white', 'grey', 'gray', 'yellow', 'pink', 'purple', 'brown', 'orange', 'navy', 'beige', 'tan'];
+         const sizeKeywords = ['size', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'small', 'medium', 'large', 'extra', '2xl', '3xl', '4xl', '5xl'];
+         
+         // Check option names first - with proper null checks
+         const option1Name = (optionNames[0] && typeof optionNames[0] === 'string') ? optionNames[0].toLowerCase() : '';
+         const option2Name = (optionNames[1] && typeof optionNames[1] === 'string') ? optionNames[1].toLowerCase() : '';
+         const option3Name = (optionNames[2] && typeof optionNames[2] === 'string') ? optionNames[2].toLowerCase() : '';
+         
+         console.log('Option names processed:', { option1Name, option2Name, option3Name });
+         
+         // Determine which option is color vs size based on names
+         if (colorKeywords.some(keyword => option1Name.includes(keyword))) {
+           colorOptions = option1Values;
+           if (sizeKeywords.some(keyword => option2Name.includes(keyword))) {
+             sizeOptions = option2Values;
+           } else if (option3Values.length > 0 && sizeKeywords.some(keyword => option3Name.includes(keyword))) {
+             sizeOptions = option3Values;
+           } else {
+             sizeOptions = option2Values.length > 0 ? option2Values : option3Values;
+           }
+         } else if (sizeKeywords.some(keyword => option1Name.includes(keyword))) {
+           sizeOptions = option1Values;
+           if (colorKeywords.some(keyword => option2Name.includes(keyword))) {
+             colorOptions = option2Values;
+           } else if (option3Values.length > 0 && colorKeywords.some(keyword => option3Name.includes(keyword))) {
+             colorOptions = option3Values;
+           } else {
+             colorOptions = option2Values.length > 0 ? option2Values : option3Values;
+           }
+         } else {
+           // Fallback: analyze actual values to determine type
+           const isOption1Color = option1Values.some(val => 
+             colorKeywords.some(keyword => val.toLowerCase().includes(keyword))
+           );
+           const isOption1Size = option1Values.some(val => 
+             sizeKeywords.some(keyword => val.toLowerCase().includes(keyword)) || 
+             /^(xs|s|m|l|xl|xxl|2xl|3xl|4xl|5xl|\d+)$/i.test(val)
+           );
+           
+           if (isOption1Color && !isOption1Size) {
+             colorOptions = option1Values;
+             sizeOptions = option2Values.length > 0 ? option2Values : option3Values;
+           } else if (isOption1Size && !isOption1Color) {
+             sizeOptions = option1Values;
+             colorOptions = option2Values.length > 0 ? option2Values : option3Values;
+           } else {
+             // Default fallback
+             colorOptions = option1Values;
+             sizeOptions = option2Values.length > 0 ? option2Values : option3Values;
+           }
+         }
+       }
+     } catch (error) {
+       console.error('Error in variant detection:', error);
+       // Fallback to empty arrays if there's an error
+       colorOptions = [];
+       sizeOptions = [];
+     }
+
+         // Remove duplicates and filter out empty values
+     colorOptions = [...new Set(colorOptions)].filter(Boolean);
+     sizeOptions = [...new Set(sizeOptions)].filter(Boolean);
+     
+     console.log('Final color options:', colorOptions);
+     console.log('Final size options:', sizeOptions);
+     
+     // Determine size display method based on count and length
+     const useSizeButtons = sizeOptions.length <= 6 && sizeOptions.every(size => size.length <= 4);
 
     inner.innerHTML = `
       <div class="modal-product">
