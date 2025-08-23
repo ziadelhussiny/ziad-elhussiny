@@ -50,18 +50,25 @@
 
 .hamburger-menu.active .hamburger-line:nth-child(1){
   transform:rotate(45deg) translate(5px, 5px);
+  background:#000 !important;
 }
 
 .hamburger-menu.active .hamburger-line:nth-child(2){
   opacity:0;
+  background:#000 !important;
 }
 
 .hamburger-menu.active .hamburger-line:nth-child(3){
   transform:rotate(-45deg) translate(7px, -6px);
+  background:#000 !important;
 }
 
 /* Ensure hamburger is always black */
 .hamburger-menu .hamburger-line{
+  background:#000 !important;
+}
+
+.hamburger-menu.active .hamburger-line{
   background:#000 !important;
 }
 
@@ -195,6 +202,15 @@
   border-radius:6px;
 }
 
+/* Desktop vs Mobile Button Visibility */
+.desktop-shop-btn{
+  display:block;
+}
+
+.mobile-shop-btn{
+  display:none;
+}
+
 /* --- BUTTONS: left→right reveal --- */
 .gift-choose-btn,
 .shop-now-btn{
@@ -324,7 +340,7 @@
   }
   
   .header-frame-img{
-    position:static;
+    position:relative;
     width:100%;
     height:auto;
     opacity:1;
@@ -363,6 +379,15 @@
     font-size:16px;
     border-radius:6px;
     z-index:10;
+  }
+  
+  /* Show mobile button, hide desktop button on mobile */
+  .desktop-shop-btn{
+    display:none;
+  }
+  
+  .mobile-shop-btn{
+    display:block;
   }
   
   /* Mobile sustainable text styling */
@@ -532,6 +557,13 @@
     {% if section.settings.header_frame != blank %}
       <img src="{{ section.settings.header_frame | image_url: width: 1440, height: 195 }}" alt="" class="header-frame-img" loading="lazy">
     {% endif %}
+    
+    <!-- SHOP NOW Button for Mobile - Positioned over Header Frame Image -->
+    {% if section.settings.shop_now_url != blank %}
+      <a href="{{ section.settings.shop_now_url }}" class="shop-now-btn mobile-shop-btn">{{ section.settings.shop_now_text | default: 'SHOP NOW →' }}</a>
+    {% else %}
+      <button class="shop-now-btn mobile-shop-btn">{{ section.settings.shop_now_text | default: 'SHOP NOW →' }}</button>
+    {% endif %}
   </div>
 
   <!-- Bottom frame image + text -->
@@ -544,12 +576,12 @@
       <h1 class="main-heading">{{ section.settings.main_title | default: 'The Gift Guide' }}</h1>
       <p class="description-text">{{ section.settings.description | default: 'Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.' }}</p>
 
+      <!-- SHOP NOW Button for Desktop -->
       {% if section.settings.shop_now_url != blank %}
-        <a href="{{ section.settings.shop_now_url }}" class="shop-now-btn">{{ section.settings.shop_now_text | default: 'SHOP NOW →' }}</a>
+        <a href="{{ section.settings.shop_now_url }}" class="shop-now-btn desktop-shop-btn">{{ section.settings.shop_now_text | default: 'SHOP NOW →' }}</a>
       {% else %}
-        <button class="shop-now-btn">{{ section.settings.shop_now_text | default: 'SHOP NOW →' }}</button>
+        <button class="shop-now-btn desktop-shop-btn">{{ section.settings.shop_now_text | default: 'SHOP NOW →' }}</button>
       {% endif %}
-
     </div>
   </div>
   {% if section.settings.sustainable_text != blank %}
