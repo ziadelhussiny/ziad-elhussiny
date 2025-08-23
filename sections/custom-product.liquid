@@ -406,6 +406,11 @@ document.addEventListener('DOMContentLoaded', function() {
      console.log('Final color options:', colorOptions);
      console.log('Final size options:', sizeOptions);
      
+     // Ensure we have at least one variant
+     if (variants.length === 0) {
+       variants = [{ id: product.id, title: 'Default', available: true }];
+     }
+     
      // Determine size display method based on count and length
      const useSizeButtons = sizeOptions.length <= 6 && sizeOptions.every(size => size.length <= 4);
 
@@ -471,20 +476,42 @@ document.addEventListener('DOMContentLoaded', function() {
     setupFormInteractions(variants, colorOptions, sizeOptions, optionNames);
   }
 
-  function setupFormInteractions(variants, colorOptions, sizeOptions, optionNames) {
-    const colorBtns = document.querySelectorAll('.modal-color-btn');
-    const sizeBtns = document.querySelectorAll('.modal-size-btn');
-    const sizeSelect = document.getElementById('size-select');
-    const variantInput = document.getElementById('variant-id');
-    const stockMessage = document.getElementById('stock-message');
-    const addBtn = document.getElementById('add-to-cart-btn');
-    const form = document.getElementById('add-to-cart-form');
+     function setupFormInteractions(variants, colorOptions, sizeOptions, optionNames) {
+     try {
+       // Ensure all parameters are valid
+       if (!Array.isArray(variants)) {
+         console.error('setupFormInteractions: variants is not an array');
+         return;
+       }
+       
+       if (!Array.isArray(colorOptions)) {
+         console.error('setupFormInteractions: colorOptions is not an array');
+         colorOptions = [];
+       }
+       
+       if (!Array.isArray(sizeOptions)) {
+         console.error('setupFormInteractions: sizeOptions is not an array');
+         sizeOptions = [];
+       }
+       
+       if (!Array.isArray(optionNames)) {
+         console.error('setupFormInteractions: optionNames is not an array');
+         optionNames = [];
+       }
 
-    // Common color and size keywords for variant matching
-    const colorKeywords = ['color', 'colour', 'red', 'blue', 'green', 'black', 'white', 'grey', 'gray', 'yellow', 'pink', 'purple', 'brown', 'orange', 'navy', 'beige', 'tan'];
+       const colorBtns = document.querySelectorAll('.modal-color-btn');
+       const sizeBtns = document.querySelectorAll('.modal-size-btn');
+       const sizeSelect = document.getElementById('size-select');
+       const variantInput = document.getElementById('variant-id');
+       const stockMessage = document.getElementById('stock-message');
+       const addBtn = document.getElementById('add-to-cart-btn');
+       const form = document.getElementById('add-to-cart-form');
 
-    let selectedColor = colorOptions.length > 0 ? colorOptions[0] : null;
-    let selectedSize = sizeOptions.length > 0 ? sizeOptions[0] : null;
+       // Common color and size keywords for variant matching
+       const colorKeywords = ['color', 'colour', 'red', 'blue', 'green', 'black', 'white', 'grey', 'gray', 'yellow', 'pink', 'purple', 'brown', 'orange', 'navy', 'beige', 'tan'];
+
+       let selectedColor = colorOptions.length > 0 ? colorOptions[0] : null;
+       let selectedSize = sizeOptions.length > 0 ? sizeOptions[0] : null;
 
     // Color selection
     colorBtns.forEach(btn => {
@@ -516,61 +543,70 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
 
-    function updateVariant() {
-      if (!variants || !Array.isArray(variants)) return;
+         function updateVariant() {
+       try {
+         if (!variants || !Array.isArray(variants)) return;
 
-      // Enhanced variant matching logic
-      let variant = null;
-      
-      if (optionNames.length === 1) {
-        // Single option (either color or size)
-        if (colorOptions.length > 0) {
-          variant = variants.find(v => v.option1 === selectedColor);
-        } else if (sizeOptions.length > 0) {
-          variant = variants.find(v => v.option1 === selectedSize);
-        }
-      } else if (optionNames.length === 2) {
-        // Two options (color + size or size + color)
-        if (colorOptions.length > 0 && sizeOptions.length > 0) {
-          // Determine order based on option names
-          const firstOptionName = optionNames[0].toLowerCase();
-          const isFirstColor = colorKeywords.some(keyword => firstOptionName.includes(keyword));
-          
-          if (isFirstColor) {
-            variant = variants.find(v => v.option1 === selectedColor && v.option2 === selectedSize);
-          } else {
-            variant = variants.find(v => v.option1 === selectedSize && v.option2 === selectedColor);
-          }
-        }
-      } else if (optionNames.length === 3) {
-        // Three options - find the most specific match
-        variant = variants.find(v => {
-          const matchesColor = !selectedColor || 
-            v.option1 === selectedColor || 
-            v.option2 === selectedColor || 
-            v.option3 === selectedColor;
-            
-          const matchesSize = !selectedSize || 
-            v.option1 === selectedSize || 
-            v.option2 === selectedSize || 
-            v.option3 === selectedSize;
-            
-          return matchesColor && matchesSize;
-        });
-      }
+         // Enhanced variant matching logic
+         let variant = null;
+         
+         if (optionNames.length === 1) {
+           // Single option (either color or size)
+           if (colorOptions.length > 0) {
+             variant = variants.find(v => v.option1 === selectedColor);
+           } else if (sizeOptions.length > 0) {
+             variant = variants.find(v => v.option1 === selectedSize);
+           }
+         } else if (optionNames.length === 2) {
+           // Two options (color + size or size + color)
+           if (colorOptions.length > 0 && sizeOptions.length > 0) {
+             // Determine order based on option names - with proper null checks
+             const firstOptionName = (optionNames[0] && typeof optionNames[0] === 'string') ? optionNames[0].toLowerCase() : '';
+             const isFirstColor = colorKeywords.some(keyword => firstOptionName.includes(keyword));
+             
+             if (isFirstColor) {
+               variant = variants.find(v => v.option1 === selectedColor && v.option2 === selectedSize);
+             } else {
+               variant = variants.find(v => v.option1 === selectedSize && v.option2 === selectedColor);
+             }
+           }
+         } else if (optionNames.length === 3) {
+           // Three options - find the most specific match
+           variant = variants.find(v => {
+             const matchesColor = !selectedColor || 
+               v.option1 === selectedColor || 
+               v.option2 === selectedColor || 
+               v.option3 === selectedColor;
+               
+             const matchesSize = !selectedSize || 
+               v.option1 === selectedSize || 
+               v.option2 === selectedSize || 
+               v.option3 === selectedSize;
+               
+             return matchesColor && matchesSize;
+           });
+         }
 
-      // Fallback to first variant if no match found
-      if (!variant) {
-        variant = variants[0];
-      }
+         // Fallback to first variant if no match found
+         if (!variant) {
+           variant = variants[0];
+         }
 
-      if (variant && variantInput) {
-        variantInput.value = variant.id;
-        
-        // Update stock message and button state
-        updateStockDisplay(variant);
-      }
-    }
+         if (variant && variantInput) {
+           variantInput.value = variant.id;
+           
+           // Update stock message and button state
+           updateStockDisplay(variant);
+         }
+       } catch (error) {
+         console.error('Error in updateVariant:', error);
+         // Fallback to first variant on error
+         if (variants && variants.length > 0 && variantInput) {
+           variantInput.value = variants[0].id;
+           updateStockDisplay(variants[0]);
+         }
+       }
+     }
 
     function updateStockDisplay(variant) {
       if (!stockMessage || !addBtn) return;
@@ -628,7 +664,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
       });
     }
+  } catch (error) {
+    console.error('Error in setupFormInteractions:', error);
   }
+}
 
   // Add spinning animation
   const style = document.createElement('style');
