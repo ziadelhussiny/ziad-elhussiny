@@ -82,57 +82,55 @@
 .quick-btn.bottom-center{bottom:15px;left:50%;transform:translateX(-50%);}
 .quick-btn.bottom-right{bottom:15px;right:15px;}
 
-/* Enhanced Modal Design - Exact Clone */
+/* Modal Design - EXACT Clone */
 .modal{display:none;position:fixed;inset:0;z-index:10000;}
-.modal-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);}
-.modal-content{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:12px;width:90%;max-width:420px;max-height:90vh;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
-.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;font-size:24px;color:#999;cursor:pointer;z-index:1;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-weight:300;border-radius:50%;transition:all 0.2s ease;}
-.modal-close:hover{color:#333;background:rgba(0,0,0,0.05);}
+.modal-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.6);}
+.modal-content{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:0;width:90%;max-width:380px;max-height:90vh;overflow-y:auto;box-shadow:0 4px 20px rgba(0,0,0,0.25);}
+.modal-close{position:absolute;top:12px;right:12px;background:none;border:none;font-size:18px;color:#666;cursor:pointer;z-index:1;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-weight:400;}
+.modal-close:hover{color:#000;}
 
 /* Modal Product Layout */
-.modal-product{display:flex;flex-direction:column;height:100%;}
-.modal-product-image{width:100%;height:200px;object-fit:cover;display:block;}
-.modal-content-inner{padding:24px;flex:1;}
-.modal-product-title{font-size:1.25rem;font-weight:600;color:#1f2937;margin:0 0 8px 0;line-height:1.3;}
-.modal-product-price{font-size:1.125rem;font-weight:500;color:#1f2937;margin:0 0 16px 0;}
-.modal-product-description{font-size:0.875rem;color:#6b7280;line-height:1.5;margin:0 0 24px 0;}
+.modal-product{display:block;}
+.modal-product-image{width:100%;height:200px;object-fit:cover;display:block;margin:0;}
+.modal-content-inner{padding:20px;background:#fff;}
+.modal-product-title{font-size:1.1rem;font-weight:600;color:#000;margin:0 0 6px 0;line-height:1.3;}
+.modal-product-price{font-size:1rem;font-weight:400;color:#666;margin:0 0 12px 0;}
+.modal-product-description{font-size:0.85rem;color:#666;line-height:1.4;margin:0 0 20px 0;}
 
 /* Form Styles */
-.modal-form-group{margin-bottom:20px;}
-.modal-form-label{display:block;font-weight:500;color:#1f2937;margin-bottom:8px;font-size:0.875rem;text-transform:uppercase;letter-spacing:0.5px;}
+.modal-form-group{margin-bottom:16px;}
+.modal-form-label{display:block;font-weight:600;color:#000;margin-bottom:8px;font-size:0.75rem;text-transform:uppercase;letter-spacing:1px;}
 
-/* Color Selection - Exact Match */
-.modal-color-options{display:flex;border:1px solid #d1d5db;border-radius:8px;overflow:hidden;margin-bottom:0;}
-.modal-color-option{flex:1;}
-.modal-color-btn{width:100%;padding:12px 16px;border:none;background:#ffffff;color:#374151;font-size:0.875rem;font-weight:500;cursor:pointer;transition:all 0.2s ease;text-align:center;min-height:48px;display:flex;align-items:center;justify-content:center;border-right:1px solid #d1d5db;}
+/* Color Selection - EXACT Clone Match */
+.modal-color-options{display:grid;grid-template-columns:repeat(4, 1fr);gap:0;border:1px solid #ddd;border-radius:0;overflow:hidden;margin-bottom:0;}
+.modal-color-option{position:relative;}
+.modal-color-btn{width:100%;padding:10px 8px;border:none;background:#fff;color:#666;font-size:0.75rem;font-weight:400;cursor:pointer;transition:all 0.2s ease;text-align:center;min-height:40px;display:flex;align-items:center;justify-content:center;border-right:1px solid #ddd;}
 .modal-color-btn:last-child{border-right:none;}
-.modal-color-btn:hover{background:#f9fafb;}
-.modal-color-btn.selected{background:#1f2937;color:#ffffff;}
+.modal-color-btn:hover{background:#f8f8f8;}
+.modal-color-btn.selected{background:#2c3e50;color:#fff;}
 
-/* Size Selection Dropdown - Exact Match */
-.modal-size-wrapper{position:relative;}
-.modal-size-select{width:100%;padding:12px 16px;border:1px solid #d1d5db;border-radius:8px;font-size:0.875rem;color:#374151;background:#ffffff;cursor:pointer;transition:all 0.2s ease;appearance:none;background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");background-position:right 12px center;background-repeat:no-repeat;background-size:16px;padding-right:40px;min-height:48px;font-weight:500;}
-.modal-size-select:focus{outline:none;border-color:#1f2937;box-shadow:0 0 0 3px rgba(31,41,55,0.1);}
-.modal-size-select option{padding:8px;color:#374151;font-weight:500;}
+/* Size Selection Dropdown - EXACT Clone Match */
+.modal-size-wrapper{position:relative;margin-bottom:16px;}
+.modal-size-select{width:100%;padding:12px 16px;border:1px solid #ddd;border-radius:0;font-size:0.85rem;color:#666;background:#fff;cursor:pointer;transition:border-color 0.2s ease;appearance:none;background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23666' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");background-position:right 12px center;background-repeat:no-repeat;background-size:12px;padding-right:40px;min-height:44px;}
+.modal-size-select:focus{outline:none;border-color:#666;}
 
-/* Size Button Style Alternative */
-.modal-size-button-style{border:1px solid #d1d5db;border-radius:8px;overflow:hidden;background:#ffffff;}
-.modal-size-btn{width:100%;padding:12px 16px;border:none;background:#ffffff;color:#374151;font-size:0.875rem;cursor:pointer;transition:all 0.2s ease;text-align:center;font-weight:500;min-height:48px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #d1d5db;}
-.modal-size-btn:last-child{border-bottom:none;}
-.modal-size-btn:hover{background:#f9fafb;}
-.modal-size-btn.selected{background:#1f2937;color:#ffffff;}
-.modal-size-btn:disabled{background:#f3f4f6;color:#9ca3af;cursor:not-allowed;}
+/* Size Button Style - EXACT Clone Match */
+.modal-size-button-style{display:grid;grid-template-columns:repeat(4, 1fr);gap:0;border:1px solid #ddd;border-radius:0;overflow:hidden;margin-bottom:16px;}
+.modal-size-btn{width:100%;padding:10px 8px;border:none;background:#fff;color:#666;font-size:0.75rem;cursor:pointer;transition:all 0.2s ease;text-align:center;font-weight:400;min-height:40px;display:flex;align-items:center;justify-content:center;border-right:1px solid #ddd;}
+.modal-size-btn:last-child{border-right:none;}
+.modal-size-btn:hover{background:#f8f8f8;}
+.modal-size-btn.selected{background:#2c3e50;color:#fff;}
+.modal-size-btn:disabled{background:#f8f8f8;color:#ccc;cursor:not-allowed;}
 
-/* Add to Cart Button - Exact Match */
-.modal-add-to-cart{width:100%;padding:16px;background:#1f2937;color:#ffffff;border:none;font-size:0.875rem;font-weight:600;text-transform:uppercase;border-radius:8px;cursor:pointer;transition:all 0.3s ease;margin-top:24px;display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:1px;min-height:52px;}
-.modal-add-to-cart:hover{background:#111827;transform:translateY(-1px);box-shadow:0 4px 16px rgba(31,41,55,0.3);}
-.modal-add-to-cart:active{transform:translateY(0);}
-.modal-add-to-cart:disabled{background:#d1d5db;color:#9ca3af;cursor:not-allowed;transform:none;box-shadow:none;}
+/* Add to Cart Button - EXACT Clone Match */
+.modal-add-to-cart{width:100%;padding:14px;background:#2c3e50;color:#fff;border:none;font-size:0.85rem;font-weight:600;text-transform:uppercase;border-radius:0;cursor:pointer;transition:background 0.3s ease;margin-top:16px;letter-spacing:1px;min-height:48px;}
+.modal-add-to-cart:hover{background:#1a252f;}
+.modal-add-to-cart:disabled{background:#ccc;cursor:not-allowed;}
 
-/* Stock Messaging */
-.modal-stock-message{padding:12px 16px;border-radius:8px;color:#374151;font-size:0.875rem;text-align:center;margin-top:12px;font-weight:500;}
-.modal-stock-message.in-stock{background:#dcfce7;color:#166534;border:1px solid #bbf7d0;}
-.modal-stock-message.out-of-stock{background:#fee2e2;color:#dc2626;border:1px solid #fecaca;}
+/* Stock Messaging - EXACT Clone Match */
+.modal-stock-message{padding:10px 16px;color:#666;font-size:0.8rem;text-align:center;margin-bottom:16px;border-radius:0;}
+.modal-stock-message.in-stock{background:#d4edda;color:#155724;border:1px solid #c3e6cb;}
+.modal-stock-message.out-of-stock{background:#f8d7da;color:#721c24;border:1px solid #f1b0b7;}
 
 /* Loading Animation */
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
