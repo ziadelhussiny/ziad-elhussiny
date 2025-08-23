@@ -11,11 +11,33 @@
   "sections": {
     "banner": {
       "type": "gift-guid-banner",
-      "settings": {}
+      "settings": {
+        "header_frame": "shopify://shop_images/Frame_3.svg",
+        "side_frame": "shopify://shop_images/Frame_2.svg",
+        "frame_fit": "cover",
+        "brand_name": "TISSO VISON",
+        "header_tagline": "Find the ideal gift for your loved ones.",
+        "choose_gift_text": "CHOOSE GIFT →",
+        "choose_gift_url": "",
+        "main_title": "The Gift Guide",
+        "description": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
+        "shop_now_text": "SHOP NOW →",
+        "shop_now_url": "",
+        "sustainable_text": "SUSTAINABLE, ETHICALLY MADE ACTIVEWEAR"
+      }
     },
     "grid": {
       "type": "custom-product",
-      "settings": {}
+      "settings": {
+        "title": "The Gift Guide",
+        "button_positions": "top-right,top-right,top-right,top-right,top-right,top-right",
+        "product_1": "black-leather-bag",
+        "product_2": "blue-silk-tuxedo",
+        "product_3": "chequered-red-shirt",
+        "product_4": "classic-leather-jacket",
+        "product_5": "classic-varsity-top",
+        "product_6": "dark-denim-top"
+      }
     }
   },
   "order": [
