@@ -100,36 +100,47 @@
 .modal-form-group{margin-bottom:25px;}
 .modal-form-label{display:block;font-weight:600;color:#333;margin-bottom:12px;font-size:1rem;}
 
-/* Enhanced Color Options - Exact Component Match from Image */
-.modal-color-options{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:0;border:1px solid #d1d5db;border-radius:6px;background:#fff;overflow:hidden;}
-.modal-color-option{position:relative;}
-.modal-color-btn{width:100%;padding:14px 18px;border:none;background:#ffffff;color:#374151;font-size:0.9rem;font-weight:500;cursor:pointer;transition:all 0.15s ease;text-align:center;border-right:1px solid #d1d5db;min-height:48px;display:flex;align-items:center;justify-content:center;position:relative;}
-.modal-color-btn:last-child{border-right:none;}
-.modal-color-btn:hover{background:#f9fafb;}
-.modal-color-btn.selected{background:#111827;color:#ffffff;font-weight:600;}
+/* Enhanced Color Options - Component 208-211 Style */
+.modal-color-options{display:flex;flex-direction:column;gap:8px;margin-bottom:0;}
+.modal-color-option{position:relative;width:100%;}
+.modal-color-btn{width:100%;padding:0;border:1px solid #d1d5db;border-radius:6px;background:#fff;cursor:pointer;transition:all 0.15s ease;min-height:48px;display:flex;position:relative;overflow:hidden;}
+.modal-color-btn:hover{border-color:#9ca3af;}
+.modal-color-btn.selected{border-color:#111827;}
 .modal-color-btn:focus{outline:2px solid #3b82f6;outline-offset:-2px;}
 
-/* Dynamic color indicators based on actual color values */
-.modal-color-btn[data-color*="Red"]:before,
-.modal-color-btn[data-color*="red"]:before{content:'';width:14px;height:14px;background:#dc2626;border-radius:50%;margin-right:10px;border:1px solid #e5e7eb;}
-.modal-color-btn[data-color*="Blue"]:before,
-.modal-color-btn[data-color*="blue"]:before{content:'';width:14px;height:14px;background:#2563eb;border-radius:50%;margin-right:10px;border:1px solid #e5e7eb;}
-.modal-color-btn[data-color*="Grey"]:before,
-.modal-color-btn[data-color*="Gray"]:before,
-.modal-color-btn[data-color*="grey"]:before,
-.modal-color-btn[data-color*="gray"]:before{content:'';width:14px;height:14px;background:#6b7280;border-radius:50%;margin-right:10px;border:1px solid #e5e7eb;}
-.modal-color-btn[data-color*="White"]:before,
-.modal-color-btn[data-color*="white"]:before{content:'';width:14px;height:14px;background:#ffffff;border-radius:50%;margin-right:10px;border:2px solid #d1d5db;}
-.modal-color-btn[data-color*="Black"]:before,
-.modal-color-btn[data-color*="black"]:before{content:'';width:14px;height:14px;background:#111827;border-radius:50%;margin-right:10px;border:1px solid #e5e7eb;}
-.modal-color-btn[data-color*="Green"]:before,
-.modal-color-btn[data-color*="green"]:before{content:'';width:14px;height:14px;background:#16a34a;border-radius:50%;margin-right:10px;border:1px solid #e5e7eb;}
-.modal-color-btn[data-color*="Yellow"]:before,
-.modal-color-btn[data-color*="yellow"]:before{content:'';width:14px;height:14px;background:#eab308;border-radius:50%;margin-right:10px;border:1px solid #e5e7eb;}
-.modal-color-btn[data-color*="Pink"]:before,
-.modal-color-btn[data-color*="pink"]:before{content:'';width:14px;height:14px;background:#ec4899;border-radius:50%;margin-right:10px;border:1px solid #e5e7eb;}
-.modal-color-btn[data-color*="Purple"]:before,
-.modal-color-btn[data-color*="purple"]:before{content:'';width:14px;height:14px;background:#8b5cf6;border-radius:50%;margin-right:10px;border:1px solid #e5e7eb;}
+/* Two-part button structure */
+.modal-color-btn-left{flex:1;padding:14px 18px;background:#f9fafb;color:#374151;font-size:0.9rem;font-weight:500;display:flex;align-items:center;justify-content:center;position:relative;border-right:1px solid #d1d5db;transition:all 0.15s ease;}
+.modal-color-btn-right{flex:1;padding:14px 18px;background:#ffffff;color:#374151;font-size:0.9rem;font-weight:500;display:flex;align-items:center;justify-content:center;transition:all 0.15s ease;}
+
+/* Selected state styling */
+.modal-color-btn.selected .modal-color-btn-left{background:#111827;color:#ffffff;font-weight:600;}
+.modal-color-btn.selected .modal-color-btn-right{background:#111827;color:#ffffff;font-weight:600;}
+
+/* Hover effects */
+.modal-color-btn:hover .modal-color-btn-left{background:#f3f4f6;}
+.modal-color-btn:hover .modal-color-btn-right{background:#f9fafb;}
+
+/* Left-edge color indicators - Component 208-211 style */
+.modal-color-btn[data-color*="Red"] .modal-color-btn-left:before,
+.modal-color-btn[data-color*="red"] .modal-color-btn-left:before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:#dc2626;}
+.modal-color-btn[data-color*="Blue"] .modal-color-btn-left:before,
+.modal-color-btn[data-color*="blue"] .modal-color-btn-left:before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:#2563eb;}
+.modal-color-btn[data-color*="Grey"] .modal-color-btn-left:before,
+.modal-color-btn[data-color*="Gray"] .modal-color-btn-left:before,
+.modal-color-btn[data-color*="grey"] .modal-color-btn-left:before,
+.modal-color-btn[data-color*="gray"] .modal-color-btn-left:before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:#6b7280;}
+.modal-color-btn[data-color*="White"] .modal-color-btn-left:before,
+.modal-color-btn[data-color*="white"] .modal-color-btn-left:before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:#ffffff;border-right:1px solid #d1d5db;}
+.modal-color-btn[data-color*="Black"] .modal-color-btn-left:before,
+.modal-color-btn[data-color*="black"] .modal-color-btn-left:before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:#111827;}
+.modal-color-btn[data-color*="Green"] .modal-color-btn-left:before,
+.modal-color-btn[data-color*="green"] .modal-color-btn-left:before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:#16a34a;}
+.modal-color-btn[data-color*="Yellow"] .modal-color-btn-left:before,
+.modal-color-btn[data-color*="yellow"] .modal-color-btn-left:before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:#eab308;}
+.modal-color-btn[data-color*="Pink"] .modal-color-btn-left:before,
+.modal-color-btn[data-color*="pink"] .modal-color-btn-left:before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:#ec4899;}
+.modal-color-btn[data-color*="Purple"] .modal-color-btn-left:before,
+.modal-color-btn[data-color*="purple"] .modal-color-btn-left:before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:#8b5cf6;}
 
 /* Size Selection Styles - Component 212 & 213 style */
 .modal-size-wrapper{position:relative;margin-bottom:0;}
@@ -424,7 +435,8 @@ document.addEventListener('DOMContentLoaded', function() {
                    ${colorOptions.map((color, index) => `
                      <div class="modal-color-option">
                        <button type="button" class="modal-color-btn ${index === 0 ? 'selected' : ''}" data-color="${color}">
-                         ${color}
+                         <div class="modal-color-btn-left">${color}</div>
+                         <div class="modal-color-btn-right">${colorOptions.length > 1 ? (colorOptions[1] !== color ? colorOptions[1] : colorOptions[2] || 'Color') : 'Color'}</div>
                        </button>
                      </div>
                    `).join('')}
